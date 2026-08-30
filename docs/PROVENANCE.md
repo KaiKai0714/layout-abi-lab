@@ -28,3 +28,29 @@ source-equivalent module is derived solely from the separately MIT-licensed
 The harness preserves the relevant equations and physical layout construction while
 adding an explicit policy switch after K Softmax. It does not claim to be the complete
 upstream training or inference pipeline.
+
+## Second public graph: Efficient Attention
+
+The second independent source-equivalent module reconstructs Efficient Attention from:
+
+- Repository: `cmsflash/efficient-attention`
+- Audited commit: `46a5f9eaf09470affb0ab30932b7748cc3c871ef`
+- Source file: `efficient_attention.py`
+- Upstream license: MIT
+- Paper: Shen et al., Efficient Attention: Attention with Linear Complexities, WACV 2021
+
+This is not the lucidrains LinearAttention module under another repository. The
+published implementation loops over heads on rank-3 tensors. The reconstruction
+keeps the per-head softmax-K, `K @ V^T`, and `context^T @ Q` equations and expresses
+them as a batched rank-4 tensor so the bounded matcher can see the GEMM.
+
+v0.5 ships the graph and matcher coverage. It does not claim a measured speedup on
+this module. L40S remains the only complete public device reference (graph 1). Orin
+and other architectures are community/held-out slots, not implied by extra software
+stacks.
+
+## Public negative graph
+
+Scaled dot-product attention follows the Vaswani et al. 2017 equations
+(`softmax(QK^T) V`). Softmax sits after the first GEMM, so `layoutabi.optimize()`
+must no-op rather than rewrite.

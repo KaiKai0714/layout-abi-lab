@@ -11,8 +11,9 @@ Use this when cutting a version. End-user install and reproduction steps stay in
 5. Regenerate and freshness-check the index: `layoutabi aggregate` then
    `layoutabi aggregate --check`.
 6. If the version claims GPU behavior, finish that version's release matrix. v0.3
-   autotune and v0.4 compiled audits are CUDA-only; CPU matcher, rewrite, and audit
-   parsers are the required CI gate.
+   autotune and v0.4 compiled audits are CUDA-only; CPU matcher, rewrite, audit
+   parsers, and v0.5 workload tests are the required CI gate. Do not count extra
+   software stacks as extra devices.
 7. Scan staged files for credentials, hostnames, and private absolute paths. Do not
    commit local-only notes or `results/local_*` bundles.
 8. Push the release commit, then create an annotated tag and a GitHub Release that

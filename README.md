@@ -41,6 +41,8 @@ versions, CUDA software stacks, data types, shapes, and graph contexts.
   reports possible private metadata without uploading.
 - An experimental `layoutabi.optimize()` API that captures a public FX graph, matches
   the frozen LinearAttention KTV pattern, and conservatively chooses direct or repair.
+- A second independent public graph (Efficient Attention) and a public SDPA no-op
+  control, plus synthetic shape/batch/dtype boundary cells.
 - A compiled mechanism audit that records FX/export graphs, Inductor IR, and profiler
   kernel names so compiled kernel-family claims are not inferred from timing.
 - A container matrix runner for testing multiple pinned software stacks.
@@ -176,7 +178,8 @@ supported, guards fail, or a candidate is incorrect, the original module is retu
 
 ```bash
 layoutabi inspect-model --resolution 128
-layoutabi optimize-model --resolution 128 --policy repair_kv
+layoutabi inspect-model --workload efficient_attention --resolution 128
+layoutabi optimize-model --workload scaled_dot_product --resolution 16 --policy repair_kv
 layoutabi audit-compile --output results/local_compile_audit
 ```
 

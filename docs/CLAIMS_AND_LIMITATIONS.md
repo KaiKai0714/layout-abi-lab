@@ -49,6 +49,8 @@ The current evidence does not support the following claims:
 - The behavior is caused by CUDA alone; PyTorch, cuBLAS/cuBLASLt, Triton, framework
   lowering, and the GPU architecture may all contribute.
 - The three L40S stacks constitute cross-device or cross-architecture validation.
+- The second public graph (Efficient Attention) is matcher-covered in v0.5; it is not
+  a claimed end-to-end or cross-device speedup.
 
 ## Known negative and boundary cases
 

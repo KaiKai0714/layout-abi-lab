@@ -108,6 +108,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     inspect_parser.add_argument("--resolution", type=int, default=128)
     inspect_parser.add_argument("--device", default="cpu")
+    inspect_parser.add_argument(
+        "--workload",
+        default="diffusion_linear_attention",
+        help="Named public workload id; see layoutabi list-workloads",
+    )
+    inspect_parser.add_argument("--batch", type=int, default=1)
+    inspect_parser.add_argument("--dtype", default="fp16")
 
     optimize_parser = subparsers.add_parser(
         "optimize-model",
@@ -115,6 +122,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     optimize_parser.add_argument("--resolution", type=int, default=128)
     optimize_parser.add_argument("--device", default="cpu")
+    optimize_parser.add_argument(
+        "--workload",
+        default="diffusion_linear_attention",
+        help="Named public workload id; see layoutabi list-workloads",
+    )
+    optimize_parser.add_argument("--batch", type=int, default=1)
+    optimize_parser.add_argument("--dtype", default="fp16")
     optimize_parser.add_argument(
         "--policy",
         default="autotune",
@@ -135,6 +149,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Validate a compiled mechanism-audit directory",
     )
     audit_validate.add_argument("directory", type=Path)
+
+    subparsers.add_parser(
+        "list-workloads",
+        help="Print the public and synthetic workload catalog",
+    )
 
     return parser
 
@@ -246,9 +265,26 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{action} {directory}: {', '.join(migrated)}")
         return 0
 
+    if args.command == "list-workloads":
+        from .workloads import list_workloads, synthetic_cells
+
+        print(
+            json.dumps(
+                {"workloads": list_workloads(), "synthetic_cells": synthetic_cells()},
+                indent=2,
+            )
+        )
+        return 0
+
     if args.command in {"inspect-model", "optimize-model"}:
         try:
-            model, example_inputs = _bundled_module(args.resolution, args.device)
+            model, example_inputs = _bundled_module(
+                args.resolution,
+                args.device,
+                workload=args.workload,
+                batch=args.batch,
+                dtype=args.dtype,
+            )
         except Exception as exc:
             print(str(exc), file=sys.stderr)
             return 1
@@ -302,26 +338,32 @@ def main(argv: list[str] | None = None) -> int:
     raise AssertionError(f"Unhandled command: {args.command}")
 
 
-def _bundled_module(resolution: int, device: str) -> tuple[Any, tuple[Any, ...]]:
+def _bundled_module(
+    resolution: int,
+    device: str,
+    *,
+    workload: str = "diffusion_linear_attention",
+    batch: int = 1,
+    dtype: str = "fp16",
+) -> tuple[Any, tuple[Any, ...]]:
     try:
         import torch
 
-        from .workload import PublicDiffusionLinearAttention
+        from .workloads import make_workload
     except ImportError as exc:
         raise RuntimeError(
             "This command requires PyTorch. Install a CUDA-enabled build appropriate "
             "for this GPU; this package does not install PyTorch."
         ) from exc
-    if resolution <= 0:
-        raise ValueError("resolution must be positive")
     if device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA was requested but is not available")
-    model = PublicDiffusionLinearAttention(policy="direct").eval().half()
-    sample = torch.randn(1, 64, resolution, resolution, dtype=torch.float16)
-    if device == "cuda":
-        model = model.cuda()
-        sample = sample.cuda()
-    return model, (sample,)
+    return make_workload(
+        workload,
+        resolution=resolution,
+        batch=batch,
+        dtype=dtype,
+        device=device,
+    )
 
 
 if __name__ == "__main__":

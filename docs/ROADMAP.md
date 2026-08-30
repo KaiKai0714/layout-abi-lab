@@ -45,6 +45,14 @@
 - Structured evidence for copy survival, fusion/elimination, GEMM families, and strides.
 - Compiled win/loss interpretations require graph or profiler evidence, not latency only.
 
+## 0.5.0: Workload generalization
+
+- Second independent public graph: Shen et al. Efficient Attention reconstruction.
+- Public negative graph: scaled dot-product attention, which must no-op.
+- Synthetic resolution/batch/dtype cells for boundary coverage only.
+- L40S remains the only complete public device reference. Extra software stacks are
+  not extra devices.
+
 ## 1.0: Compiler-quality evaluation
 
 - Held-out shape and device evaluation against a two-action oracle.

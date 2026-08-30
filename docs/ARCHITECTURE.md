@@ -43,3 +43,7 @@ Version 0.4 adds a compiled mechanism audit outside the default reproduce bundle
 names for isolated compiled cells so kernel-family claims have causal evidence. See
 `docs/COMPILE_AUDIT.md`.
 
+Version 0.5 names three graphs: the original diffusion LinearAttention (positive
+reference), Shen et al. Efficient Attention (second independent public source), and
+scaled dot-product attention (public no-op). Synthetic shapes fill boundaries only.
+

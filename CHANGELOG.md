@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.5.0
+
+- Added a second independent public graph: source-equivalent Efficient Attention from
+  `cmsflash/efficient-attention` (Shen et al., WACV 2021, MIT).
+- Added a public negative graph: scaled dot-product attention, which the optimizer
+  must leave unchanged.
+- Added a synthetic resolution/batch/dtype grid for boundary coverage, not as a
+  substitute for public graphs.
+- Added `layoutabi list-workloads` and `--workload` on inspect/optimize.
+
 ## 0.4.0
 
 - Added `layoutabi audit-compile` to save FX/export graphs, TorchInductor pre/post
