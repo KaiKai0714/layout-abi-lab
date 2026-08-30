@@ -41,11 +41,15 @@ versions, CUDA software stacks, data types, shapes, and graph contexts.
   reports possible private metadata without uploading.
 - An experimental `layoutabi.optimize()` API that captures a public FX graph, matches
   the frozen LinearAttention KTV pattern, and conservatively chooses direct or repair.
+- A compiled mechanism audit that records FX/export graphs, Inductor IR, and profiler
+  kernel names so compiled kernel-family claims are not inferred from timing.
 - A container matrix runner for testing multiple pinned software stacks.
 
 The repository does **not** contain a general TorchInductor pass. Version 0.3 adds an
-experimental external optimizer for one frozen LinearAttention pattern. See
-[Pattern contract](docs/PATTERN_CONTRACT.md) and [Roadmap](docs/ROADMAP.md).
+experimental external optimizer for one frozen LinearAttention pattern. Version 0.4
+adds a compiled mechanism audit so kernel-family claims come from graphs and profiler
+names, not from timing. See [Pattern contract](docs/PATTERN_CONTRACT.md),
+[Compiled audit](docs/COMPILE_AUDIT.md), and [Roadmap](docs/ROADMAP.md).
 
 The generated [result index](RESULTS_INDEX.md) summarizes all checksum-validated
 reference and accepted community bundles. Its JSON counterpart is `results/index.json`.
@@ -173,6 +177,7 @@ supported, guards fail, or a candidate is incorrect, the original module is retu
 ```bash
 layoutabi inspect-model --resolution 128
 layoutabi optimize-model --resolution 128 --policy repair_kv
+layoutabi audit-compile --output results/local_compile_audit
 ```
 
 ## Scope and limitations

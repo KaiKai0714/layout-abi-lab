@@ -38,6 +38,13 @@
 - Select by full-module CUDA-event autotune and cache the decision.
 - Fall back to the original graph for every unsupported, unguardable, or failing case.
 
+## 0.4.0: Compiler mechanism audit
+
+- Isolated compiled `direct` / `repair_kv` process and cache directories.
+- Saved FX/export graphs, Inductor pre/post fusion IR, and ordered profiler kernel names.
+- Structured evidence for copy survival, fusion/elimination, GEMM families, and strides.
+- Compiled win/loss interpretations require graph or profiler evidence, not latency only.
+
 ## 1.0: Compiler-quality evaluation
 
 - Held-out shape and device evaluation against a two-action oracle.

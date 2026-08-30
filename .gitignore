@@ -8,3 +8,4 @@ build/
 dist/
 results/local_*/
 .cache/
+torch_compile_debug/

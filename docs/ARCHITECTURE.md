@@ -38,3 +38,8 @@ or `torch.export` graph, matches the frozen LinearAttention KTV pattern document
 correctness canary, autotunes on full-module CUDA-event latency, caches the decision,
 and optionally compiles the selected graph. Unsupported graphs remain unchanged.
 
+Version 0.4 adds a compiled mechanism audit outside the default reproduce bundle.
+`layoutabi audit-compile` records FX/export graphs, Inductor IR, and profiler kernel
+names for isolated compiled cells so kernel-family claims have causal evidence. See
+`docs/COMPILE_AUDIT.md`.
+

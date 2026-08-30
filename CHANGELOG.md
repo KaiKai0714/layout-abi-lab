@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.4.0
+
+- Added `layoutabi audit-compile` to save FX/export graphs, TorchInductor pre/post
+  fusion IR, generated code, ordered CUDA profiler names, and full-module latency for
+  isolated compiled `direct` and `repair_kv` cells.
+- Derived copy-present, copy-fused/eliminated, first/second GEMM family, and generated
+  stride evidence from those artifacts. Compiled kernel-family claims cannot be inferred
+  from timing alone.
+- Added `layoutabi validate-audit` and a JSON Schema for audit documents.
+- Nsight remains optional and is not part of the default matrix.
+
 ## 0.3.0
 
 - Added `layoutabi.optimize()` and `layoutabi.inspect()` as an external FX/export

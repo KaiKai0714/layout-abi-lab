@@ -123,6 +123,19 @@ def build_parser() -> argparse.ArgumentParser:
     optimize_parser.add_argument("--compile", action="store_true")
     optimize_parser.add_argument("--cache-dir", type=Path)
 
+    audit_parser = subparsers.add_parser(
+        "audit-compile",
+        help="Save compiled FX/export graphs, Inductor IR, and profiler kernel evidence",
+    )
+    audit_parser.add_argument("--output", type=Path, required=True)
+    audit_parser.add_argument("--resolutions", type=_csv_ints, default=(256, 128))
+
+    audit_validate = subparsers.add_parser(
+        "validate-audit",
+        help="Validate a compiled mechanism-audit directory",
+    )
+    audit_validate.add_argument("directory", type=Path)
+
     return parser
 
 
@@ -257,6 +270,34 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(result.diagnostics, indent=2, default=str))
         print(f"decision: {result.decision}")
         return 0 if result.decision != "noop" else 2
+
+    if args.command == "audit-compile":
+        from .audit import run_compile_audit
+
+        try:
+            payload = run_compile_audit(
+                output=args.output.resolve(),
+                resolutions=args.resolutions,
+            )
+        except Exception as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        print(f"Compiled audit: {args.output.resolve()}")
+        n_points = len(payload.get("points", []))
+        print(json.dumps({"software": payload.get("software"), "points": n_points}))
+        return 0
+
+    if args.command == "validate-audit":
+        from .audit import validate_audit
+
+        problems = validate_audit(args.directory.resolve())
+        if problems:
+            print("Audit validation failed:", file=sys.stderr)
+            for problem in problems:
+                print(f"- {problem}", file=sys.stderr)
+            return 1
+        print(f"Valid compile audit: {args.directory.resolve()}")
+        return 0
 
     raise AssertionError(f"Unhandled command: {args.command}")
 

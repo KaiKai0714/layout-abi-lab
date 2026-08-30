@@ -15,6 +15,7 @@ EAGER_SCHEMA = "layoutabi_eager_v1"
 COMPILE_SCHEMA = "layoutabi_compile_v1"
 MANIFEST_SCHEMA = "layoutabi_manifest_v1"
 INDEX_SCHEMA = "layoutabi_results_index_v1"
+AUDIT_SCHEMA = "layoutabi_compile_audit_v1"
 
 CURRENT_VERSIONS = {
     ENVIRONMENT_SCHEMA: 1,
@@ -22,6 +23,7 @@ CURRENT_VERSIONS = {
     COMPILE_SCHEMA: 1,
     MANIFEST_SCHEMA: 1,
     INDEX_SCHEMA: 1,
+    AUDIT_SCHEMA: 1,
 }
 
 SCHEMA_FILES = {
@@ -30,6 +32,7 @@ SCHEMA_FILES = {
     COMPILE_SCHEMA: "compile.schema.json",
     MANIFEST_SCHEMA: "manifest.schema.json",
     INDEX_SCHEMA: "index.schema.json",
+    AUDIT_SCHEMA: "audit.schema.json",
 }
 
 KIND_SCHEMAS = {
@@ -38,6 +41,7 @@ KIND_SCHEMAS = {
     "compile": COMPILE_SCHEMA,
     "manifest": MANIFEST_SCHEMA,
     "index": INDEX_SCHEMA,
+    "audit": AUDIT_SCHEMA,
 }
 
 _SCHEMA_DIR = Path(__file__).resolve().parent / "schemas"

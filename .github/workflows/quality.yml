@@ -19,6 +19,8 @@ jobs:
       - run: layoutabi migrate-schema --help
       - run: layoutabi inspect-model --help
       - run: layoutabi optimize-model --help
+      - run: layoutabi audit-compile --help
+      - run: layoutabi validate-audit --help
       - run: python containers/run_matrix.py --help
       - run: python -m unittest discover -s tests -v
       - run: layoutabi validate-tree results/reference_l40s --strict
