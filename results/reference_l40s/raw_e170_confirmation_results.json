@@ -1,0 +1,505 @@
+{
+  "schema": "e170_order_balanced_confirmation_v1",
+  "device_tag": "L40S",
+  "device": {
+    "name": "NVIDIA L40S",
+    "compute_capability": "8.9",
+    "sm_count": 142
+  },
+  "software": {
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8"
+  },
+  "container_runtime": {
+    "uid": 1001,
+    "home": "/tmp/e170_confirmation_1001/home",
+    "user": "e170_benchmark",
+    "passwd_missing": true,
+    "patched_getpwuid": true
+  },
+  "measurement": {
+    "seeds": [
+      1701,
+      1702,
+      1703
+    ],
+    "cycles": 12,
+    "iters_per_measurement": 12,
+    "order": "rotating all six policy permutations; chain/module use distinct rotations"
+  },
+  "points": [
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 256,
+      "consumer_n": 65540,
+      "n_mod_8": 4,
+      "seeds": [
+        {
+          "seed": 1701,
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.38173866271972656,
+              "mean_ms": 0.38224844137827557,
+              "min_ms": 0.3809279998143514,
+              "max_ms": 0.3845119873682658
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.4737280011177063,
+              "mean_ms": 0.4729875491725074,
+              "min_ms": 0.46967466672261554,
+              "max_ms": 0.4753919839859009
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3937240044275919,
+              "mean_ms": 0.39292999770906234,
+              "min_ms": 0.3900586764017741,
+              "max_ms": 0.3954346577326457
+            },
+            "direct_over_repair_kv": 0.9695590272041198
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6270293394724528,
+              "mean_ms": 0.6296317809157901,
+              "min_ms": 0.6260906855265299,
+              "max_ms": 0.6410266558329264
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6525013248125712,
+              "mean_ms": 0.6536806656254662,
+              "min_ms": 0.651093324025472,
+              "max_ms": 0.6580053170522054
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5523200035095215,
+              "mean_ms": 0.553209556473626,
+              "min_ms": 0.5503146648406982,
+              "max_ms": 0.5577386617660522
+            },
+            "direct_over_repair_kv": 1.1352645848207874
+          }
+        },
+        {
+          "seed": 1702,
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.36201200882593787,
+              "mean_ms": 0.36220866441726685,
+              "min_ms": 0.36132268110911053,
+              "max_ms": 0.3633519808451335
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.4784066478411356,
+              "mean_ms": 0.4772539999749925,
+              "min_ms": 0.47354400157928467,
+              "max_ms": 0.4798373381296794
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3970306714375814,
+              "mean_ms": 0.39564022421836853,
+              "min_ms": 0.3922746578852336,
+              "max_ms": 0.39770400524139404
+            },
+            "direct_over_repair_kv": 0.9117985961012864
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6276493271191915,
+              "mean_ms": 0.6292095548576779,
+              "min_ms": 0.626200000445048,
+              "max_ms": 0.6342586676279703
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6539759834607443,
+              "mean_ms": 0.6563497748639848,
+              "min_ms": 0.6533893346786499,
+              "max_ms": 0.6627306540807089
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5591346621513367,
+              "mean_ms": 0.5605171124140421,
+              "min_ms": 0.5580693483352661,
+              "max_ms": 0.5652586619059244
+            },
+            "direct_over_repair_kv": 1.122536965789666
+          }
+        },
+        {
+          "seed": 1703,
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.3616720040639242,
+              "mean_ms": 0.3619864450560676,
+              "min_ms": 0.360973318417867,
+              "max_ms": 0.36329599221547443
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.4777599970499674,
+              "mean_ms": 0.47692666451136273,
+              "min_ms": 0.472981333732605,
+              "max_ms": 0.4803253412246704
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3970426718393962,
+              "mean_ms": 0.39576200313038296,
+              "min_ms": 0.39220531781514484,
+              "max_ms": 0.39790666103363037
+            },
+            "direct_over_repair_kv": 0.9109146943536098
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6289226611455282,
+              "mean_ms": 0.6306844386789534,
+              "min_ms": 0.628330667813619,
+              "max_ms": 0.636029322942098
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6546533306439717,
+              "mean_ms": 0.6569073365794288,
+              "min_ms": 0.6534800132115682,
+              "max_ms": 0.6645679871241251
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5591613252957661,
+              "mean_ms": 0.5609828895992703,
+              "min_ms": 0.5580933491388956,
+              "max_ms": 0.5659093459447225
+            },
+            "direct_over_repair_kv": 1.1247606597485298
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.36273066202799475,
+            "mean_ms": 0.3688145169505367,
+            "min_ms": 0.360973318417867,
+            "max_ms": 0.3845119873682658
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.47522131601969403,
+            "mean_ms": 0.47572273788628755,
+            "min_ms": 0.46967466672261554,
+            "max_ms": 0.4803253412246704
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.39445332686106366,
+            "mean_ms": 0.3947774083526046,
+            "min_ms": 0.3900586764017741,
+            "max_ms": 0.39790666103363037
+          },
+          "direct_over_repair_kv": 0.9195781536804165,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.9695590272041198,
+            0.9117985961012864,
+            0.9109146943536098
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.6284079949061077,
+            "mean_ms": 0.6298419248174738,
+            "min_ms": 0.6260906855265299,
+            "max_ms": 0.6410266558329264
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.6541200081507366,
+            "mean_ms": 0.6556459256896267,
+            "min_ms": 0.651093324025472,
+            "max_ms": 0.6645679871241251
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.5586919983228047,
+            "mean_ms": 0.5582365194956461,
+            "min_ms": 0.5503146648406982,
+            "max_ms": 0.5659093459447225
+          },
+          "direct_over_repair_kv": 1.124784311915314,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.1352645848207874,
+            1.122536965789666,
+            1.1247606597485298
+          ]
+        }
+      },
+      "module_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+            "ampere_fp16_s1688gemm_fp16_128x128_ldg8_f2f_stages_32x1_nn",
+            "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 128, 1, 8>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+            "void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8>(cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8::Params)",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+            "ampere_fp16_s1688gemm_fp16_128x128_ldg8_f2f_stages_32x1_nn",
+            "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 128, 1, 8>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8>(cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8::Params)",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      }
+    },
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 128,
+      "consumer_n": 16388,
+      "n_mod_8": 4,
+      "seeds": [
+        {
+          "seed": 1701,
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.09381066262722015,
+              "mean_ms": 0.09403066585461299,
+              "min_ms": 0.09357333183288574,
+              "max_ms": 0.09482933084170024
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.10424399872620901,
+              "mean_ms": 0.10453088912698957,
+              "min_ms": 0.10390133659044902,
+              "max_ms": 0.10550399621327718
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.08974533279736838,
+              "mean_ms": 0.09003799988163842,
+              "min_ms": 0.08949599663416545,
+              "max_ms": 0.09098133444786072
+            },
+            "direct_over_repair_kv": 1.0452985097178333
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.23863866925239563,
+              "mean_ms": 0.2402593327893151,
+              "min_ms": 0.23506667216618857,
+              "max_ms": 0.24861866235733032
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.2531800071398417,
+              "mean_ms": 0.2548731118440628,
+              "min_ms": 0.2516480088233948,
+              "max_ms": 0.26257334152857464
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.26450133323669434,
+              "mean_ms": 0.2653920004765193,
+              "min_ms": 0.26260000467300415,
+              "max_ms": 0.26958932479222614
+            },
+            "direct_over_repair_kv": 0.9022210449080988
+          }
+        },
+        {
+          "seed": 1702,
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.09391866624355316,
+              "mean_ms": 0.09413355506128734,
+              "min_ms": 0.09357333183288574,
+              "max_ms": 0.09543466567993164
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.10419066747029623,
+              "mean_ms": 0.10434666524330775,
+              "min_ms": 0.10389332969983418,
+              "max_ms": 0.10498399535814922
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.09010799725850424,
+              "mean_ms": 0.09010133230023915,
+              "min_ms": 0.08945332964261372,
+              "max_ms": 0.09118133783340454
+            },
+            "direct_over_repair_kv": 1.0422900197650244
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.23811067144076029,
+              "mean_ms": 0.23914155695173475,
+              "min_ms": 0.23547466595967612,
+              "max_ms": 0.24472800890604654
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.254094660282135,
+              "mean_ms": 0.25526155365837944,
+              "min_ms": 0.25071199735005695,
+              "max_ms": 0.2635599970817566
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.26632532477378845,
+              "mean_ms": 0.26613177690241074,
+              "min_ms": 0.26136799653371173,
+              "max_ms": 0.2709359923998515
+            },
+            "direct_over_repair_kv": 0.894059442687273
+          }
+        },
+        {
+          "seed": 1703,
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.09383599956830344,
+              "mean_ms": 0.09397955569956037,
+              "min_ms": 0.09356266260147095,
+              "max_ms": 0.09452533721923828
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.10405200223128001,
+              "mean_ms": 0.10442066606548098,
+              "min_ms": 0.10386400421460469,
+              "max_ms": 0.10548533002535503
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.09023333092530568,
+              "mean_ms": 0.09029244465960397,
+              "min_ms": 0.08946399887402852,
+              "max_ms": 0.09230400125185649
+            },
+            "direct_over_repair_kv": 1.0399261404411637
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.2399013340473175,
+              "mean_ms": 0.23914822108215755,
+              "min_ms": 0.234117329120636,
+              "max_ms": 0.24531733989715576
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.25353466471036273,
+              "mean_ms": 0.25494399832354653,
+              "min_ms": 0.24987733364105225,
+              "max_ms": 0.26180267333984375
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.26491065820058185,
+              "mean_ms": 0.26539688805739087,
+              "min_ms": 0.26123199860254925,
+              "max_ms": 0.2712826728820801
+            },
+            "direct_over_repair_kv": 0.9055933637282042
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.09383599956830344,
+            "mean_ms": 0.0940479255384869,
+            "min_ms": 0.09356266260147095,
+            "max_ms": 0.09543466567993164
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.1041493316491445,
+            "mean_ms": 0.10443274014525944,
+            "min_ms": 0.10386400421460469,
+            "max_ms": 0.10550399621327718
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.09009866416454315,
+            "mean_ms": 0.09014392561382717,
+            "min_ms": 0.08945332964261372,
+            "max_ms": 0.09230400125185649
+          },
+          "direct_over_repair_kv": 1.0414804751925617,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.0452985097178333,
+            1.0422900197650244,
+            1.0399261404411637
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.23855865995089212,
+            "mean_ms": 0.23951637027440248,
+            "min_ms": 0.234117329120636,
+            "max_ms": 0.24861866235733032
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.2534653345743815,
+            "mean_ms": 0.2550262212753296,
+            "min_ms": 0.24987733364105225,
+            "max_ms": 0.2635599970817566
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.26491065820058185,
+            "mean_ms": 0.26564022181210695,
+            "min_ms": 0.26123199860254925,
+            "max_ms": 0.2712826728820801
+          },
+          "direct_over_repair_kv": 0.9005249602689189,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.9022210449080988,
+            0.894059442687273,
+            0.9055933637282042
+          ]
+        }
+      },
+      "module_profiler": null
+    }
+  ]
+}
+

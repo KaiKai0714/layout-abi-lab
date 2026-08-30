@@ -1,0 +1,69 @@
+{
+  "schema": "layoutabi_reference_summary_v1",
+  "status": "frozen_reference_observation",
+  "device": "NVIDIA L40S",
+  "scope": {
+    "dtype": "fp16",
+    "batch": 1,
+    "resolutions": [256, 128],
+    "seeds": [1701, 1702, 1703],
+    "cycles": 12,
+    "iterations_per_measurement": 12
+  },
+  "eager": [
+    {
+      "resolution": 256,
+      "scope": "chain",
+      "direct_ms": 0.362731,
+      "repair_k_ms": 0.475221,
+      "repair_kv_ms": 0.394453,
+      "direct_over_repair_kv": 0.920,
+      "repair_kv_wins_all_seeds": false
+    },
+    {
+      "resolution": 256,
+      "scope": "module",
+      "direct_ms": 0.628408,
+      "repair_k_ms": 0.654120,
+      "repair_kv_ms": 0.558692,
+      "direct_over_repair_kv": 1.125,
+      "repair_kv_wins_all_seeds": true
+    },
+    {
+      "resolution": 128,
+      "scope": "chain",
+      "direct_ms": 0.093836,
+      "repair_k_ms": 0.104149,
+      "repair_kv_ms": 0.090099,
+      "direct_over_repair_kv": 1.041,
+      "repair_kv_wins_all_seeds": true
+    },
+    {
+      "resolution": 128,
+      "scope": "module",
+      "direct_ms": 0.238559,
+      "repair_k_ms": 0.253465,
+      "repair_kv_ms": 0.264911,
+      "direct_over_repair_kv": 0.901,
+      "repair_kv_wins_all_seeds": false
+    }
+  ],
+  "compiled": [
+    {
+      "resolution": 256,
+      "direct_ms": 0.434739,
+      "repair_kv_ms": 0.369050,
+      "direct_over_repair_kv": 1.178,
+      "correctness_pass": true
+    },
+    {
+      "resolution": 128,
+      "direct_ms": 0.143462,
+      "repair_kv_ms": 0.126029,
+      "direct_over_repair_kv": 1.138,
+      "correctness_pass": true
+    }
+  ],
+  "warning": "This summary is not a universal performance claim. Re-run the protocol on each software stack and device."
+}
+

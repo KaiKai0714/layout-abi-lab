@@ -1,0 +1,96 @@
+{
+  "schema": "e170_stock_compile_baseline_v1",
+  "device_tag": "L40S",
+  "device": {
+    "name": "NVIDIA L40S",
+    "compute_capability": "8.9"
+  },
+  "software": {
+    "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8"
+  },
+  "container_runtime": {
+    "uid": 1001,
+    "home": "/tmp/e170_confirmation_1001/home",
+    "user": "e170_benchmark",
+    "passwd_missing": true,
+    "patched_getpwuid": true
+  },
+  "points": [
+    {
+      "resolution": 256,
+      "consumer_n": 65540,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5625.587860005908,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.4347392082214355,
+            "min_ms": 0.43438081741333007,
+            "max_ms": 0.4349952220916748
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "rel_inf": 0.001001001001001001,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 5391.610846010735,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.369049596786499,
+            "min_ms": 0.36884479522705077,
+            "max_ms": 0.3694591999053955
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "rel_inf": 0.001001001001001001,
+            "pass": true
+          }
+        }
+      }
+    },
+    {
+      "resolution": 128,
+      "consumer_n": 16388,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5212.35096899909,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.1434623956680298,
+            "min_ms": 0.14325759410858155,
+            "max_ms": 0.14376959800720215
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "rel_inf": 0.0011402508551881414,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4779.976041987538,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12602880001068115,
+            "min_ms": 0.12590080499649048,
+            "max_ms": 0.126310396194458
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "rel_inf": 0.0011402508551881414,
+            "pass": true
+          }
+        }
+      }
+    }
+  ]
+}
+

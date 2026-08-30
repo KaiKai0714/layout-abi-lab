@@ -1,0 +1,6 @@
+Layout ABI Lab
+Copyright 2026 Sheng-Kai Ku
+
+This product includes a source-equivalent workload derived from
+denoising-diffusion-pytorch, Copyright (c) 2020 Phil Wang, distributed under the MIT
+License. See THIRD_PARTY_NOTICES.md for the complete attribution and license text.

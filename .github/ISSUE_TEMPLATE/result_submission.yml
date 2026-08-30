@@ -1,0 +1,40 @@
+name: Result submission
+description: Submit a positive, negative, or unsupported device/software-stack result
+title: "[Result] GPU / software stack"
+labels: ["result"]
+body:
+  - type: input
+    id: commit
+    attributes:
+      label: Repository commit
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU and compute capability
+    validations:
+      required: true
+  - type: textarea
+    id: stack
+    attributes:
+      label: Software stack
+      description: Include driver, PyTorch, CUDA build, and container image if used.
+    validations:
+      required: true
+  - type: checkboxes
+    id: validation
+    attributes:
+      label: Validation
+      options:
+        - label: I ran `layoutabi validate <result-directory> --strict`.
+          required: true
+        - label: I included all measured cells, including losses and unsupported cells.
+          required: true
+        - label: I reviewed the bundle for identifying or private metadata.
+          required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Benchmark conditions and notes
+

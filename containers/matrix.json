@@ -1,0 +1,28 @@
+{
+  "schema": "layoutabi_container_matrix_v1",
+  "gpu_device": "0",
+  "cleanup_new_images": true,
+  "stacks": [
+    {
+      "name": "torch2.11_cuda12.8",
+      "image": "pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime",
+      "enabled": true
+    },
+    {
+      "name": "torch2.11_cuda12.6",
+      "image": "pytorch/pytorch:2.11.0-cuda12.6-cudnn9-runtime",
+      "enabled": true
+    },
+    {
+      "name": "torch2.10_cuda12.8",
+      "image": "pytorch/pytorch:2.10.0-cuda12.8-cudnn9-runtime",
+      "enabled": true
+    }
+  ],
+  "benchmark": {
+    "resolutions": "256,128",
+    "seeds": "1701,1702,1703",
+    "cycles": 12,
+    "iterations": 12
+  }
+}

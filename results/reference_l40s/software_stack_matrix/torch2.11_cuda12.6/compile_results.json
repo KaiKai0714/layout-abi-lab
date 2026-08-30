@@ -1,0 +1,91 @@
+{
+  "schema": "layoutabi_compile_v1",
+  "software": {
+    "torch": "2.11.0+cu126",
+    "cuda_build": "12.6"
+  },
+  "points": [
+    {
+      "resolution": 256,
+      "consumer_n": 65540,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 14280.61765898019,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.4386656045913696,
+            "mean_ms": 0.4386630392074585,
+            "min_ms": 0.4383840084075928,
+            "max_ms": 0.43896799087524413
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001001001001001001,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 9537.539625016507,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.37204320430755616,
+            "mean_ms": 0.3721028804779053,
+            "min_ms": 0.3718384027481079,
+            "max_ms": 0.3725248098373413
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001001001001001001,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 1.1790716763871834
+    },
+    {
+      "resolution": 128,
+      "consumer_n": 16388,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 10320.254251011647,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.14101200103759765,
+            "mean_ms": 0.14109280228614807,
+            "min_ms": 0.14095840454101563,
+            "max_ms": 0.14138400554656982
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011402508551881414,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 9631.771999003831,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.1264375984668732,
+            "mean_ms": 0.12643840193748473,
+            "min_ms": 0.1262768030166626,
+            "max_ms": 0.1265920042991638
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011402508551881414,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 1.115269530167033
+    }
+  ]
+}

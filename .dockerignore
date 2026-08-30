@@ -1,0 +1,10 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+*.egg-info
+results/local_*
+results/community_pending
+.cache
+

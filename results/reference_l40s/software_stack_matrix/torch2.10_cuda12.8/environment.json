@@ -1,0 +1,36 @@
+{
+  "schema": "layoutabi_environment_v1",
+  "created_utc": "2026-08-29T08:32:16.178663+00:00",
+  "layoutabi_version": "0.1.0",
+  "python": "3.12.3 (main, Jan  8 2026, 11:30:50) [GCC 13.3.0]",
+  "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "container": {
+    "likely_container": true,
+    "nvidia_visible_devices": "0",
+    "cuda_visible_devices": null
+  },
+  "nvidia_smi": {
+    "available": true,
+    "returncode": 0,
+    "stdout": "NVIDIA L40S, 575.57.08, 8.9, 46068, 350.00",
+    "stderr": ""
+  },
+  "torch": {
+    "version": "2.10.0+cu128",
+    "cuda_build": "12.8",
+    "git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0",
+    "cudnn": 91002,
+    "cuda_available": true,
+    "compile_available": true,
+    "devices": [
+      {
+        "index": 0,
+        "name": "NVIDIA L40S",
+        "compute_capability": "8.9",
+        "sm_count": 142,
+        "total_memory_bytes": 47665709056
+      }
+    ]
+  }
+}
