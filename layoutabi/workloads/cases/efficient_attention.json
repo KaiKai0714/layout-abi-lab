@@ -1,0 +1,12 @@
+{
+  "id": "efficient_attention",
+  "role": "public",
+  "title": "Efficient Attention (Shen et al. WACV 2021 reconstruction)",
+  "repository": "cmsflash/efficient-attention",
+  "commit": "46a5f9eaf09470affb0ab30932b7748cc3c871ef",
+  "license": "MIT",
+  "graph_fingerprint": "efficient_attention:cmsflash/efficient-attention@46a5f9eaf09470affb0ab30932b7748cc3c871ef",
+  "expected_optimizer": "match",
+  "smoke_resolution": 8,
+  "independent_of": "lucidrains/denoising-diffusion-pytorch"
+}

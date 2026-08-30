@@ -49,6 +49,10 @@ this module. L40S remains the only complete public device reference (graph 1). O
 and other architectures are community/held-out slots, not implied by extra software
 stacks.
 
+New optimizer graphs are registered under `layoutabi/workloads/cases/`. See that
+directory's README for the drop-in spec. Adding a case should not require editing
+the CLI.
+
 ## Public negative graph
 
 Scaled dot-product attention follows the Vaswani et al. 2017 equations

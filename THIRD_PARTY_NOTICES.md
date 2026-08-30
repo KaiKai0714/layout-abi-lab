@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 
 ## efficient-attention
 
-The source-equivalent workload in `layoutabi/workloads/efficient_attention.py` is
+The source-equivalent workload in `layoutabi/workloads/cases/efficient_attention.py` is
 derived from the public Efficient Attention implementation in
 `cmsflash/efficient-attention` at the commit documented in `docs/PROVENANCE.md`.
 

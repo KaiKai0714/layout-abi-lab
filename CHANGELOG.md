@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.6.0
+
+- Added planner baselines `always_direct`, `always_repair_kv`, `n_mod_8`, and
+  `cost_model`, scored against a two-action oracle on published result rows.
+- `N % 8` is a community-testable FP16 hypothesis (`layoutabi evaluate-planner`),
+  not a universal rule. The conservative cost model falls back to autotune when
+  N is misaligned so false-repair is not baked into a static rewrite.
+- `layoutabi.optimize(..., policy="n_mod_8"|"cost_model")` uses those rules live.
+
 ## 0.5.0
 
 - Added a second independent public graph: source-equivalent Efficient Attention from
@@ -11,6 +20,8 @@ All notable changes to this project are documented in this file.
 - Added a synthetic resolution/batch/dtype grid for boundary coverage, not as a
   substitute for public graphs.
 - Added `layoutabi list-workloads` and `--workload` on inspect/optimize.
+- Workload cases are drop-in JSON specs plus a `build()` module; catalog tests run
+  every registered case instead of hard-coding the current two graphs.
 
 ## 0.4.0
 

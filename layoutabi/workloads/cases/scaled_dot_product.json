@@ -1,0 +1,12 @@
+{
+  "id": "scaled_dot_product",
+  "role": "negative",
+  "title": "Scaled dot-product attention (Vaswani et al. 2017 equations)",
+  "repository": null,
+  "commit": null,
+  "license": "public equations; no third-party source vendored",
+  "graph_fingerprint": "scaled_dot_product_attention:vaswani2017",
+  "expected_optimizer": "noop",
+  "smoke_resolution": 16,
+  "independent_of": "lucidrains/denoising-diffusion-pytorch"
+}

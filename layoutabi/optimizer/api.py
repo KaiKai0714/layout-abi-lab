@@ -17,6 +17,7 @@ from .fxutil import graph_fingerprint
 from .guards import input_guard_problems, match_guard_problems, require_cuda
 from .matcher import match_graph
 from .pattern import PATTERN_ID, REWRITE_POLICIES, SUPPORTED_POLICIES
+from ..planner.policies import LIVE_PLANNER_POLICIES
 
 
 @dataclass
@@ -162,8 +163,21 @@ def _optimize_inner(
     }
 
     selected_policy = policy
+    diagnostics["planner"] = None
+    if policy in LIVE_PLANNER_POLICIES:
+        from ..planner.features import features_from_live
+        from ..planner.policies import decide as planner_decide
+
+        features = features_from_live(
+            inputs, matches=accepted, graph_module=captured.graph_module
+        )
+        planned = planner_decide(features, policy)
+        diagnostics["planner"] = {"features": features.as_dict(), **planned}
+        selected_policy = planned["action"]
+        diagnostics["reason"] = planned["reason"]
+
     cache_hit = False
-    if policy == "autotune":
+    if selected_policy == "autotune":
         cached = load_entry(cache_dir, cache_key)
         cached_decision = cached.get("decision") if cached else None
         if cached_decision in REWRITE_POLICIES:
@@ -221,7 +235,7 @@ def _optimize_inner(
             )
             return OptimizeResult(module=original, decision="noop", diagnostics=diagnostics)
         selected = selected_policy
-        if not cache_hit:
+        if not cache_hit and policy not in LIVE_PLANNER_POLICIES:
             diagnostics["reason"] = "user_policy"
 
     chosen = original if selected == "direct" else passing[selected]

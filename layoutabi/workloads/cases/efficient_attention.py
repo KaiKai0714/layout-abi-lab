@@ -5,23 +5,17 @@ Provenance:
   Commit: 46a5f9eaf09470affb0ab30932b7748cc3c871ef
   Source: efficient_attention.py
   License: MIT
-
-The published module loops over heads on rank-3 [N, C, H*W] tensors. This
-reconstruction uses the same per-head softmax-K / K @ V^T / context^T @ Q
-equations as a batched rank-4 tensor so the bounded optimizer matcher can see
-the layout-sensitive GEMM without a Python head loop.
 """
 
 from __future__ import annotations
+
+from typing import Any
 
 import torch
 import torch.nn.functional as F
 from torch import Tensor, nn
 
-GRAPH_FINGERPRINT = (
-    "efficient_attention:cmsflash/efficient-attention@"
-    "46a5f9eaf09470affb0ab30932b7748cc3c871ef"
-)
+from .._runtime import prepare_module
 
 
 class PublicEfficientAttention(nn.Module):
@@ -105,3 +99,13 @@ def published_loop_forward(module: PublicEfficientAttention, input_: Tensor) -> 
         attended_values.append(attended_value)
     aggregated = torch.cat(attended_values, dim=1)
     return module.reprojection(aggregated) + input_
+
+
+def build(*, resolution: int, batch: int, dtype: Any) -> tuple[Any, tuple[Any, ...]]:
+    module = prepare_module(PublicEfficientAttention(), dtype)
+    sample = torch.randn(batch, 64, resolution, resolution, dtype=dtype)
+    return module, (sample,)
+
+
+def reference_outputs(module: Any, inputs: tuple[Any, ...]) -> Any:
+    return published_loop_forward(module, inputs[0])

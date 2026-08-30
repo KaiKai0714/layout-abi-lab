@@ -1,74 +1,78 @@
-"""Named public and synthetic workloads for optimizer generalization tests."""
+"""Discover optimizer cases from JSON specs so new graphs can be dropped in."""
 
 from __future__ import annotations
 
+import importlib
+import json
+from pathlib import Path
 from typing import Any
 
-from ..identity import DEFAULT_GRAPH_FINGERPRINT
 from .synthetic import synthetic_cells
 
-EFFICIENT_FINGERPRINT = (
-    "efficient_attention:cmsflash/efficient-attention@"
-    "46a5f9eaf09470affb0ab30932b7748cc3c871ef"
+_CASES_DIR = Path(__file__).resolve().parent / "cases"
+_REQUIRED = (
+    "id",
+    "role",
+    "title",
+    "license",
+    "graph_fingerprint",
+    "expected_optimizer",
 )
-SDPA_FINGERPRINT = "scaled_dot_product_attention:vaswani2017"
+_ROLES = {"positive_reference", "public", "negative", "experimental"}
+_EXPECT = {"match", "noop"}
 
-CATALOG: dict[str, dict[str, Any]] = {
-    "diffusion_linear_attention": {
-        "id": "diffusion_linear_attention",
-        "role": "positive_reference",
-        "title": "Diffusion LinearAttention (lucidrains reconstruction)",
-        "repository": "lucidrains/denoising-diffusion-pytorch",
-        "commit": "faed4db28e724735323fa91c70aa9b28a6e1cbac",
-        "license": "MIT",
-        "graph_fingerprint": DEFAULT_GRAPH_FINGERPRINT,
-        "expected_optimizer": "match",
-        "independent_of": None,
-    },
-    "efficient_attention": {
-        "id": "efficient_attention",
-        "role": "second_public",
-        "title": "Efficient Attention (Shen et al. WACV 2021 reconstruction)",
-        "repository": "cmsflash/efficient-attention",
-        "commit": "46a5f9eaf09470affb0ab30932b7748cc3c871ef",
-        "license": "MIT",
-        "graph_fingerprint": EFFICIENT_FINGERPRINT,
-        "expected_optimizer": "match",
-        "independent_of": "lucidrains/denoising-diffusion-pytorch",
-    },
-    "scaled_dot_product": {
-        "id": "scaled_dot_product",
-        "role": "negative",
-        "title": "Scaled dot-product attention (Vaswani et al. 2017 equations)",
-        "repository": None,
-        "commit": None,
-        "license": "public equations; no third-party source vendored",
-        "graph_fingerprint": SDPA_FINGERPRINT,
-        "expected_optimizer": "noop",
-        "independent_of": "lucidrains/denoising-diffusion-pytorch",
-    },
-}
+
+def _validate_spec(spec: dict[str, Any], path: Path) -> None:
+    missing = [key for key in _REQUIRED if key not in spec]
+    if missing:
+        raise ValueError(f"{path.name} missing fields: {', '.join(missing)}")
+    if spec["id"] != path.stem:
+        raise ValueError(f"{path.name} id {spec['id']!r} must match the filename stem")
+    if spec["role"] not in _ROLES:
+        raise ValueError(f"{path.name} has unknown role {spec['role']!r}")
+    if spec["expected_optimizer"] not in _EXPECT:
+        raise ValueError(
+            f"{path.name} has unknown expected_optimizer {spec['expected_optimizer']!r}"
+        )
+    builder = path.with_suffix(".py")
+    if not builder.is_file():
+        raise ValueError(f"{path.name} has no builder {builder.name}")
+
+
+def load_catalog() -> dict[str, dict[str, Any]]:
+    """Load every case spec. Does not import PyTorch."""
+
+    catalog: dict[str, dict[str, Any]] = {}
+    for path in sorted(_CASES_DIR.glob("*.json")):
+        spec = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(spec, dict):
+            raise ValueError(f"{path.name} must contain a JSON object")
+        _validate_spec(spec, path)
+        if spec["id"] in catalog:
+            raise ValueError(f"Duplicate workload id {spec['id']!r}")
+        catalog[spec["id"]] = dict(spec)
+    return catalog
 
 
 def list_workloads() -> list[dict[str, Any]]:
-    return [dict(spec) for spec in CATALOG.values()]
+    return list(load_catalog().values())
 
 
-def _dtype(name: str) -> Any:
-    import torch
-
-    mapping = {"fp16": torch.float16, "bf16": torch.bfloat16, "fp32": torch.float32}
+def get_workload(workload_id: str) -> dict[str, Any]:
+    catalog = load_catalog()
     try:
-        return mapping[name]
+        return dict(catalog[workload_id])
     except KeyError as exc:
-        raise ValueError(f"Unknown dtype {name!r}") from exc
+        known = ", ".join(sorted(catalog))
+        raise ValueError(f"Unknown workload {workload_id!r}; expected one of {known}") from exc
 
 
-def _place(module: Any, tensors: tuple[Any, ...], device: str) -> tuple[Any, tuple[Any, ...]]:
-    if device == "cuda":
-        module = module.cuda()
-        tensors = tuple(tensor.cuda() for tensor in tensors)
-    return module, tensors
+def _load_builder(workload_id: str) -> Any:
+    module = importlib.import_module(f"{__package__}.cases.{workload_id}")
+    builder = getattr(module, "build", None)
+    if builder is None:
+        raise ValueError(f"Workload {workload_id!r} has no build() function")
+    return module, builder
 
 
 def make_workload(
@@ -81,38 +85,24 @@ def make_workload(
 ) -> tuple[Any, tuple[Any, ...]]:
     """Build an eval module and example inputs for a named workload."""
 
-    import torch
-
-    if workload_id not in CATALOG:
-        known = ", ".join(sorted(CATALOG))
-        raise ValueError(f"Unknown workload {workload_id!r}; expected one of {known}")
+    spec = get_workload(workload_id)
     if resolution <= 0 or batch <= 0:
         raise ValueError("resolution and batch must be positive")
-    torch_dtype = _dtype(dtype)
-    if workload_id == "diffusion_linear_attention":
-        from ..workload import PublicDiffusionLinearAttention
+    from ._runtime import place, torch_dtype
 
-        module = PublicDiffusionLinearAttention(policy="direct").eval()
-        if torch_dtype == torch.float16:
-            module = module.half()
-        elif torch_dtype == torch.bfloat16:
-            module = module.to(dtype=torch_dtype)
-        sample = torch.randn(batch, 64, resolution, resolution, dtype=torch_dtype)
-        return _place(module, (sample,), device)
-    if workload_id == "efficient_attention":
-        from .efficient_attention import PublicEfficientAttention
-
-        module = PublicEfficientAttention().eval()
-        if torch_dtype == torch.float16:
-            module = module.half()
-        elif torch_dtype == torch.bfloat16:
-            module = module.to(dtype=torch_dtype)
-        sample = torch.randn(batch, 64, resolution, resolution, dtype=torch_dtype)
-        return _place(module, (sample,), device)
-    from .scaled_dot_product import PublicScaledDotProductAttention
-
-    module = PublicScaledDotProductAttention().eval()
-    qkv = tuple(
-        torch.randn(batch, 4, resolution, 32, dtype=torch_dtype) for _ in range(3)
+    torch_dtype_value = torch_dtype(dtype)
+    _module, builder = _load_builder(spec["id"])
+    module, tensors = builder(
+        resolution=resolution, batch=batch, dtype=torch_dtype_value
     )
-    return _place(module, qkv, device)
+    return place(module, tensors, device)
+
+
+# Backward-compatible alias used by earlier v0.5 tests.
+CATALOG = None
+
+
+def __getattr__(name: str) -> Any:
+    if name == "CATALOG":
+        return load_catalog()
+    raise AttributeError(name)

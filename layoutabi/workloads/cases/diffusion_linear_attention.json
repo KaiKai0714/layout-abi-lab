@@ -1,0 +1,12 @@
+{
+  "id": "diffusion_linear_attention",
+  "role": "positive_reference",
+  "title": "Diffusion LinearAttention (lucidrains reconstruction)",
+  "repository": "lucidrains/denoising-diffusion-pytorch",
+  "commit": "faed4db28e724735323fa91c70aa9b28a6e1cbac",
+  "license": "MIT",
+  "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+  "expected_optimizer": "match",
+  "smoke_resolution": 8,
+  "independent_of": null
+}

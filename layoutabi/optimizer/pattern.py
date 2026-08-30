@@ -4,7 +4,15 @@ from __future__ import annotations
 
 PATTERN_ID = "linear_attention_ktv_v1"
 CANDIDATE_IMPL_HASH = "bhnd_transpose_contiguous_transpose_v1"
-SUPPORTED_POLICIES = ("off", "direct", "repair_k", "repair_kv", "autotune")
+SUPPORTED_POLICIES = (
+    "off",
+    "direct",
+    "repair_k",
+    "repair_kv",
+    "autotune",
+    "n_mod_8",
+    "cost_model",
+)
 REWRITE_POLICIES = ("direct", "repair_k", "repair_kv")
 REQUIRED_DTYPE_NAME = "float16"
 CORRECTNESS_TOLERANCE = 0.08

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "layout-abi-lab"
-version = "0.5.0"
+version = "0.6.0"
 description = "Reproducible experiments for hidden layout contracts between tensor producers and vendor GEMM kernels"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -30,7 +30,7 @@ layoutabi = "layoutabi.cli:main"
 include = ["layoutabi*"]
 
 [tool.setuptools.package-data]
-layoutabi = ["schemas/*.json"]
+layoutabi = ["schemas/*.json", "workloads/cases/*.json"]
 
 [tool.ruff]
 line-length = 100

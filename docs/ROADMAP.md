@@ -53,6 +53,13 @@
 - L40S remains the only complete public device reference. Extra software stacks are
   not extra devices.
 
+## 0.6.0: Planner and cost model
+
+- Named baselines including `N % 8`, always-repair, always-direct, and autotune.
+- Conservative cost model with autotune fallback; false-repair/regret gates frozen.
+- `layoutabi evaluate-planner` scores those rules on published community/reference
+  oracles so new environments can test whether `N % 8` holds.
+
 ## 1.0: Compiler-quality evaluation
 
 - Held-out shape and device evaluation against a two-action oracle.

@@ -43,7 +43,13 @@ Version 0.4 adds a compiled mechanism audit outside the default reproduce bundle
 names for isolated compiled cells so kernel-family claims have causal evidence. See
 `docs/COMPILE_AUDIT.md`.
 
-Version 0.5 names three graphs: the original diffusion LinearAttention (positive
-reference), Shen et al. Efficient Attention (second independent public source), and
-scaled dot-product attention (public no-op). Synthetic shapes fill boundaries only.
+Version 0.5 names graphs through drop-in cases under `layoutabi/workloads/cases/`:
+the original diffusion LinearAttention (positive reference), Shen et al. Efficient
+Attention (second independent public source), and scaled dot-product attention
+(public no-op). Additional JSON+`build()` pairs are picked up automatically.
+Synthetic shapes fill boundaries only.
+
+Version 0.6 scores `N % 8` and a conservative cost model against published oracles.
+New devices should run `layoutabi evaluate-planner` rather than assuming the L40S
+FP16 heuristic. See `docs/PLANNER.md`.
 

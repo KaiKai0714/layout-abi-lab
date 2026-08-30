@@ -42,7 +42,8 @@ are implementation details and may change across software releases.
 The current evidence does not support the following claims:
 
 - Repair is always faster than zero-copy execution.
-- `N % 8` is a universal rule across data types, operators, or GPUs.
+- `N % 8` is a universal rule across data types, operators, or GPUs. Score it with
+  `layoutabi evaluate-planner`; do not treat a match on L40S FP16 as proof.
 - The reference result accelerates a complete diffusion pipeline.
 - The method improves model accuracy.
 - The project contains a general production-ready compiler pass.

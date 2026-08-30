@@ -132,7 +132,15 @@ def build_parser() -> argparse.ArgumentParser:
     optimize_parser.add_argument(
         "--policy",
         default="autotune",
-        choices=("off", "direct", "repair_k", "repair_kv", "autotune"),
+        choices=(
+            "off",
+            "direct",
+            "repair_k",
+            "repair_kv",
+            "autotune",
+            "n_mod_8",
+            "cost_model",
+        ),
     )
     optimize_parser.add_argument("--compile", action="store_true")
     optimize_parser.add_argument("--cache-dir", type=Path)
@@ -153,6 +161,18 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "list-workloads",
         help="Print the public and synthetic workload catalog",
+    )
+
+    planner_parser = subparsers.add_parser(
+        "evaluate-planner",
+        help="Score N % 8 and other planner baselines against published result oracles",
+    )
+    planner_parser.add_argument("--results-root", type=Path, default=Path("results"))
+    planner_parser.add_argument(
+        "--held-out-resolutions",
+        type=_csv_ints,
+        default=(128,),
+        help="Resolutions treated as held-out shapes (default: 128)",
     )
 
     return parser
@@ -263,6 +283,18 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         action = "Wrote" if args.write else "Would migrate"
         print(f"{action} {directory}: {', '.join(migrated)}")
+        return 0
+
+    if args.command == "evaluate-planner":
+        from .aggregation import build_index
+        from .planner.evaluate import evaluate_index, render_markdown
+
+        index = build_index(args.results_root.resolve())
+        report = evaluate_index(
+            index, held_out_resolutions=args.held_out_resolutions
+        )
+        print(render_markdown(report))
+        print(json.dumps(report, indent=2, default=str))
         return 0
 
     if args.command == "list-workloads":
