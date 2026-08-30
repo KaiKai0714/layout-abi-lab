@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Layout ABI eager result record",
+  "type": "object",
+  "required": ["schema", "schema_version", "points"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "layoutabi_eager_v1" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "graph_fingerprint": { "type": "string", "minLength": 1 },
+    "device": { "type": "object" },
+    "software": { "type": "object" },
+    "measurement": { "type": "object" },
+    "points": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["resolution"],
+        "additionalProperties": true,
+        "properties": {
+          "resolution": { "type": "integer", "minimum": 1 },
+          "consumer_n": { "type": "integer" },
+          "dtype": { "type": "string" },
+          "batch": { "type": "integer" },
+          "seeds": { "type": "array" },
+          "aggregate": { "type": "object" },
+          "module_profiler": { "type": ["object", "null"] }
+        }
+      }
+    }
+  }
+}

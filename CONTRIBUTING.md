@@ -7,9 +7,24 @@ software stacks, negative cases, profiler traces, and compiler integration work.
 
 1. Run the benchmark from an unmodified commit.
 2. Keep GPU clocks, power mode, thermal state, and concurrent workloads stable.
-3. Validate the result bundle with `layoutabi validate <directory> --strict`.
-4. Copy the bundle to `results/community_pending/<descriptive-name>/`.
-5. Open a pull request using the result-submission template.
+3. Prepare the bundle for a pull request. This copies it into `results/community/`,
+   recomputes checksums, and reports possible private metadata. It does not upload.
+
+Example:
+
+```bash
+layoutabi prepare-submission \
+  results/local_my_gpu \
+  --name rtx4090_torch2.11_cuda12.8_2026-08-30
+
+git add results/community/rtx4090_torch2.11_cuda12.8_2026-08-30
+```
+
+Use `--strict` when the compiled protocol was intended to complete. Omit it when
+`compile_results.json` is legitimately absent; those cells are indexed as unavailable,
+not as a direct/repair loss. Use `--strict-privacy` if local policy requires the copy to
+fail when hostname, username, private path, or extra metadata is present. Remove
+identifying fields before opening the pull request.
 
 Do not submit only favorable cells. Include every cell produced by the selected
 protocol, including unsupported, out-of-memory, and slower-repair outcomes.

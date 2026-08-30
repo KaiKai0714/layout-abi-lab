@@ -1,20 +1,18 @@
-# Maintainer release checklist
+# Release checklist
 
-Complete these items before making the repository public:
+Use this when cutting a version. End-user install and reproduction steps stay in
+`README.md`.
 
-- [x] Set the repository URL to `KaiKai0714/layout-abi-lab`.
-- [x] Set the current sole author to `Sheng-Kai Ku`.
-- [x] Add the public contact email `ethankai0714@gmail.com`.
-- [ ] Add an ORCID, if desired.
-- [ ] Enable GitHub private vulnerability reporting after repository creation.
-- [x] Add the current project copyright notice.
-- [x] Re-run and strictly validate the reference protocol through the public v0.1 schema.
-- [x] Preserve both the legacy E170 reference and the public v0.1 L40S bundle.
-- [x] Pin a minimal set of driver-compatible images in `containers/matrix.json`.
-- [x] Run and strictly validate three software stacks on L40S.
-- [x] Scan release files for credentials, hostnames, and private absolute paths. The
-      preserved legacy JSON contains only the synthetic `e170_benchmark` container user
-      and its `/tmp` cache path.
-- [x] Preserve the upstream MIT notice and document that the cited CMB repository has
-      no visible license; no CMB code or data is redistributed.
-- [ ] Create a signed `v0.1.0` tag and archive its generated checksums.
+1. Bump `layoutabi/__init__.py`, `pyproject.toml`, and `CITATION.cff`.
+2. Update `CHANGELOG.md`, README, `docs/ROADMAP.md`, and stated limitations.
+3. Run `python -m compileall -q layoutabi containers` and
+   `python -m unittest discover -s tests -v`.
+4. Validate reference bundles: `layoutabi validate-tree results/reference_l40s --strict`.
+5. Regenerate and freshness-check the index: `layoutabi aggregate` then
+   `layoutabi aggregate --check`.
+6. If the version claims GPU behavior, finish that version's release matrix. v0.3
+   autotune is CUDA-only; CPU matcher/rewrite tests are the required CI gate.
+7. Scan staged files for credentials, hostnames, and private absolute paths. Do not
+   commit local-only notes or `results/local_*` bundles.
+8. Push the release commit, then create an annotated tag and a GitHub Release that
+   lists supported behavior, unsupported cases, and any schema or API migration.

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Layout ABI result-bundle manifest",
+  "type": "object",
+  "required": ["schema", "schema_version", "files"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "layoutabi_manifest_v1" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "files": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    }
+  }
+}

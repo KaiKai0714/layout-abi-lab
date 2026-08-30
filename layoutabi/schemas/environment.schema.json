@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Layout ABI environment record",
+  "type": "object",
+  "required": ["schema", "schema_version"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "layoutabi_environment_v1" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "created_utc": { "type": "string", "minLength": 1 },
+    "layoutabi_version": { "type": "string" },
+    "python": { "type": "string" },
+    "platform": { "type": "string" },
+    "machine": { "type": "string" },
+    "container": { "type": "object" },
+    "nvidia_smi": { "type": "object" },
+    "torch": { "type": "object" }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Layout ABI result index",
+  "type": "object",
+  "required": ["schema", "schema_version", "summary", "filters", "bundles"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "layoutabi_results_index_v1" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "summary": {
+      "type": "object",
+      "required": [
+        "bundles",
+        "reference_bundles",
+        "community_bundles",
+        "replicate_bundles",
+        "devices",
+        "software_stacks",
+        "measurement_rows",
+        "primary_measurement_rows",
+        "eager_module_repair_wins",
+        "eager_module_direct_wins",
+        "eager_module_unavailable",
+        "compiled_module_repair_wins",
+        "compiled_module_direct_wins",
+        "compiled_module_unavailable"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "bundles": { "type": "integer", "minimum": 0 },
+        "reference_bundles": { "type": "integer", "minimum": 0 },
+        "community_bundles": { "type": "integer", "minimum": 0 },
+        "replicate_bundles": { "type": "integer", "minimum": 0 },
+        "devices": { "type": "integer", "minimum": 0 },
+        "software_stacks": { "type": "integer", "minimum": 0 },
+        "measurement_rows": { "type": "integer", "minimum": 0 },
+        "primary_measurement_rows": { "type": "integer", "minimum": 0 },
+        "eager_module_repair_wins": { "type": "integer", "minimum": 0 },
+        "eager_module_direct_wins": { "type": "integer", "minimum": 0 },
+        "eager_module_unavailable": { "type": "integer", "minimum": 0 },
+        "compiled_module_repair_wins": { "type": "integer", "minimum": 0 },
+        "compiled_module_direct_wins": { "type": "integer", "minimum": 0 },
+        "compiled_module_unavailable": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "filters": {
+      "type": "object",
+      "required": ["roles", "devices", "dtypes", "stacks", "resolutions", "outcomes"],
+      "additionalProperties": false,
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["reference", "community", "replicate"] }
+        },
+        "devices": { "type": "array", "items": { "type": "string" } },
+        "dtypes": { "type": "array", "items": { "type": "string" } },
+        "stacks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["torch", "cuda_build"],
+            "additionalProperties": true,
+            "properties": {
+              "torch": { "type": "string" },
+              "cuda_build": { "type": ["string", "null"] },
+              "cudnn": { "type": ["integer", "null"] }
+            }
+          }
+        },
+        "resolutions": { "type": "array", "items": { "type": "integer" } },
+        "outcomes": {
+          "type": "object",
+          "required": ["eager_module", "compiled_module"],
+          "additionalProperties": false,
+          "properties": {
+            "eager_module": { "type": "array", "items": { "type": "string" } },
+            "compiled_module": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "bundles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "source",
+          "role",
+          "identity_key",
+          "replicate_of",
+          "graph_fingerprint",
+          "protocol_fingerprint",
+          "manifest_sha256",
+          "environment",
+          "kernel_families",
+          "rows"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "category": { "type": "string" },
+          "source": { "type": "string", "enum": ["reference", "community"] },
+          "role": { "type": "string", "enum": ["reference", "community", "replicate"] },
+          "identity_key": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "replicate_of": { "type": ["string", "null"] },
+          "graph_fingerprint": { "type": "string", "minLength": 1 },
+          "protocol_fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "manifest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "environment": { "type": "object" },
+          "kernel_families": { "type": "object" },
+          "rows": { "type": "array" }
+        }
+      }
+    }
+  }
+}

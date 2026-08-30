@@ -35,12 +35,20 @@ versions, CUDA software stacks, data types, shapes, and graph contexts.
 - Isolated `torch.compile` measurements for direct and repair-KV policies.
 - CUDA kernel-name capture when `torch.profiler` supports it.
 - Machine-readable environment and result records.
-- A validator for community-submitted result bundles.
+- A validator for community-submitted result bundles, with JSON Schema contracts and
+  forward schema migration.
+- A `prepare-submission` command that copies a local bundle, recomputes checksums, and
+  reports possible private metadata without uploading.
+- An experimental `layoutabi.optimize()` API that captures a public FX graph, matches
+  the frozen LinearAttention KTV pattern, and conservatively chooses direct or repair.
 - A container matrix runner for testing multiple pinned software stacks.
 
-The repository does **not** yet contain a general TorchInductor pass. The first public
-release is a reproducibility artifact and data-collection platform. See
-[Roadmap](docs/ROADMAP.md).
+The repository does **not** contain a general TorchInductor pass. Version 0.3 adds an
+experimental external optimizer for one frozen LinearAttention pattern. See
+[Pattern contract](docs/PATTERN_CONTRACT.md) and [Roadmap](docs/ROADMAP.md).
+
+The generated [result index](RESULTS_INDEX.md) summarizes all checksum-validated
+reference and accepted community bundles. Its JSON counterpart is `results/index.json`.
 
 ## Requirements
 
@@ -121,17 +129,56 @@ Images that existed before the run are never removed automatically.
 
 ## Submit a result
 
-Both wins and losses are useful. Before opening a pull request:
+Both wins and losses are useful. Prepare a community bundle without uploading it:
 
 ```bash
-layoutabi validate results/local_my_gpu --strict
+layoutabi prepare-submission \
+  results/local_my_gpu \
+  --name rtx4090_torch2.11_cuda12.8_2026-08-30
 ```
 
-Then follow [CONTRIBUTING.md](CONTRIBUTING.md). Do not edit measured JSON values by
-hand. Remove hostnames or other identifying metadata if required by local policy.
+The command copies the bundle to `results/community/`, recomputes checksums, and prints
+possible hostname, username, private-path, and extra-metadata findings. Re-runs of the
+same graph, device, software stack, and protocol are kept as replicates, not as a new
+device. Bundles without compiled controls are accepted and indexed as compiled
+unavailable rather than as a loss. Then follow [CONTRIBUTING.md](CONTRIBUTING.md). Do
+not edit measured JSON values by hand.
+
+Maintainers regenerate the public index after accepting a bundle with:
+
+```bash
+layoutabi aggregate
+```
+
+Continuous integration runs `layoutabi aggregate --check` so stale or manually edited
+indexes cannot be merged.
+
+## Experimental optimizer
+
+```python
+import torch
+from layoutabi import optimize
+from layoutabi.workload import PublicDiffusionLinearAttention
+
+model = PublicDiffusionLinearAttention().eval().half().cuda()
+x = torch.randn(1, 64, 128, 128, device="cuda", dtype=torch.float16)
+result = optimize(model, (x,), policy="autotune")
+compiled = torch.compile(result.module)
+```
+
+`policy` may be `off`, `direct`, `repair_k`, `repair_kv`, or `autotune`. Autotune
+measures full-module CUDA-event latency and caches the decision. If the graph is not
+supported, guards fail, or a candidate is incorrect, the original module is returned.
+
+```bash
+layoutabi inspect-model --resolution 128
+layoutabi optimize-model --resolution 128 --policy repair_kv
+```
 
 ## Scope and limitations
 
+- The optimizer supports one frozen inference pattern, fixed shapes, and FP16.
+- Autotune requires CUDA. Unsupported graphs are a safe no-op, not a guaranteed speedup.
 - Current reference experiments focus on inference, fixed shapes, and FP16.
 - Profitability is device-, version-, dtype-, shape-, and graph-dependent.
 - `N % 8` is an observed FP16 feature in a bounded regime, not a universal law.

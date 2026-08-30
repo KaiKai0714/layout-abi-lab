@@ -17,6 +17,8 @@ from typing import Any, Callable
 
 from .environment import write_environment
 from .runtime import prepare_runtime
+from .identity import DEFAULT_GRAPH_FINGERPRINT
+from .schema import COMPILE_SCHEMA, EAGER_SCHEMA, MANIFEST_SCHEMA, current_version
 
 POLICIES = ("direct", "repair_k", "repair_kv")
 
@@ -214,7 +216,9 @@ def run_eager(
 
     props = torch.cuda.get_device_properties(0)
     return {
-        "schema": "layoutabi_eager_v1",
+        "schema": EAGER_SCHEMA,
+        "schema_version": current_version(EAGER_SCHEMA),
+        "graph_fingerprint": DEFAULT_GRAPH_FINGERPRINT,
         "device": {
             "name": props.name,
             "compute_capability": f"{props.major}.{props.minor}",
@@ -335,7 +339,8 @@ def run_compiled(resolutions: tuple[int, ...], cache_root: Path) -> dict[str, An
         record["direct_over_repair_kv"] = direct / repair if direct and repair else None
         points.append(record)
     return {
-        "schema": "layoutabi_compile_v1",
+        "schema": COMPILE_SCHEMA,
+        "schema_version": current_version(COMPILE_SCHEMA),
         "software": {"torch": torch.__version__, "cuda_build": torch.version.cuda},
         "points": points,
     }
@@ -439,7 +444,8 @@ def reproduce(
     if compiled is not None:
         measured_files.append("compile_results.json")
     manifest = {
-        "schema": "layoutabi_manifest_v1",
+        "schema": MANIFEST_SCHEMA,
+        "schema_version": current_version(MANIFEST_SCHEMA),
         "files": {name: _sha256(output / name) for name in measured_files},
     }
     _write_json(output / "manifest.json", manifest)

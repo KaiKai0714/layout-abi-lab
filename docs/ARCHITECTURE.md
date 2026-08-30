@@ -26,8 +26,15 @@ The measured decision is not a safe static `N % 8` rewrite. Profitability change
 the full graph, device, data type, batch, framework lowering, and vendor-library version.
 Version 0.1 therefore freezes the measurement contract before introducing an optimizer.
 
-The planned optimizer will sit outside TorchInductor initially. It will capture a graph,
-match a bounded pattern, generate direct and repaired candidates, run a correctness
-canary, benchmark both candidates, cache the decision, and then compile the selected
-graph. Unsupported graphs will remain unchanged.
+Result documents carry a `schema` name and integer `schema_version`. Missing versions on
+v0.1/v0.2 bundles migrate forward in memory. Unknown schema names and newer versions are
+rejected. JSON Schema files live in `layoutabi/schemas/`. Community re-runs that match an
+existing graph, device, software stack, and measurement protocol are indexed as
+replicates rather than as additional devices.
+
+Version 0.3 ships an external optimizer outside TorchInductor. It captures a public FX
+or `torch.export` graph, matches the frozen LinearAttention KTV pattern documented in
+`docs/PATTERN_CONTRACT.md`, generates direct and repaired candidates, runs a
+correctness canary, autotunes on full-module CUDA-event latency, caches the decision,
+and optionally compiles the selected graph. Unsupported graphs remain unchanged.
 

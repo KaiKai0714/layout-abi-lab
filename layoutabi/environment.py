@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from . import __version__
+from .schema import ENVIRONMENT_SCHEMA, current_version
 
 
 def _command(args: list[str]) -> dict[str, Any]:
@@ -31,7 +32,8 @@ def collect_environment() -> dict[str, Any]:
     """Return non-secret runtime metadata required to interpret a benchmark result."""
 
     payload: dict[str, Any] = {
-        "schema": "layoutabi_environment_v1",
+        "schema": ENVIRONMENT_SCHEMA,
+        "schema_version": current_version(ENVIRONMENT_SCHEMA),
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "layoutabi_version": __version__,
         "python": sys.version,

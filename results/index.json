@@ -1,0 +1,436 @@
+{
+  "bundles": [
+    {
+      "category": "reference_l40s",
+      "environment": {
+        "compute_capability": "8.9",
+        "cuda_build": "12.8",
+        "cudnn": 91002,
+        "device": "NVIDIA L40S",
+        "driver_record": "NVIDIA L40S, 575.57.08, 8.9, 46068, 350.00",
+        "python": "3.12.3 (main, Jan  8 2026, 11:30:50) [GCC 13.3.0]",
+        "torch": "2.10.0+cu128"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "reference_l40s/software_stack_matrix/torch2.10_cuda12.8",
+      "identity_key": "9551a247e2bcd26a32e4e2c448f30af8f1ffb3eaacfff75bc1e9e1aa6d96d93f",
+      "kernel_families": {
+        "direct": [
+          "align2",
+          "align8"
+        ],
+        "repair_kv": [
+          "align8"
+        ]
+      },
+      "manifest_sha256": "9a46936079c4432eaed6e5e4ef246d08ed402a23cc22f4533b5ff0198811ca3c",
+      "protocol_fingerprint": "a69803c7c37b7dc7295e7fd1a1ad8507ab5e1a1962de89673d03b19f81d7afb3",
+      "replicate_of": null,
+      "role": "reference",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.48692641258239744,
+            "outcome": "repair_win",
+            "ratio": 1.1621021698913687,
+            "repair_available": true,
+            "repair_kv_ms": 0.41900482177734377
+          },
+          "consumer_n": 65540,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.37874001264572144,
+            "outcome": "direct_win",
+            "ratio": 0.9606773874542324,
+            "repair_k_ms": 0.4776106675465902,
+            "repair_kv_ms": 0.39424266417821247,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.6689959764480591,
+            "outcome": "repair_win",
+            "ratio": 1.1093111825606352,
+            "repair_k_ms": 0.6924360195795695,
+            "repair_kv_ms": 0.6030733187993367,
+            "repair_wins_all_seeds": true
+          },
+          "resolution": 256
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.17649520039558408,
+            "outcome": "repair_win",
+            "ratio": 1.1269871053121048,
+            "repair_available": true,
+            "repair_kv_ms": 0.15660800337791442
+          },
+          "consumer_n": 16388,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.0940626710653305,
+            "outcome": "repair_win",
+            "ratio": 1.0460551532558107,
+            "repair_k_ms": 0.1044106682141622,
+            "repair_kv_ms": 0.08992133041222891,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.24725733200709024,
+            "outcome": "direct_win",
+            "ratio": 0.8987907616192587,
+            "repair_k_ms": 0.26165733734766644,
+            "repair_kv_ms": 0.2750999927520752,
+            "repair_wins_all_seeds": false
+          },
+          "resolution": 128
+        }
+      ],
+      "source": "reference"
+    },
+    {
+      "category": "reference_l40s",
+      "environment": {
+        "compute_capability": "8.9",
+        "cuda_build": "12.6",
+        "cudnn": 91002,
+        "device": "NVIDIA L40S",
+        "driver_record": "NVIDIA L40S, 575.57.08, 8.9, 46068, 350.00",
+        "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+        "torch": "2.11.0+cu126"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "reference_l40s/software_stack_matrix/torch2.11_cuda12.6",
+      "identity_key": "e1445a79d14b69256981dcae9efd5499c2cb69a2110d8c5d0b39955426d48126",
+      "kernel_families": {
+        "direct": [
+          "align2",
+          "align8"
+        ],
+        "repair_kv": [
+          "align8"
+        ]
+      },
+      "manifest_sha256": "f66a095a78a774c55b844a8347ae38bfad6052afd451361fd3865c3fa371446e",
+      "protocol_fingerprint": "a69803c7c37b7dc7295e7fd1a1ad8507ab5e1a1962de89673d03b19f81d7afb3",
+      "replicate_of": null,
+      "role": "reference",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.4386656045913696,
+            "outcome": "repair_win",
+            "ratio": 1.1790716763871834,
+            "repair_available": true,
+            "repair_kv_ms": 0.37204320430755616
+          },
+          "consumer_n": 65540,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.37777066230773926,
+            "outcome": "direct_win",
+            "ratio": 0.9566720659225445,
+            "repair_k_ms": 0.4769413272539774,
+            "repair_kv_ms": 0.3948799967765808,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.664357344309489,
+            "outcome": "repair_win",
+            "ratio": 1.10575593812817,
+            "repair_k_ms": 0.6902346611022949,
+            "repair_kv_ms": 0.6008173425992329,
+            "repair_wins_all_seeds": true
+          },
+          "resolution": 256
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.14101200103759765,
+            "outcome": "repair_win",
+            "ratio": 1.115269530167033,
+            "repair_available": true,
+            "repair_kv_ms": 0.1264375984668732
+          },
+          "consumer_n": 16388,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.09420667092005411,
+            "outcome": "repair_win",
+            "ratio": 1.045996920740079,
+            "repair_k_ms": 0.10446666677792867,
+            "repair_kv_ms": 0.09006400406360626,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.245469331741333,
+            "outcome": "direct_win",
+            "ratio": 0.8983258361212554,
+            "repair_k_ms": 0.26001333196957904,
+            "repair_kv_ms": 0.27325200041135156,
+            "repair_wins_all_seeds": false
+          },
+          "resolution": 128
+        }
+      ],
+      "source": "reference"
+    },
+    {
+      "category": "reference_l40s",
+      "environment": {
+        "compute_capability": "8.9",
+        "cuda_build": "12.8",
+        "cudnn": 91900,
+        "device": "NVIDIA L40S",
+        "driver_record": "NVIDIA L40S, 575.57.08, 8.9, 46068, 350.00",
+        "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+        "torch": "2.11.0+cu128"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "reference_l40s/software_stack_matrix/torch2.11_cuda12.8",
+      "identity_key": "9e99a5926497ad7270ff52cec946c1e8772a697a878a978ae517d925e215f8f2",
+      "kernel_families": {
+        "direct": [
+          "align2",
+          "align8"
+        ],
+        "repair_kv": [
+          "align8"
+        ]
+      },
+      "manifest_sha256": "44b7bd2f1d91c3192f39c9bea3a4fbdecb60272bcd1188c421063fb4aaf802ac",
+      "protocol_fingerprint": "a69803c7c37b7dc7295e7fd1a1ad8507ab5e1a1962de89673d03b19f81d7afb3",
+      "replicate_of": null,
+      "role": "reference",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.4353919982910156,
+            "outcome": "repair_win",
+            "ratio": 1.1654510479695446,
+            "repair_available": true,
+            "repair_kv_ms": 0.37358239889144895
+          },
+          "consumer_n": 65540,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.3798333406448364,
+            "outcome": "direct_win",
+            "ratio": 0.9635027733610377,
+            "repair_k_ms": 0.47534932692845666,
+            "repair_kv_ms": 0.39422132571538293,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.664245327313741,
+            "outcome": "repair_win",
+            "ratio": 1.1033560078774176,
+            "repair_k_ms": 0.6887066761652629,
+            "repair_kv_ms": 0.6020226677258809,
+            "repair_wins_all_seeds": true
+          },
+          "resolution": 256
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.14119360446929932,
+            "outcome": "repair_win",
+            "ratio": 1.1172148151362222,
+            "repair_available": true,
+            "repair_kv_ms": 0.12637999653816223
+          },
+          "consumer_n": 16388,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.09402933220068614,
+            "outcome": "repair_win",
+            "ratio": 1.0477039275576567,
+            "repair_k_ms": 0.10419333477814993,
+            "repair_kv_ms": 0.08974800010522206,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.2469493349393209,
+            "outcome": "direct_win",
+            "ratio": 0.8938199307689344,
+            "repair_k_ms": 0.2633039951324463,
+            "repair_kv_ms": 0.2762853304545084,
+            "repair_wins_all_seeds": false
+          },
+          "resolution": 128
+        }
+      ],
+      "source": "reference"
+    },
+    {
+      "category": "reference_l40s",
+      "environment": {
+        "compute_capability": "8.9",
+        "cuda_build": "12.8",
+        "cudnn": 91900,
+        "device": "NVIDIA L40S",
+        "driver_record": "NVIDIA L40S, 575.57.08, 8.9, 46068, 350.00\nNVIDIA L40S, 575.57.08, 8.9, 46068, 350.00\nNVIDIA L40S, 575.57.08, 8.9, 46068, 350.00\nNVIDIA L40S, 575.57.08, 8.9, 46068, 350.00",
+        "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+        "torch": "2.11.0+cu128"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "reference_l40s/v0_1_bundle",
+      "identity_key": "9e99a5926497ad7270ff52cec946c1e8772a697a878a978ae517d925e215f8f2",
+      "kernel_families": {
+        "direct": [
+          "align2",
+          "align8"
+        ],
+        "repair_kv": [
+          "align8"
+        ]
+      },
+      "manifest_sha256": "ece4f09c2095050a06540b2c53a4d1cc2ce5d81ad8828008d4814f661a58b656",
+      "protocol_fingerprint": "a69803c7c37b7dc7295e7fd1a1ad8507ab5e1a1962de89673d03b19f81d7afb3",
+      "replicate_of": "reference_l40s/software_stack_matrix/torch2.11_cuda12.8",
+      "role": "replicate",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.43615520000457764,
+            "outcome": "repair_win",
+            "ratio": 1.1841952119704364,
+            "repair_available": true,
+            "repair_kv_ms": 0.3683135986328125
+          },
+          "consumer_n": 65540,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.38463999827702844,
+            "outcome": "direct_win",
+            "ratio": 0.9705909352089422,
+            "repair_k_ms": 0.47414131959279376,
+            "repair_kv_ms": 0.39629465341567993,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.6641053358713787,
+            "outcome": "repair_win",
+            "ratio": 1.1041334186148306,
+            "repair_k_ms": 0.6889053583145142,
+            "repair_kv_ms": 0.6014720002810161,
+            "repair_wins_all_seeds": true
+          },
+          "resolution": 256
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.14108479619026185,
+            "outcome": "repair_win",
+            "ratio": 1.1404588305996084,
+            "repair_available": true,
+            "repair_kv_ms": 0.12370880246162415
+          },
+          "consumer_n": 16388,
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.09417333205540976,
+            "outcome": "repair_win",
+            "ratio": 1.0465408741153963,
+            "repair_k_ms": 0.10453066726525626,
+            "repair_kv_ms": 0.0899853358666102,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.2483573357264201,
+            "outcome": "direct_win",
+            "ratio": 0.9002629582864846,
+            "repair_k_ms": 0.26334399978319806,
+            "repair_kv_ms": 0.27587199211120605,
+            "repair_wins_all_seeds": false
+          },
+          "resolution": 128
+        }
+      ],
+      "source": "reference"
+    }
+  ],
+  "filters": {
+    "devices": [
+      "NVIDIA L40S"
+    ],
+    "dtypes": [
+      "fp16"
+    ],
+    "outcomes": {
+      "compiled_module": [
+        "repair_win"
+      ],
+      "eager_module": [
+        "direct_win",
+        "repair_win"
+      ]
+    },
+    "resolutions": [
+      128,
+      256
+    ],
+    "roles": [
+      "reference",
+      "replicate"
+    ],
+    "stacks": [
+      {
+        "cuda_build": "12.8",
+        "cudnn": 91002,
+        "torch": "2.10.0+cu128"
+      },
+      {
+        "cuda_build": "12.6",
+        "cudnn": 91002,
+        "torch": "2.11.0+cu126"
+      },
+      {
+        "cuda_build": "12.8",
+        "cudnn": 91900,
+        "torch": "2.11.0+cu128"
+      }
+    ]
+  },
+  "schema": "layoutabi_results_index_v1",
+  "schema_version": 1,
+  "summary": {
+    "bundles": 4,
+    "community_bundles": 0,
+    "compiled_module_direct_wins": 0,
+    "compiled_module_repair_wins": 6,
+    "compiled_module_unavailable": 0,
+    "devices": 1,
+    "eager_module_direct_wins": 3,
+    "eager_module_repair_wins": 3,
+    "eager_module_unavailable": 0,
+    "measurement_rows": 8,
+    "primary_measurement_rows": 6,
+    "reference_bundles": 3,
+    "replicate_bundles": 1,
+    "software_stacks": 3
+  }
+}

@@ -1,27 +1,37 @@
-"""Validate result completeness, correctness gates, and integrity hashes."""
+"""Validate result completeness, correctness gates, schemas, and integrity hashes."""
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
 
+from .schema import (
+    COMPILE_SCHEMA,
+    EAGER_SCHEMA,
+    ENVIRONMENT_SCHEMA,
+    MANIFEST_SCHEMA,
+    load_json_object,
+    normalize_document,
+    sha256_file,
+)
 
-def _load(path: Path) -> dict[str, Any]:
-    with path.open(encoding="utf-8") as handle:
-        value = json.load(handle)
-    if not isinstance(value, dict):
-        raise ValueError(f"Expected a JSON object in {path}")
-    return value
+
+def _label(kind: str, problem: str) -> str:
+    if problem.startswith("Unsupported schema"):
+        return f"Unsupported {kind} schema"
+    return f"{kind}: {problem}"
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+def _normalize_file(
+    path: Path, expected_schema: str, kind: str
+) -> tuple[dict[str, Any] | None, list[str]]:
+    try:
+        payload = load_json_object(path)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        return None, [f"Could not parse {path.name}: {exc}"]
+    migrated, problems = normalize_document(payload, expected_schema)
+    return migrated, [_label(kind, problem) for problem in problems]
 
 
 def validate_result(directory: Path, strict: bool = False) -> list[str]:
@@ -35,54 +45,69 @@ def validate_result(directory: Path, strict: bool = False) -> list[str]:
     if problems:
         return problems
 
-    try:
-        environment = _load(directory / "environment.json")
-        eager = _load(directory / "eager_results.json")
-        manifest = _load(directory / "manifest.json")
-    except Exception as exc:
-        return [f"Could not parse result bundle: {exc}"]
+    environment, env_problems = _normalize_file(
+        directory / "environment.json", ENVIRONMENT_SCHEMA, "environment"
+    )
+    eager, eager_problems = _normalize_file(
+        directory / "eager_results.json", EAGER_SCHEMA, "eager result"
+    )
+    manifest, manifest_problems = _normalize_file(
+        directory / "manifest.json", MANIFEST_SCHEMA, "manifest"
+    )
+    problems.extend(env_problems)
+    problems.extend(eager_problems)
+    problems.extend(manifest_problems)
 
-    if environment.get("schema") != "layoutabi_environment_v1":
-        problems.append("Unsupported environment schema")
-    if eager.get("schema") != "layoutabi_eager_v1":
-        problems.append("Unsupported eager result schema")
-    if manifest.get("schema") != "layoutabi_manifest_v1":
-        problems.append("Unsupported manifest schema")
+    if eager is not None:
+        points = eager.get("points")
+        if not isinstance(points, list) or not points:
+            problems.append("Eager results contain no measurement points")
+        else:
+            for point in points:
+                if not isinstance(point, dict):
+                    problems.append("Eager results contain a non-object measurement point")
+                    continue
+                resolution = point.get("resolution", "unknown")
+                for seed in point.get("seeds", []):
+                    if not isinstance(seed, dict):
+                        continue
+                    for scope in ("chain", "module"):
+                        cells = seed.get("correctness", {}).get(scope, {})
+                        if not isinstance(cells, dict):
+                            continue
+                        for policy, cell in cells.items():
+                            if isinstance(cell, dict) and not cell.get("pass", False):
+                                problems.append(
+                                    f"Correctness failed at resolution={resolution}, "
+                                    f"seed={seed.get('seed')}, scope={scope}, policy={policy}"
+                                )
 
-    points = eager.get("points")
-    if not isinstance(points, list) or not points:
-        problems.append("Eager results contain no measurement points")
-    else:
-        for point in points:
-            resolution = point.get("resolution", "unknown")
-            for seed in point.get("seeds", []):
-                for scope in ("chain", "module"):
-                    for policy, cell in seed.get("correctness", {}).get(scope, {}).items():
-                        if not cell.get("pass", False):
-                            problems.append(
-                                f"Correctness failed at resolution={resolution}, "
-                                f"seed={seed.get('seed')}, scope={scope}, policy={policy}"
-                            )
-
-    files = manifest.get("files", {})
-    if not isinstance(files, dict):
-        problems.append("Manifest files field is not an object")
-    else:
-        for name, expected in files.items():
-            path = directory / name
-            if not path.is_file():
-                problems.append(f"Manifest references a missing file: {name}")
-            elif _sha256(path) != expected:
-                problems.append(f"Checksum mismatch: {name}")
+    if manifest is not None:
+        files = manifest.get("files", {})
+        if not isinstance(files, dict):
+            problems.append("Manifest files field is not an object")
+        else:
+            for name, expected in files.items():
+                path = directory / str(name)
+                if not path.is_file():
+                    problems.append(f"Manifest references a missing file: {name}")
+                elif sha256_file(path) != expected:
+                    problems.append(f"Checksum mismatch: {name}")
 
     compile_path = directory / "compile_results.json"
     if compile_path.is_file():
-        try:
-            compiled = _load(compile_path)
-            if compiled.get("schema") != "layoutabi_compile_v1":
-                problems.append("Unsupported compiled result schema")
+        compiled, compile_problems = _normalize_file(compile_path, COMPILE_SCHEMA, "compiled result")
+        problems.extend(compile_problems)
+        if compiled is not None:
             for point in compiled.get("points", []):
-                for policy, cell in point.get("policies", {}).items():
+                if not isinstance(point, dict):
+                    continue
+                policies = point.get("policies", {})
+                if not isinstance(policies, dict):
+                    continue
+                for policy, cell in policies.items():
+                    if not isinstance(cell, dict):
+                        continue
                     if strict and not cell.get("available", False):
                         problems.append(
                             f"Compiled cell unavailable at resolution={point.get('resolution')}, "
@@ -93,10 +118,15 @@ def validate_result(directory: Path, strict: bool = False) -> list[str]:
                             f"Compiled correctness failed at resolution={point.get('resolution')}, "
                             f"policy={policy}"
                         )
-        except Exception as exc:
-            problems.append(f"Could not parse compile_results.json: {exc}")
     elif strict:
         problems.append("Strict validation requires compile_results.json")
 
     return problems
 
+
+def discover_result_bundles(root: Path) -> list[Path]:
+    """Discover validator-compatible bundles without treating legacy raw JSON as one."""
+
+    if not root.is_dir():
+        return []
+    return sorted(path.parent for path in root.rglob("manifest.json") if path.is_file())
