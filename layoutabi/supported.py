@@ -26,6 +26,8 @@ CPU_TOOLS = (
     "cache-info",
     "cache-clear",
     "supported",
+    "rc-status",
+    "scan-release",
 )
 
 OPTIMIZER_APIS = ("optimize", "inspect", "inspect-model", "optimize-model")
@@ -62,6 +64,9 @@ def supported(
         "optimizer_requires_pytorch": list(OPTIMIZER_APIS),
         "cuda_autotune": True,
         "dtype_requested_supported": dtype_ok,
+        "release_status": "candidate",
+        "feature_freeze": True,
+        "allow_new_patterns": False,
     }
     if dtype is not None and not dtype_ok:
         payload["notes"] = [

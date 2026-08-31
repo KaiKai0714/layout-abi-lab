@@ -74,6 +74,13 @@
 - FX/`torch.export` adapters isolated from package import.
 - Install without forcing a PyTorch wheel; documented support matrix.
 
+## 0.9.0: Release candidate
+
+- Feature, API, schema, candidate-implementation, and cache-protocol freeze.
+- CPU CI, published L40S bundles, public workloads, and a license/privacy scan.
+- Orin and a second GPU architecture remain open v1.0 gates, not claimed results.
+- RC period: bug fixes only; new patterns require a later RC.
+
 ## 1.0: Compiler-quality evaluation
 
 - Held-out shape and device evaluation against a two-action oracle.

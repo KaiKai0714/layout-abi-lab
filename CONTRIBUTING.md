@@ -29,6 +29,13 @@ identifying fields before opening the pull request.
 Do not submit only favorable cells. Include every cell produced by the selected
 protocol, including unsupported, out-of-memory, and slower-repair outcomes.
 
+## Release-candidate reports
+
+Version 0.9.0 is feature-frozen for v1.0. Use the RC issue template for crashes,
+incorrect rewrites, regressions, and unexpected no-ops. Do not add a new matcher
+pattern in this window; that requires a later RC. Community result bundles on
+new devices are still wanted.
+
 ## Code contributions
 
 - Keep public documentation and code comments in English.

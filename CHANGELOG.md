@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.9.0
+
+- Release-candidate freeze for the v1.0 API, pattern, candidate implementation,
+  cache protocol, and document schemas. New matcher patterns are out of scope.
+- `layoutabi rc-status` reports remaining v1.0 gates honestly: Orin and a second
+  GPU architecture are still open. `layoutabi scan-release` checks git-tracked
+  files for secrets, private paths, and required license files.
+- RC feedback issue template for crash, incorrect rewrite, regression, and
+  unexpected no-op reports.
+
 ## 0.8.0
 
 - Frozen public API: `layoutabi.optimize`, `inspect`, `clear_cache`, `explain`,

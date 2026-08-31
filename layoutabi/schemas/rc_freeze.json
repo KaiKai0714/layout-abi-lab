@@ -1,0 +1,44 @@
+{
+  "schema": "layoutabi_rc_freeze_v1",
+  "schema_version": 1,
+  "allow_new_patterns": false,
+  "cache_protocol": 2,
+  "cache_schema": "layoutabi_optimizer_cache_v2",
+  "candidate_impl": "bhnd_transpose_contiguous_transpose_v1",
+  "correctness_tolerance": 0.08,
+  "document_schemas": {
+    "layoutabi_compile_audit_v1": 1,
+    "layoutabi_compile_v1": 1,
+    "layoutabi_eager_v1": 1,
+    "layoutabi_environment_v1": 1,
+    "layoutabi_optimizer_diagnostics_v1": 1,
+    "layoutabi_manifest_v1": 1,
+    "layoutabi_results_index_v1": 1
+  },
+  "exceptions": [
+    "InvalidArgumentError",
+    "LayoutABIError",
+    "MissingPyTorchError",
+    "UnsupportedCUDAError"
+  ],
+  "pattern_id": "linear_attention_ktv_v1",
+  "policies": [
+    "off",
+    "direct",
+    "repair_k",
+    "repair_kv",
+    "autotune",
+    "n_mod_8",
+    "cost_model"
+  ],
+  "public_api": [
+    "cache_info",
+    "clear_cache",
+    "explain",
+    "inspect",
+    "optimize",
+    "supported"
+  ],
+  "shape_buckets": [32, 64, 96, 128, 160, 192, 224, 256, 384, 512],
+  "unseen_shape_actions": ["direct", "noop", "autotune"]
+}

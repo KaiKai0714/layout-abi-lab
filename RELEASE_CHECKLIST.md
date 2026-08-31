@@ -16,5 +16,8 @@ Use this when cutting a version. End-user install and reproduction steps stay in
    software stacks as extra devices.
 7. Scan staged files for credentials, hostnames, and private absolute paths. Do not
    commit local-only notes or `results/local_*` bundles.
-8. Push the release commit, then create an annotated tag and a GitHub Release that
+8. Run `layoutabi rc-status --check` and `layoutabi scan-release`. During 0.9/RC,
+   do not unfreeze the public API, pattern id, candidate implementation, or
+   schema versions, and do not claim unpublished GPU architectures.
+9. Push the release commit, then create an annotated tag and a GitHub Release that
    lists supported behavior, unsupported cases, and any schema or API migration.

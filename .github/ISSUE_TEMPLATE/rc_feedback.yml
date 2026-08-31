@@ -1,0 +1,30 @@
+name: Release-candidate report
+description: Report a crash, incorrect rewrite, regression, or unexpected no-op during the v1.0 RC
+title: "[RC] "
+labels: ["rc"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Crash
+        - Incorrect rewrite
+        - Regression
+        - Unexpected no-op / unsupported graph
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Paste redacted output from `layoutabi check` or `layoutabi supported`.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened
+      description: Include the graph, policy, decision, and whether the original module was kept.
+    validations:
+      required: true

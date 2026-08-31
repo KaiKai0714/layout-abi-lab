@@ -186,6 +186,8 @@ bad public arguments raise `InvalidArgumentError`.
 
 ```bash
 layoutabi supported
+layoutabi rc-status --check
+layoutabi scan-release
 layoutabi inspect-model --resolution 128
 layoutabi inspect-model --workload efficient_attention --resolution 128
 layoutabi optimize-model --workload scaled_dot_product --resolution 16 --policy repair_kv
@@ -208,7 +210,10 @@ Scripts under `examples/` show the same CPU and CUDA paths.
   of the complete upstream application.
 - A module-level speedup is not a full diffusion-model speedup.
 
-See [Scientific claims and boundaries](docs/CLAIMS_AND_LIMITATIONS.md) before citing
+Version 0.9.0 is a release candidate: the public API and the single supported
+pattern are frozen. A second GPU architecture (including Orin) is not claimed.
+See [Release candidate](docs/RC.md) and
+[Scientific claims and boundaries](docs/CLAIMS_AND_LIMITATIONS.md) before citing
 the results.
 
 ## License and citation

@@ -17,7 +17,7 @@ After a dependency-free install, these commands do not import PyTorch:
 
 `supported`, `list-workloads`, `validate`, `validate-tree`, `aggregate`,
 `prepare-submission`, `migrate-schema`, `evaluate-planner`, `cache-info`,
-and `cache-clear`.
+`cache-clear`, `rc-status`, and `scan-release`.
 
 `layoutabi check` and the reproduce/optimizer commands import PyTorch when
 invoked. Result JSON Schema validation and index generation are CPU-only.

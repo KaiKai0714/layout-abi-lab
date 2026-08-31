@@ -63,3 +63,9 @@ diagnostics JSON Schema. Capture goes through `layoutabi/optimizer/adapters/`
 so `torch.export` or FX failures cannot break `import layoutabi`. See
 `docs/SUPPORTED.md`. The package still does not depend on a PyTorch wheel.
 
+Version 0.9 is the release candidate: that surface, the pattern identifier, the
+candidate implementation hash, and the document schemas are frozen. Remaining
+v1.0 gates (a second GPU architecture, including Orin) are listed by
+`layoutabi rc-status` and in `docs/RC.md`. They are not filled in with
+unpublished measurements.
+

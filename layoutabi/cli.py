@@ -207,6 +207,27 @@ def build_parser() -> argparse.ArgumentParser:
     supported_parser.add_argument("--dtype")
     supported_parser.add_argument("--workload")
 
+    rc_parser = subparsers.add_parser(
+        "rc-status",
+        help="Print the release-candidate freeze and remaining v1.0 gates",
+    )
+    rc_parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Exit non-zero if the live API/schema/pattern freeze drifted",
+    )
+
+    scan_parser = subparsers.add_parser(
+        "scan-release",
+        help="Scan git-tracked files for secrets, private paths, and license gaps",
+    )
+    scan_parser.add_argument(
+        "--root",
+        type=Path,
+        default=None,
+        help="Repository root (default: the package parent directory)",
+    )
+
     return parser
 
 
@@ -340,6 +361,25 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(render_markdown(report))
         print(json.dumps(report, indent=2, default=str))
+        return 0
+
+    if args.command == "rc-status":
+        from .freeze import rc_status
+
+        payload = rc_status()
+        print(json.dumps(payload, indent=2))
+        if args.check and not payload.get("freeze_ok"):
+            return 1
+        return 0
+
+    if args.command == "scan-release":
+        from .scan import format_findings, scan_release
+
+        findings = scan_release(args.root)
+        if findings:
+            print(format_findings(findings), file=sys.stderr)
+            return 1
+        print("Release scan clean")
         return 0
 
     if args.command == "supported":
