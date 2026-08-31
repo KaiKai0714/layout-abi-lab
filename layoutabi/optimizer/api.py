@@ -8,6 +8,7 @@ from typing import Any
 
 from torch import nn
 
+from ..errors import InvalidArgumentError, MissingPyTorchError
 from .autotune import autotune, run_canary
 from .cache import cache_identity, load_entry, make_cache_key, store_entry
 from .candidates import build_candidates
@@ -31,10 +32,7 @@ def _require_torch() -> Any:
     try:
         import torch
     except ImportError as exc:
-        raise RuntimeError(
-            "layoutabi.optimize requires PyTorch. Install a CUDA-enabled build "
-            "appropriate for this GPU; this package does not install PyTorch."
-        ) from exc
+        raise MissingPyTorchError("layoutabi.optimize") from exc
     return torch
 
 
@@ -76,7 +74,12 @@ def _inspect_impl(model: nn.Module, example_inputs: Any) -> dict[str, Any]:
 
 
 def inspect(model: nn.Module, example_inputs: Any) -> dict[str, Any]:
-    """Capture and match without rewriting. Unsupported graphs stay inspectable."""
+    """Capture and match without rewriting.
+
+    Returns a diagnostics dict with schema ``layoutabi_optimizer_diagnostics_v1``.
+    Unsupported graphs stay inspectable; capture failures are recorded rather
+    than raised.
+    """
 
     _require_torch()
     try:
@@ -99,17 +102,21 @@ def optimize(
     unseen_shape: str = "direct",
     allow_sync_autotune: bool = True,
 ) -> OptimizeResult:
-    """Rewrite a supported inference graph or return the original module."""
+    """Rewrite a supported inference graph or return the original module.
+
+    Unknown ``policy``, ``shape_mode``, or ``unseen_shape`` values raise
+    ``InvalidArgumentError``. Every other failure keeps ``model`` unchanged.
+    """
 
     _require_torch()
     if policy not in SUPPORTED_POLICIES:
-        raise ValueError(
+        raise InvalidArgumentError(
             f"Unknown policy {policy!r}; expected one of {SUPPORTED_POLICIES}"
         )
     if shape_mode not in {"exact", "bucket"}:
-        raise ValueError("shape_mode must be 'exact' or 'bucket'")
+        raise InvalidArgumentError("shape_mode must be 'exact' or 'bucket'")
     if unseen_shape not in {"direct", "noop", "autotune"}:
-        raise ValueError("unseen_shape must be 'direct', 'noop', or 'autotune'")
+        raise InvalidArgumentError("unseen_shape must be 'direct', 'noop', or 'autotune'")
     diagnostics = empty_diagnostics(framework=framework_fingerprint(), policy=policy)
     try:
         return _optimize_inner(

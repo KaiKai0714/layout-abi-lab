@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Layout ABI optimizer diagnostics",
+  "type": "object",
+  "required": ["schema", "schema_version", "pattern_id", "decision", "reason"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "layoutabi_optimizer_diagnostics_v1" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "pattern_id": { "type": "string", "minLength": 1 },
+    "candidate_impl": { "type": ["string", "null"] },
+    "capture_method": { "type": ["string", "null"] },
+    "original_fingerprint": { "type": ["string", "null"] },
+    "rewrite_fingerprint": { "type": ["string", "null"] },
+    "matches": { "type": "array" },
+    "rejections": { "type": "array" },
+    "guard_problems": { "type": "array" },
+    "candidate_correctness": { "type": "object" },
+    "autotune": { "type": ["object", "null"] },
+    "cache": { "type": "object" },
+    "decision": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string", "minLength": 1 },
+    "framework": { "type": "object" },
+    "policy": { "type": "string" },
+    "error": { "type": "string" },
+    "timings_ms": { "type": "object" },
+    "break_even_invocations": { "type": ["integer", "null"] },
+    "planner": { "type": ["object", "null"] },
+    "compile": { "type": "object" },
+    "capture_notes": { "type": "array" }
+  }
+}

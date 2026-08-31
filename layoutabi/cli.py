@@ -200,6 +200,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     cache_clear_parser.add_argument("--cache-dir", type=Path, required=True)
 
+    supported_parser = subparsers.add_parser(
+        "supported",
+        help="Print the declared support matrix without loading PyTorch",
+    )
+    supported_parser.add_argument("--dtype")
+    supported_parser.add_argument("--workload")
+
     return parser
 
 
@@ -335,6 +342,18 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(report, indent=2, default=str))
         return 0
 
+    if args.command == "supported":
+        from .errors import InvalidArgumentError
+        from .supported import supported
+
+        try:
+            payload = supported(dtype=args.dtype, workload=args.workload)
+        except InvalidArgumentError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        print(json.dumps(payload, indent=2))
+        return 0
+
     if args.command == "list-workloads":
         from .workloads import list_workloads, synthetic_cells
 
@@ -359,11 +378,14 @@ def main(argv: list[str] | None = None) -> int:
             print(str(exc), file=sys.stderr)
             return 1
         if args.command == "inspect-model":
+            from .explain import explain
             from .optimizer.api import inspect as inspect_model
 
             payload = inspect_model(model, example_inputs)
             print(json.dumps(payload, indent=2, default=str))
+            print(explain(payload))
             return 0 if payload.get("matches") else 2
+        from .explain import explain
         from .optimizer.api import optimize as optimize_model
 
         result = optimize_model(
@@ -378,6 +400,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(json.dumps(result.diagnostics, indent=2, default=str))
         print(f"decision: {result.decision}")
+        print(explain(result))
         return 0 if result.decision != "noop" else 2
 
     if args.command == "audit-compile":
@@ -424,10 +447,9 @@ def _bundled_module(
 
         from .workloads import make_workload
     except ImportError as exc:
-        raise RuntimeError(
-            "This command requires PyTorch. Install a CUDA-enabled build appropriate "
-            "for this GPU; this package does not install PyTorch."
-        ) from exc
+        from .errors import MissingPyTorchError
+
+        raise MissingPyTorchError("layoutabi inspect-model/optimize-model") from exc
     if device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA was requested but is not available")
     return make_workload(

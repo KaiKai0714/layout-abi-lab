@@ -67,6 +67,13 @@
 - Latency-critical processes can disable synchronous autotune.
 - Cold-start timings and break-even invocation counts in diagnostics.
 
+## 0.8.0: Stable package and API
+
+- Public `optimize` / `inspect` / `clear_cache` / `explain` / `supported`.
+- Structured exceptions and a versioned diagnostics schema.
+- FX/`torch.export` adapters isolated from package import.
+- Install without forcing a PyTorch wheel; documented support matrix.
+
 ## 1.0: Compiler-quality evaluation
 
 - Held-out shape and device evaluation against a two-action oracle.

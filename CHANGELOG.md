@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.8.0
+
+- Frozen public API: `layoutabi.optimize`, `inspect`, `clear_cache`, `explain`,
+  and `supported`, plus structured exceptions (`LayoutABIError`,
+  `MissingPyTorchError`, `InvalidArgumentError`).
+- Optimizer diagnostics use schema `layoutabi_optimizer_diagnostics_v1`.
+- FX and `torch.export` capture live behind versioned adapters so a private
+  framework failure cannot break `import layoutabi`.
+- `layoutabi supported` prints the declared PyTorch/CUDA matrix. The package
+  still does not install a PyTorch wheel; CPU result tools work without one.
+- Added `examples/` scripts and [docs/SUPPORTED.md](docs/SUPPORTED.md).
+
 ## 0.7.0
 
 - Hardened the optimizer decision cache: process lock, atomic replace, cache

@@ -57,3 +57,9 @@ Version 0.7 persists those decisions in a locked cache, buckets shapes explicitl
 and refuses unverified repair on unseen sizes or when synchronous autotune is
 disabled. See `docs/RUNTIME.md`.
 
+Version 0.8 freezes the public package surface: `optimize`, `inspect`,
+`clear_cache`, `explain`, and `supported`, with structured exceptions and a
+diagnostics JSON Schema. Capture goes through `layoutabi/optimizer/adapters/`
+so `torch.export` or FX failures cannot break `import layoutabi`. See
+`docs/SUPPORTED.md`. The package still does not depend on a PyTorch wheel.
+

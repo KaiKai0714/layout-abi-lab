@@ -5,7 +5,9 @@ from __future__ import annotations
 import unittest
 
 from layoutabi.schema import (
+    DIAGNOSTICS_SCHEMA,
     ENVIRONMENT_SCHEMA,
+    load_json_schema,
     migrate_document,
     normalize_document,
     validate_schema_instance,
@@ -43,6 +45,21 @@ class SchemaTest(unittest.TestCase):
                 {"schema": ENVIRONMENT_SCHEMA, "schema_version": 99},
                 ENVIRONMENT_SCHEMA,
             )
+
+    def test_diagnostics_schema_rejects_wrong_name(self) -> None:
+        schema = load_json_schema(DIAGNOSTICS_SCHEMA)
+        self.assertEqual(schema["properties"]["schema"]["const"], DIAGNOSTICS_SCHEMA)
+        problems = validate_schema_instance(
+            {
+                "schema": DIAGNOSTICS_SCHEMA,
+                "schema_version": 1,
+                "pattern_id": "linear_attention_ktv_v1",
+                "decision": "noop",
+                "reason": "unsupported",
+            },
+            schema,
+        )
+        self.assertEqual(problems, [])
 
     def test_wrong_schema_name_is_mismatch(self) -> None:
         migrated, problems = normalize_document(

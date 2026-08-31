@@ -39,7 +39,7 @@ versions, CUDA software stacks, data types, shapes, and graph contexts.
   forward schema migration.
 - A `prepare-submission` command that copies a local bundle, recomputes checksums, and
   reports possible private metadata without uploading.
-- An experimental `layoutabi.optimize()` API that captures a public FX graph, matches
+- A stable `layoutabi.optimize()` API that captures a public FX graph, matches
   the frozen LinearAttention KTV pattern, and conservatively chooses direct or repair.
 - A second independent public graph (Efficient Attention) and a public SDPA no-op
   control, plus synthetic shape/batch/dtype boundary cells.
@@ -47,10 +47,11 @@ versions, CUDA software stacks, data types, shapes, and graph contexts.
   kernel names so compiled kernel-family claims are not inferred from timing.
 - A container matrix runner for testing multiple pinned software stacks.
 
-The repository does **not** contain a general TorchInductor pass. Version 0.3 adds an
-experimental external optimizer for one frozen LinearAttention pattern. Version 0.4
-adds a compiled mechanism audit so kernel-family claims come from graphs and profiler
-names, not from timing. See [Pattern contract](docs/PATTERN_CONTRACT.md),
+The repository does **not** contain a general TorchInductor pass. The optimizer
+covers one frozen LinearAttention pattern. Version 0.4 adds a compiled mechanism
+audit so kernel-family claims come from graphs and profiler names, not from timing.
+See [Pattern contract](docs/PATTERN_CONTRACT.md),
+[Support matrix](docs/SUPPORTED.md),
 [Compiled audit](docs/COMPILE_AUDIT.md), and [Roadmap](docs/ROADMAP.md).
 
 The generated [result index](RESULTS_INDEX.md) summarizes all checksum-validated
@@ -66,7 +67,8 @@ reference and accepted community bundles. Its JSON counterpart is `results/index
 
 Install PyTorch using the method appropriate for the target GPU first. This project
 does not declare PyTorch as a package dependency because an automatic `pip` choice can
-silently install an incompatible CUDA build.
+silently install an incompatible CUDA build. CPU result tools and
+`layoutabi supported` work without PyTorch.
 
 ## Quick start
 
@@ -159,24 +161,31 @@ layoutabi aggregate
 Continuous integration runs `layoutabi aggregate --check` so stale or manually edited
 indexes cannot be merged.
 
-## Experimental optimizer
+## Optimizer API
 
 ```python
 import torch
-from layoutabi import optimize
+from layoutabi import explain, inspect, optimize, supported
 from layoutabi.workload import PublicDiffusionLinearAttention
+
+print(supported()["pattern_id"])
 
 model = PublicDiffusionLinearAttention().eval().half().cuda()
 x = torch.randn(1, 64, 128, 128, device="cuda", dtype=torch.float16)
+print(explain(inspect(model, (x,))))
 result = optimize(model, (x,), policy="autotune")
+print(explain(result))
 compiled = torch.compile(result.module)
 ```
 
-`policy` may be `off`, `direct`, `repair_k`, `repair_kv`, or `autotune`. Autotune
-measures full-module CUDA-event latency and caches the decision. If the graph is not
-supported, guards fail, or a candidate is incorrect, the original module is returned.
+`policy` may be `off`, `direct`, `repair_k`, `repair_kv`, `autotune`, `n_mod_8`,
+or `cost_model`. Autotune measures full-module CUDA-event latency and caches the
+decision. If the graph is not supported, guards fail, or a candidate is incorrect,
+the original module is returned. Missing PyTorch raises `MissingPyTorchError`;
+bad public arguments raise `InvalidArgumentError`.
 
 ```bash
+layoutabi supported
 layoutabi inspect-model --resolution 128
 layoutabi inspect-model --workload efficient_attention --resolution 128
 layoutabi optimize-model --workload scaled_dot_product --resolution 16 --policy repair_kv
@@ -184,6 +193,8 @@ layoutabi evaluate-planner
 layoutabi cache-info --cache-dir .cache/layoutabi
 layoutabi audit-compile --output results/local_compile_audit
 ```
+
+Scripts under `examples/` show the same CPU and CUDA paths.
 
 ## Scope and limitations
 

@@ -27,6 +27,9 @@ jobs:
       - run: layoutabi evaluate-planner
       - run: layoutabi cache-info --help
       - run: layoutabi cache-clear --help
+      - run: layoutabi supported --help
+      - run: layoutabi supported
+      - run: python examples/print_supported.py
       - run: python containers/run_matrix.py --help
       - run: python -m unittest discover -s tests -v
       - run: layoutabi validate-tree results/reference_l40s --strict

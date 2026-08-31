@@ -9,6 +9,7 @@ import torch
 from torch import nn
 from torch.fx import GraphModule
 
+from .adapters import try_export, try_symbolic_trace
 from .fxutil import graph_fingerprint
 
 
@@ -43,29 +44,12 @@ def _run_shape_prop(graph_module: GraphModule, example_inputs: tuple[Any, ...]) 
         return
 
 
-def _symbolic_trace(model: nn.Module, example_inputs: tuple[Any, ...]) -> GraphModule:
-    graph_module = torch.fx.symbolic_trace(model)
-    graph_module.eval()
-    with torch.no_grad():
-        graph_module(*example_inputs)
-    return graph_module
-
-
-def _export(model: nn.Module, example_inputs: tuple[Any, ...]) -> GraphModule:
-    exported = torch.export.export(model, example_inputs)
-    graph_module = exported.module()
-    graph_module.eval()
-    with torch.no_grad():
-        graph_module(*example_inputs)
-    return graph_module
-
-
 def capture_graph(model: nn.Module, example_inputs: tuple[Any, ...]) -> CaptureResult:
     """Return a runnable GraphModule. Prefer FX trace for rewrite stability."""
 
     notes: list[str] = []
     try:
-        graph_module = _symbolic_trace(model, example_inputs)
+        graph_module = try_symbolic_trace(model, example_inputs)
         _run_shape_prop(graph_module, example_inputs)
         return CaptureResult(
             graph_module=graph_module,
@@ -76,10 +60,8 @@ def capture_graph(model: nn.Module, example_inputs: tuple[Any, ...]) -> CaptureR
     except Exception as exc:
         notes.append(f"symbolic_trace: {type(exc).__name__}: {exc}")
 
-    if not hasattr(torch, "export"):
-        raise CaptureError("; ".join(notes) if notes else "No public capture API succeeded")
     try:
-        graph_module = _export(model, example_inputs)
+        graph_module = try_export(model, example_inputs)
         _run_shape_prop(graph_module, example_inputs)
         notes.append("fell back to torch.export")
         return CaptureResult(

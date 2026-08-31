@@ -4,11 +4,16 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..schema import DIAGNOSTICS_SCHEMA, current_version
 from .pattern import CANDIDATE_IMPL_HASH, PATTERN_ID
+
+DIAGNOSTICS_SCHEMA_VERSION = current_version(DIAGNOSTICS_SCHEMA)
 
 
 def empty_diagnostics(**fields: Any) -> dict[str, Any]:
     payload = {
+        "schema": DIAGNOSTICS_SCHEMA,
+        "schema_version": DIAGNOSTICS_SCHEMA_VERSION,
         "pattern_id": PATTERN_ID,
         "candidate_impl": CANDIDATE_IMPL_HASH,
         "capture_method": None,
@@ -25,7 +30,18 @@ def empty_diagnostics(**fields: Any) -> dict[str, Any]:
         "framework": {},
     }
     payload.update(fields)
+    payload["schema"] = DIAGNOSTICS_SCHEMA
+    payload["schema_version"] = DIAGNOSTICS_SCHEMA_VERSION
     return payload
+
+
+def validate_diagnostics(payload: dict[str, Any]) -> list[str]:
+    """JSON-Schema-validate a public diagnostics object."""
+
+    from ..schema import normalize_document
+
+    _migrated, problems = normalize_document(payload, DIAGNOSTICS_SCHEMA)
+    return problems
 
 
 def framework_fingerprint() -> dict[str, Any]:
