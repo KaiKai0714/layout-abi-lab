@@ -60,6 +60,13 @@
 - `layoutabi evaluate-planner` scores those rules on published community/reference
   oracles so new environments can test whether `N % 8` holds.
 
+## 0.7.0: Runtime cache and shape contract
+
+- Locked, versioned decision cache with corruption recovery.
+- Explicit shape buckets; unseen shapes do not take an unverified repair.
+- Latency-critical processes can disable synchronous autotune.
+- Cold-start timings and break-even invocation counts in diagnostics.
+
 ## 1.0: Compiler-quality evaluation
 
 - Held-out shape and device evaluation against a two-action oracle.

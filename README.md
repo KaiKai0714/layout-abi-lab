@@ -181,6 +181,7 @@ layoutabi inspect-model --resolution 128
 layoutabi inspect-model --workload efficient_attention --resolution 128
 layoutabi optimize-model --workload scaled_dot_product --resolution 16 --policy repair_kv
 layoutabi evaluate-planner
+layoutabi cache-info --cache-dir .cache/layoutabi
 layoutabi audit-compile --output results/local_compile_audit
 ```
 

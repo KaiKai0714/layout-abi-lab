@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.7.0
+
+- Hardened the optimizer decision cache: process lock, atomic replace, cache
+  protocol v2, corrupt-file recovery, and a human-readable `DIAGNOSTICS.md`.
+- Cache keys now include bucketed or exact shapes, strides, pointer class, GPU
+  UUID/CC, and software-stack fields so a stack change cannot reuse old decisions.
+- Unseen sizes outside published buckets, and latency-critical runs with
+  `--no-sync-autotune`, never apply an unverified repair.
+- Diagnostics report capture/autotune/compile timings and autotune break-even
+  invocations. CLI: `cache-info`, `cache-clear`.
+- Fixed argparse help for `evaluate-planner` (`N % 8` broke `layoutabi --help`).
+
 ## 0.6.0
 
 - Added planner baselines `always_direct`, `always_repair_kv`, `n_mod_8`, and

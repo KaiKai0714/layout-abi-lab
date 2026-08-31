@@ -95,6 +95,9 @@ def optimize(
     policy: str = "autotune",
     compile: bool = False,
     cache_dir: str | Path | None = None,
+    shape_mode: str = "exact",
+    unseen_shape: str = "direct",
+    allow_sync_autotune: bool = True,
 ) -> OptimizeResult:
     """Rewrite a supported inference graph or return the original module."""
 
@@ -103,6 +106,10 @@ def optimize(
         raise ValueError(
             f"Unknown policy {policy!r}; expected one of {SUPPORTED_POLICIES}"
         )
+    if shape_mode not in {"exact", "bucket"}:
+        raise ValueError("shape_mode must be 'exact' or 'bucket'")
+    if unseen_shape not in {"direct", "noop", "autotune"}:
+        raise ValueError("unseen_shape must be 'direct', 'noop', or 'autotune'")
     diagnostics = empty_diagnostics(framework=framework_fingerprint(), policy=policy)
     try:
         return _optimize_inner(
@@ -112,6 +119,9 @@ def optimize(
             compile=compile,
             cache_dir=Path(cache_dir) if cache_dir is not None else None,
             diagnostics=diagnostics,
+            shape_mode=shape_mode,
+            unseen_shape=unseen_shape,
+            allow_sync_autotune=allow_sync_autotune,
         )
     except Exception as exc:
         diagnostics["decision"] = "noop"
@@ -128,9 +138,21 @@ def _optimize_inner(
     compile: bool,
     cache_dir: Path | None,
     diagnostics: dict[str, Any],
+    shape_mode: str = "exact",
+    unseen_shape: str = "direct",
+    allow_sync_autotune: bool = True,
 ) -> OptimizeResult:
+    import time
+
+    started = time.perf_counter()
     inspected = _inspect_impl(original, example_inputs)
     diagnostics.update(_public_diagnostics(inspected))
+    diagnostics["timings_ms"] = {
+        "capture": (time.perf_counter() - started) * 1000.0,
+        "autotune": None,
+        "compile": None,
+        "steady_state": None,
+    }
     if policy == "off":
         diagnostics["decision"] = "off"
         diagnostics["reason"] = "user_policy"
@@ -153,6 +175,7 @@ def _optimize_inner(
         graph_fingerprint=captured.fingerprint,
         example_inputs=inputs,
         torch_info=diagnostics.get("framework", {}),
+        shape_mode=shape_mode,
     )
     cache_key = make_cache_key(identity)
     diagnostics["cache"] = {
@@ -160,7 +183,17 @@ def _optimize_inner(
         "hit": False,
         "miss": True,
         "identity": identity,
+        "shape_mode": shape_mode,
     }
+    if shape_mode == "bucket" and not identity.get("shape_in_range"):
+        diagnostics["decision"] = "noop" if unseen_shape == "noop" else "direct"
+        diagnostics["reason"] = "unseen_shape"
+        if unseen_shape == "noop":
+            return OptimizeResult(module=original, decision="noop", diagnostics=diagnostics)
+        if unseen_shape != "autotune":
+            return _finish(
+                original, "direct", diagnostics, compile=compile, inputs=inputs
+            )
 
     selected_policy = policy
     diagnostics["planner"] = None
@@ -186,6 +219,14 @@ def _optimize_inner(
             diagnostics["cache"]["hit"] = True
             diagnostics["cache"]["miss"] = False
             diagnostics["reason"] = "cache_hit"
+
+    if selected_policy == "autotune" and not allow_sync_autotune:
+        fallback = "noop" if unseen_shape == "noop" else "direct"
+        diagnostics["reason"] = "sync_autotune_disabled"
+        diagnostics["decision"] = fallback
+        if fallback == "noop":
+            return OptimizeResult(module=original, decision="noop", diagnostics=diagnostics)
+        selected_policy = "direct"
 
     if selected_policy == "autotune":
         cuda_problems = require_cuda(inputs)
@@ -214,7 +255,9 @@ def _optimize_inner(
         return OptimizeResult(module=original, decision="noop", diagnostics=diagnostics)
 
     if selected_policy == "autotune":
+        tune_started = time.perf_counter()
         tune = autotune(passing, inputs)
+        diagnostics["timings_ms"]["autotune"] = (time.perf_counter() - tune_started) * 1000.0
         diagnostics["autotune"] = {key: value for key, value in tune.items() if key != "selected"}
         selected = tune["selected"]
         if selected is None or selected not in passing:
@@ -222,10 +265,18 @@ def _optimize_inner(
             diagnostics["reason"] = "autotune_failed"
             return OptimizeResult(module=original, decision="noop", diagnostics=diagnostics)
         diagnostics["reason"] = "autotune_fastest"
+        diagnostics["break_even_invocations"] = _break_even_invocations(
+            diagnostics["timings_ms"].get("autotune"),
+            diagnostics["autotune"].get("latencies") or {},
+        )
         store_entry(
             cache_dir,
             cache_key,
-            {"decision": selected, "autotune": diagnostics["autotune"]},
+            {
+                "decision": selected,
+                "autotune": diagnostics["autotune"],
+                "identity": identity,
+            },
         )
     else:
         if selected_policy not in passing:
@@ -235,7 +286,7 @@ def _optimize_inner(
             )
             return OptimizeResult(module=original, decision="noop", diagnostics=diagnostics)
         selected = selected_policy
-        if not cache_hit and policy not in LIVE_PLANNER_POLICIES:
+        if not cache_hit and policy in REWRITE_POLICIES:
             diagnostics["reason"] = "user_policy"
 
     chosen = original if selected == "direct" else passing[selected]
@@ -246,6 +297,26 @@ def _optimize_inner(
     return _finish(chosen, selected, diagnostics, compile=compile, inputs=inputs)
 
 
+def _break_even_invocations(autotune_ms: float | None, latencies: dict[str, Any]) -> int | None:
+    if autotune_ms is None:
+        return None
+    medians = {
+        name: cell.get("median_ms")
+        for name, cell in latencies.items()
+        if isinstance(cell, dict) and isinstance(cell.get("median_ms"), (int, float))
+    }
+    direct = medians.get("direct")
+    if direct is None or not medians:
+        return None
+    best = min(medians.values())
+    savings = direct - best
+    if savings <= 0:
+        return None
+    import math
+
+    return int(math.ceil(autotune_ms / savings))
+
+
 def _finish(
     module: nn.Module,
     decision: str,
@@ -254,6 +325,8 @@ def _finish(
     compile: bool,
     inputs: tuple[Any, ...],
 ) -> OptimizeResult:
+    import time
+
     if not compile:
         return OptimizeResult(module=module, decision=decision, diagnostics=diagnostics)
     try:
@@ -265,10 +338,15 @@ def _finish(
                 "reason": "torch.compile unavailable",
             }
             return OptimizeResult(module=module, decision=decision, diagnostics=diagnostics)
+        compile_started = time.perf_counter()
         compiled = torch.compile(module)
         compiled.eval()
         with torch.no_grad():
             compiled(*inputs)
+        if diagnostics.get("timings_ms") is not None:
+            diagnostics["timings_ms"]["compile"] = (
+                time.perf_counter() - compile_started
+            ) * 1000.0
         diagnostics["compile"] = {"applied": True}
         return OptimizeResult(module=compiled, decision=decision, diagnostics=diagnostics)
     except Exception as exc:

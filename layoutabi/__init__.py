@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-__version__ = "0.6.0"
+__version__ = "0.7.0"
 
 
 def optimize(*args: Any, **kwargs: Any) -> Any:
@@ -30,4 +30,16 @@ def inspect(*args: Any, **kwargs: Any) -> Any:
             "layoutabi.inspect requires PyTorch. Install a CUDA-enabled build "
             "appropriate for this GPU; this package does not install PyTorch."
         ) from exc
+    return impl(*args, **kwargs)
+
+
+def cache_info(*args: Any, **kwargs: Any) -> Any:
+    from .optimizer.cache import cache_info as impl
+
+    return impl(*args, **kwargs)
+
+
+def clear_cache(*args: Any, **kwargs: Any) -> Any:
+    from .optimizer.cache import clear_cache as impl
+
     return impl(*args, **kwargs)

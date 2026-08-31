@@ -144,6 +144,22 @@ def build_parser() -> argparse.ArgumentParser:
     )
     optimize_parser.add_argument("--compile", action="store_true")
     optimize_parser.add_argument("--cache-dir", type=Path)
+    optimize_parser.add_argument(
+        "--shape-mode",
+        choices=("exact", "bucket"),
+        default="exact",
+    )
+    optimize_parser.add_argument(
+        "--unseen-shape",
+        choices=("direct", "noop", "autotune"),
+        default="direct",
+        help="Action for sizes outside the published shape buckets",
+    )
+    optimize_parser.add_argument(
+        "--no-sync-autotune",
+        action="store_true",
+        help="Never run synchronous autotune; use cache or the unseen-shape action",
+    )
 
     audit_parser = subparsers.add_parser(
         "audit-compile",
@@ -165,7 +181,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     planner_parser = subparsers.add_parser(
         "evaluate-planner",
-        help="Score N % 8 and other planner baselines against published result oracles",
+        help="Score N-mod-8 and other planner baselines against published result oracles",
     )
     planner_parser.add_argument("--results-root", type=Path, default=Path("results"))
     planner_parser.add_argument(
@@ -174,6 +190,15 @@ def build_parser() -> argparse.ArgumentParser:
         default=(128,),
         help="Resolutions treated as held-out shapes (default: 128)",
     )
+
+    cache_info_parser = subparsers.add_parser(
+        "cache-info", help="Print optimizer decision-cache status"
+    )
+    cache_info_parser.add_argument("--cache-dir", type=Path, required=True)
+    cache_clear_parser = subparsers.add_parser(
+        "cache-clear", help="Erase optimizer decision-cache entries"
+    )
+    cache_clear_parser.add_argument("--cache-dir", type=Path, required=True)
 
     return parser
 
@@ -285,6 +310,19 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{action} {directory}: {', '.join(migrated)}")
         return 0
 
+    if args.command == "cache-info":
+        from .optimizer.cache import cache_info
+
+        print(json.dumps(cache_info(args.cache_dir.resolve()), indent=2))
+        return 0
+
+    if args.command == "cache-clear":
+        from .optimizer.cache import clear_cache
+
+        clear_cache(args.cache_dir.resolve())
+        print(f"Cleared optimizer cache: {args.cache_dir.resolve()}")
+        return 0
+
     if args.command == "evaluate-planner":
         from .aggregation import build_index
         from .planner.evaluate import evaluate_index, render_markdown
@@ -334,6 +372,9 @@ def main(argv: list[str] | None = None) -> int:
             policy=args.policy,
             compile=args.compile,
             cache_dir=args.cache_dir,
+            shape_mode=args.shape_mode,
+            unseen_shape=args.unseen_shape,
+            allow_sync_autotune=not args.no_sync_autotune,
         )
         print(json.dumps(result.diagnostics, indent=2, default=str))
         print(f"decision: {result.decision}")

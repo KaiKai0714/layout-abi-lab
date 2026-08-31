@@ -53,3 +53,7 @@ Version 0.6 scores `N % 8` and a conservative cost model against published oracl
 New devices should run `layoutabi evaluate-planner` rather than assuming the L40S
 FP16 heuristic. See `docs/PLANNER.md`.
 
+Version 0.7 persists those decisions in a locked cache, buckets shapes explicitly,
+and refuses unverified repair on unseen sizes or when synchronous autotune is
+disabled. See `docs/RUNTIME.md`.
+

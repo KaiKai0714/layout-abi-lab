@@ -25,6 +25,8 @@ jobs:
       - run: layoutabi list-workloads
       - run: layoutabi evaluate-planner --help
       - run: layoutabi evaluate-planner
+      - run: layoutabi cache-info --help
+      - run: layoutabi cache-clear --help
       - run: python containers/run_matrix.py --help
       - run: python -m unittest discover -s tests -v
       - run: layoutabi validate-tree results/reference_l40s --strict
