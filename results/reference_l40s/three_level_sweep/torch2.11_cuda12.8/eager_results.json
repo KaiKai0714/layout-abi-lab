@@ -1,0 +1,2244 @@
+{
+  "schema": "layoutabi_eager_v1",
+  "schema_version": 1,
+  "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+  "device": {
+    "name": "NVIDIA L40S",
+    "compute_capability": "8.9",
+    "sm_count": 142
+  },
+  "software": {
+    "torch": "2.11.0+cu128",
+    "cuda_build": "12.8"
+  },
+  "measurement": {
+    "seeds": [
+      1701,
+      1702,
+      1703
+    ],
+    "cycles": 12,
+    "iterations_per_measurement": 12,
+    "order": "rotating all six policy permutations with distinct chain/module rotations"
+  },
+  "points": [
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 256,
+      "consumer_n": 65540,
+      "n_mod_8": 4,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.3835773468017578,
+              "mean_ms": 0.3834180037180583,
+              "min_ms": 0.38203732172648114,
+              "max_ms": 0.3845119873682658
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.46890532970428467,
+              "mean_ms": 0.46749088499281144,
+              "min_ms": 0.4633599917093913,
+              "max_ms": 0.47009865442911786
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3937279979387919,
+              "mean_ms": 0.3928813338279724,
+              "min_ms": 0.3898880084355672,
+              "max_ms": 0.3949226538340251
+            },
+            "direct_over_repair_kv": 0.9742191279508345
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6898746887842815,
+              "mean_ms": 0.6909924414422777,
+              "min_ms": 0.6890666484832764,
+              "max_ms": 0.6992213726043701
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.7163733641306559,
+              "mean_ms": 0.7166226704915365,
+              "min_ms": 0.7152640024820963,
+              "max_ms": 0.719701369603475
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.6302319963773091,
+              "mean_ms": 0.6303853359487321,
+              "min_ms": 0.6284773349761963,
+              "max_ms": 0.6335066556930542
+            },
+            "direct_over_repair_kv": 1.0946360907567525
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.36956401666005456,
+              "mean_ms": 0.3694668942027622,
+              "min_ms": 0.36825064818064374,
+              "max_ms": 0.3704559803009033
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.47710667053858435,
+              "mean_ms": 0.4757915602789985,
+              "min_ms": 0.47152801354726154,
+              "max_ms": 0.4788666566212972
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3991533319155375,
+              "mean_ms": 0.3984651068846385,
+              "min_ms": 0.395143985748291,
+              "max_ms": 0.40119465192159015
+            },
+            "direct_over_repair_kv": 0.9258698026808801
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6612866520881653,
+              "mean_ms": 0.6628571020232307,
+              "min_ms": 0.6595840056737264,
+              "max_ms": 0.670250654220581
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6856640179951985,
+              "mean_ms": 0.6886644429630704,
+              "min_ms": 0.6841599941253662,
+              "max_ms": 0.7025813261667887
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5995173255602518,
+              "mean_ms": 0.6012382242414687,
+              "min_ms": 0.5983866850535074,
+              "max_ms": 0.6086933215459188
+            },
+            "direct_over_repair_kv": 1.103031762210024
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.3799759944279989,
+              "mean_ms": 0.38021599584155613,
+              "min_ms": 0.37904266516367596,
+              "max_ms": 0.381656010945638
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.4757400155067444,
+              "mean_ms": 0.47442511717478436,
+              "min_ms": 0.47064801057179767,
+              "max_ms": 0.47699999809265137
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.39926399787267053,
+              "mean_ms": 0.3983186615837945,
+              "min_ms": 0.3948773145675659,
+              "max_ms": 0.40278398990631104
+            },
+            "direct_over_repair_kv": 0.9516911027604779
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6583733359972636,
+              "mean_ms": 0.6607022219234042,
+              "min_ms": 0.6567733287811279,
+              "max_ms": 0.6734346548716227
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6851973136266072,
+              "mean_ms": 0.6866884496476915,
+              "min_ms": 0.6839866638183594,
+              "max_ms": 0.6906373500823975
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5932719906171163,
+              "mean_ms": 0.5951322217782339,
+              "min_ms": 0.5929786761601766,
+              "max_ms": 0.599173347155253
+            },
+            "direct_over_repair_kv": 1.1097327135104245
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.3799759944279989,
+            "mean_ms": 0.3777002979207922,
+            "min_ms": 0.36825064818064374,
+            "max_ms": 0.3845119873682658
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.47198800245920813,
+            "mean_ms": 0.47256918748219806,
+            "min_ms": 0.4633599917093913,
+            "max_ms": 0.4788666566212972
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.39538266261418664,
+            "mean_ms": 0.3965550340988018,
+            "min_ms": 0.3898880084355672,
+            "max_ms": 0.40278398990631104
+          },
+          "direct_over_repair_kv": 0.9610335261431998,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.9742191279508345,
+            0.9258698026808801,
+            0.9516911027604779
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.6636120080947876,
+            "mean_ms": 0.6715172551296376,
+            "min_ms": 0.6567733287811279,
+            "max_ms": 0.6992213726043701
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.6905920108159382,
+            "mean_ms": 0.6973251877007661,
+            "min_ms": 0.6839866638183594,
+            "max_ms": 0.719701369603475
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.5995173255602518,
+            "mean_ms": 0.6089185939894782,
+            "min_ms": 0.5929786761601766,
+            "max_ms": 0.6335066556930542
+          },
+          "direct_over_repair_kv": 1.1069104758142543,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.0946360907567525,
+            1.103031762210024,
+            1.1097327135104245
+          ]
+        }
+      },
+      "ktv_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      },
+      "module_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+            "ampere_fp16_s1688gemm_fp16_128x128_ldg8_f2f_stages_32x1_nn",
+            "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 128, 1, 8>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+            "void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8>(cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8::Params)",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+            "ampere_fp16_s1688gemm_fp16_128x128_ldg8_f2f_stages_32x1_nn",
+            "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 128, 1, 8>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8>(cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x64_32x6_nn_align8::Params)",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      }
+    },
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 255,
+      "consumer_n": 65029,
+      "n_mod_8": 5,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6090399821599325,
+              "mean_ms": 0.6069146593411764,
+              "min_ms": 0.6017333269119263,
+              "max_ms": 0.6097999811172485
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6957199970881145,
+              "mean_ms": 0.6929788920614455,
+              "min_ms": 0.6859172979990641,
+              "max_ms": 0.6970720291137695
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3641853332519531,
+              "mean_ms": 0.36561844415134853,
+              "min_ms": 0.3636853297551473,
+              "max_ms": 0.3689279953638713
+            },
+            "direct_over_repair_kv": 1.672335282482621
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.7515973250071207,
+              "mean_ms": 0.7524595393074883,
+              "min_ms": 0.7505066394805908,
+              "max_ms": 0.7559653123219808
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.8114680051803589,
+              "mean_ms": 0.8123839961157905,
+              "min_ms": 0.8090746402740479,
+              "max_ms": 0.8168826897939047
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5331173340479534,
+              "mean_ms": 0.53343622552024,
+              "min_ms": 0.5313920180002848,
+              "max_ms": 0.5357919931411743
+            },
+            "direct_over_repair_kv": 1.409815957962296
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6212826569875081,
+              "mean_ms": 0.6196284459696876,
+              "min_ms": 0.6154586474100748,
+              "max_ms": 0.6222293376922607
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.7009706894556682,
+              "mean_ms": 0.6989313364028931,
+              "min_ms": 0.6929519971211752,
+              "max_ms": 0.702618678410848
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.36067465941111243,
+              "mean_ms": 0.3621411124865214,
+              "min_ms": 0.3601280053456624,
+              "max_ms": 0.3656586805979411
+            },
+            "direct_over_repair_kv": 1.7225569936127492
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.7494813203811646,
+              "mean_ms": 0.7499646610683866,
+              "min_ms": 0.7480053106943766,
+              "max_ms": 0.7544453144073486
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.8105453252792358,
+              "mean_ms": 0.8111615512106154,
+              "min_ms": 0.8089253107706705,
+              "max_ms": 0.8148880004882812
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5458679993947346,
+              "mean_ms": 0.5465724435117509,
+              "min_ms": 0.5449653466542562,
+              "max_ms": 0.5493679841359457
+            },
+            "direct_over_repair_kv": 1.3730083485608224
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.6097986698150635,
+              "mean_ms": 0.6076128880182902,
+              "min_ms": 0.6023093461990356,
+              "max_ms": 0.6107360124588013
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.6663106679916382,
+              "mean_ms": 0.6633684403366513,
+              "min_ms": 0.6536293427149454,
+              "max_ms": 0.6690959930419922
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.36401865879694617,
+              "mean_ms": 0.3654919962088267,
+              "min_ms": 0.3635280132293701,
+              "max_ms": 0.36933334668477374
+            },
+            "direct_over_repair_kv": 1.6751852002048506
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.7366693417231243,
+              "mean_ms": 0.7370555599530538,
+              "min_ms": 0.7348399957021078,
+              "max_ms": 0.7395226955413818
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.8009373346964518,
+              "mean_ms": 0.801328440507253,
+              "min_ms": 0.7994639873504639,
+              "max_ms": 0.803447961807251
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5465546647707621,
+              "mean_ms": 0.5466319951746199,
+              "min_ms": 0.5441973209381104,
+              "max_ms": 0.5489466587702433
+            },
+            "direct_over_repair_kv": 1.347842016922682
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.6099133292833965,
+            "mean_ms": 0.611385331109718,
+            "min_ms": 0.6017333269119263,
+            "max_ms": 0.6222293376922607
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.6935106515884399,
+            "mean_ms": 0.6850928896003299,
+            "min_ms": 0.6536293427149454,
+            "max_ms": 0.702618678410848
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.36395466327667236,
+            "mean_ms": 0.36441718428223224,
+            "min_ms": 0.3601280053456624,
+            "max_ms": 0.36933334668477374
+          },
+          "direct_over_repair_kv": 1.6757947921105503,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.672335282482621,
+            1.7225569936127492,
+            1.6751852002048506
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.7494813203811646,
+            "mean_ms": 0.7464932534429762,
+            "min_ms": 0.7348399957021078,
+            "max_ms": 0.7559653123219808
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.8099120060602825,
+            "mean_ms": 0.8082913292778863,
+            "min_ms": 0.7994639873504639,
+            "max_ms": 0.8168826897939047
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.5456253290176392,
+            "mean_ms": 0.5422135547355369,
+            "min_ms": 0.5313920180002848,
+            "max_ms": 0.5493679841359457
+          },
+          "direct_over_repair_kv": 1.373619002861458,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.409815957962296,
+            1.3730083485608224,
+            1.347842016922682
+          ]
+        }
+      },
+      "ktv_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align1::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      },
+      "module_profiler": null
+    },
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 254,
+      "consumer_n": 64520,
+      "n_mod_8": 0,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.3474760055541992,
+              "mean_ms": 0.3461486730310652,
+              "min_ms": 0.3428026835123698,
+              "max_ms": 0.34813865025838214
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.345470666885376,
+              "mean_ms": 0.34409622020191616,
+              "min_ms": 0.34038933118184406,
+              "max_ms": 0.3462933301925659
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.35281866788864136,
+              "mean_ms": 0.3543248905075921,
+              "min_ms": 0.35229067007700604,
+              "max_ms": 0.3580586512883504
+            },
+            "direct_over_repair_kv": 0.9848572005375622
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.5645613471666973,
+              "mean_ms": 0.565294451183743,
+              "min_ms": 0.5629493395487467,
+              "max_ms": 0.5682346820831299
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.573357343673706,
+              "mean_ms": 0.5756157835324606,
+              "min_ms": 0.5723733504613241,
+              "max_ms": 0.5967973470687866
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5351639986038208,
+              "mean_ms": 0.5358448922634125,
+              "min_ms": 0.5343066851298014,
+              "max_ms": 0.5381493171056112
+            },
+            "direct_over_repair_kv": 1.05493147640643
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.3362239996592204,
+              "mean_ms": 0.3349042236804962,
+              "min_ms": 0.33104000488917035,
+              "max_ms": 0.3373226722081502
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.33932932217915857,
+              "mean_ms": 0.33826910456021625,
+              "min_ms": 0.33422664801279706,
+              "max_ms": 0.34089601039886475
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.35119201739629113,
+              "mean_ms": 0.3528475562731425,
+              "min_ms": 0.35071198145548504,
+              "max_ms": 0.3565146525700887
+            },
+            "direct_over_repair_kv": 0.9573793907730523
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.5446413358052572,
+              "mean_ms": 0.5449006623691983,
+              "min_ms": 0.5431813398996989,
+              "max_ms": 0.5481839974721273
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.5527626673380535,
+              "mean_ms": 0.5529522200425466,
+              "min_ms": 0.5512160062789917,
+              "max_ms": 0.5560213327407837
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.5360533396402996,
+              "mean_ms": 0.5360482268863254,
+              "min_ms": 0.5343493223190308,
+              "max_ms": 0.5379360119501749
+            },
+            "direct_over_repair_kv": 1.0160207866081392
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.3464199900627136,
+              "mean_ms": 0.3451128933164809,
+              "min_ms": 0.34146400292714435,
+              "max_ms": 0.347213347752889
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.3443053364753723,
+              "mean_ms": 0.3431253433227539,
+              "min_ms": 0.3394000132878621,
+              "max_ms": 0.34566934903462726
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.3520119984944662,
+              "mean_ms": 0.35347867012023926,
+              "min_ms": 0.3515626589457194,
+              "max_ms": 0.3571573495864868
+            },
+            "direct_over_repair_kv": 0.9841141539047839
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.5647120078404744,
+              "mean_ms": 0.5646191106902229,
+              "min_ms": 0.5636080106099447,
+              "max_ms": 0.5657066504160563
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.5723026593526205,
+              "mean_ms": 0.5728097756703695,
+              "min_ms": 0.571949323018392,
+              "max_ms": 0.5748533407847086
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.535428007443746,
+              "mean_ms": 0.5359748899936676,
+              "min_ms": 0.5345866680145264,
+              "max_ms": 0.5383173227310181
+            },
+            "direct_over_repair_kv": 1.0546926944231716
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.34301467736562097,
+            "mean_ms": 0.34205526334268077,
+            "min_ms": 0.33104000488917035,
+            "max_ms": 0.34813865025838214
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.3408786654472351,
+            "mean_ms": 0.3418302226949621,
+            "min_ms": 0.33422664801279706,
+            "max_ms": 0.3462933301925659
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.3523880044619242,
+            "mean_ms": 0.3535503723003246,
+            "min_ms": 0.35071198145548504,
+            "max_ms": 0.3580586512883504
+          },
+          "direct_over_repair_kv": 0.9734005500254875,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.9848572005375622,
+            0.9573793907730523,
+            0.9841141539047839
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.5642039974530537,
+            "mean_ms": 0.5582714080810547,
+            "min_ms": 0.5431813398996989,
+            "max_ms": 0.5682346820831299
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.5723026593526205,
+            "mean_ms": 0.5671259264151255,
+            "min_ms": 0.5512160062789917,
+            "max_ms": 0.5967973470687866
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.5354160070419312,
+            "mean_ms": 0.5359560030478018,
+            "min_ms": 0.5343066851298014,
+            "max_ms": 0.5383173227310181
+          },
+          "direct_over_repair_kv": 1.0537675191486533,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.05493147640643,
+            1.0160207866081392,
+            1.0546926944231716
+          ]
+        }
+      },
+      "ktv_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      },
+      "module_profiler": null
+    },
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 128,
+      "consumer_n": 16388,
+      "n_mod_8": 4,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.09444533288478851,
+              "mean_ms": 0.09474422203169929,
+              "min_ms": 0.09405866265296936,
+              "max_ms": 0.0965226689974467
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.10473866760730743,
+              "mean_ms": 0.10491711066828834,
+              "min_ms": 0.10428000489870708,
+              "max_ms": 0.10603466629981995
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.09041466812292735,
+              "mean_ms": 0.09058866649866104,
+              "min_ms": 0.08982132871945699,
+              "max_ms": 0.0918880005677541
+            },
+            "direct_over_repair_kv": 1.044579766154548
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.2438546617825826,
+              "mean_ms": 0.24439933233790928,
+              "min_ms": 0.23971466223398843,
+              "max_ms": 0.25194400548934937
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.25984800855318707,
+              "mean_ms": 0.2604217761092716,
+              "min_ms": 0.25703465938568115,
+              "max_ms": 0.26625333229700726
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.2703426678975423,
+              "mean_ms": 0.2706251127852334,
+              "min_ms": 0.2664960026741028,
+              "max_ms": 0.2775333325068156
+            },
+            "direct_over_repair_kv": 0.9020206232299282
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.09393333395322165,
+              "mean_ms": 0.09417355474498537,
+              "min_ms": 0.09384533762931824,
+              "max_ms": 0.09500799576441447
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.10436133046944937,
+              "mean_ms": 0.10451977699995041,
+              "min_ms": 0.10404800375302632,
+              "max_ms": 0.10507200161616008
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.0897679974635442,
+              "mean_ms": 0.08997044463952383,
+              "min_ms": 0.08939466873804729,
+              "max_ms": 0.09099466602007548
+            },
+            "direct_over_repair_kv": 1.0464011296605902
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.2403160035610199,
+              "mean_ms": 0.24174755646122825,
+              "min_ms": 0.2379066745440165,
+              "max_ms": 0.25386399030685425
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.255703995625178,
+              "mean_ms": 0.257280664311515,
+              "min_ms": 0.25330666700998944,
+              "max_ms": 0.2701759934425354
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.2681346635023753,
+              "mean_ms": 0.26959844595856136,
+              "min_ms": 0.26471734046936035,
+              "max_ms": 0.2749360005060832
+            },
+            "direct_over_repair_kv": 0.8962511613456163
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.09405333300431569,
+              "mean_ms": 0.09423666695753734,
+              "min_ms": 0.09388800462086995,
+              "max_ms": 0.09479999542236328
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.10434266924858093,
+              "mean_ms": 0.10462689068582323,
+              "min_ms": 0.10413333773612976,
+              "max_ms": 0.10560266176859538
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.08988266686598459,
+              "mean_ms": 0.08982733305957583,
+              "min_ms": 0.08919999996821086,
+              "max_ms": 0.09041066964467366
+            },
+            "direct_over_repair_kv": 1.0464012282206712
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.2418000002702077,
+              "mean_ms": 0.241821332110299,
+              "min_ms": 0.23747734228769937,
+              "max_ms": 0.24693065881729126
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.256113330523173,
+              "mean_ms": 0.2570819954077403,
+              "min_ms": 0.2523333430290222,
+              "max_ms": 0.2635973294576009
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.2692426641782125,
+              "mean_ms": 0.26864710946877796,
+              "min_ms": 0.2644079923629761,
+              "max_ms": 0.27401065826416016
+            },
+            "direct_over_repair_kv": 0.8980746086740531
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.09416933357715607,
+            "mean_ms": 0.09438481457807399,
+            "min_ms": 0.09384533762931824,
+            "max_ms": 0.0965226689974467
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.10447599987188974,
+            "mean_ms": 0.10468792611802066,
+            "min_ms": 0.10404800375302632,
+            "max_ms": 0.10603466629981995
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.09007199605305989,
+            "mean_ms": 0.0901288147325869,
+            "min_ms": 0.08919999996821086,
+            "max_ms": 0.0918880005677541
+          },
+          "direct_over_repair_kv": 1.0454895828186432,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.044579766154548,
+            1.0464011296605902,
+            1.0464012282206712
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.2421720027923584,
+            "mean_ms": 0.24265607363647884,
+            "min_ms": 0.23747734228769937,
+            "max_ms": 0.25386399030685425
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.2581413288911184,
+            "mean_ms": 0.25826147860950893,
+            "min_ms": 0.2523333430290222,
+            "max_ms": 0.2701759934425354
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.26901333530743915,
+            "mean_ms": 0.2696235560708576,
+            "min_ms": 0.2644079923629761,
+            "max_ms": 0.2775333325068156
+          },
+          "direct_over_repair_kv": 0.9002230410458819,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.9020206232299282,
+            0.8962511613456163,
+            0.8980746086740531
+          ]
+        }
+      },
+      "ktv_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      },
+      "module_profiler": null
+    },
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 127,
+      "consumer_n": 16133,
+      "n_mod_8": 5,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.1348986675341924,
+              "mean_ms": 0.13509489016400444,
+              "min_ms": 0.13458133737246195,
+              "max_ms": 0.1357466677824656
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.15178799629211426,
+              "mean_ms": 0.15211688892708886,
+              "min_ms": 0.15145867069562277,
+              "max_ms": 0.15349599719047546
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.09140000243981679,
+              "mean_ms": 0.09160511195659637,
+              "min_ms": 0.09107733766237895,
+              "max_ms": 0.09262933333714803
+            },
+            "direct_over_repair_kv": 1.4759153603197959
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.241156001885732,
+              "mean_ms": 0.24186444448100197,
+              "min_ms": 0.2382026712099711,
+              "max_ms": 0.24671467145284018
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.255703995625178,
+              "mean_ms": 0.25720955431461334,
+              "min_ms": 0.2517519990603129,
+              "max_ms": 0.2624693314234416
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.26811067263285315,
+              "mean_ms": 0.26854022178384995,
+              "min_ms": 0.264847993850708,
+              "max_ms": 0.27214133739471436
+            },
+            "direct_over_repair_kv": 0.8994643872904213
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.13512133061885834,
+              "mean_ms": 0.13529533313380349,
+              "min_ms": 0.13486666480700174,
+              "max_ms": 0.13618133465449014
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.1521199991305669,
+              "mean_ms": 0.1522777784201834,
+              "min_ms": 0.15176533659299216,
+              "max_ms": 0.15327200293540955
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.09191466867923737,
+              "mean_ms": 0.09203466607464685,
+              "min_ms": 0.09126666188240051,
+              "max_ms": 0.09397866328557332
+            },
+            "direct_over_repair_kv": 1.4700736298185768
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.2420213321844737,
+              "mean_ms": 0.24325155715147653,
+              "min_ms": 0.23857067028681436,
+              "max_ms": 0.24860533078511557
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.25609466433525085,
+              "mean_ms": 0.25798022250334424,
+              "min_ms": 0.25460533301035565,
+              "max_ms": 0.27302666505177814
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.26842932899792993,
+              "mean_ms": 0.27001266678174335,
+              "min_ms": 0.26602667570114136,
+              "max_ms": 0.27666399876276654
+            },
+            "direct_over_repair_kv": 0.901620300166008
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.1346439967552821,
+              "mean_ms": 0.13472288846969604,
+              "min_ms": 0.13439733783404031,
+              "max_ms": 0.1352186699708303
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.15217333038647968,
+              "mean_ms": 0.15214666724205017,
+              "min_ms": 0.1513973375161489,
+              "max_ms": 0.15294933319091797
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.09173466761906943,
+              "mean_ms": 0.09167622278134029,
+              "min_ms": 0.09108533461888631,
+              "max_ms": 0.09221866726875305
+            },
+            "direct_over_repair_kv": 1.467754778535796
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.24509466687838238,
+              "mean_ms": 0.2444402211242252,
+              "min_ms": 0.24001334110895792,
+              "max_ms": 0.24901332457860312
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.2584759990374247,
+              "mean_ms": 0.25844889051384395,
+              "min_ms": 0.25545867284138996,
+              "max_ms": 0.26286399364471436
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.27142666776975,
+              "mean_ms": 0.2714448902342054,
+              "min_ms": 0.2681279977162679,
+              "max_ms": 0.27455999453862506
+            },
+            "direct_over_repair_kv": 0.9029866847361331
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.1349480003118515,
+            "mean_ms": 0.1350377039225013,
+            "min_ms": 0.13439733783404031,
+            "max_ms": 0.13618133465449014
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.15208266178766885,
+            "mean_ms": 0.15218044486310747,
+            "min_ms": 0.1513973375161489,
+            "max_ms": 0.15349599719047546
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.09147066871325174,
+            "mean_ms": 0.09177200027086116,
+            "min_ms": 0.09107733766237895,
+            "max_ms": 0.09397866328557332
+          },
+          "direct_over_repair_kv": 1.4753144610202353,
+          "repair_kv_wins_all_seeds": true,
+          "seed_ratios": [
+            1.4759153603197959,
+            1.4700736298185768,
+            1.467754778535796
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.2428373396396637,
+            "mean_ms": 0.2431854075855679,
+            "min_ms": 0.2382026712099711,
+            "max_ms": 0.24901332457860312
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.2566053370634715,
+            "mean_ms": 0.2578795557772672,
+            "min_ms": 0.2517519990603129,
+            "max_ms": 0.27302666505177814
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.2694893380006154,
+            "mean_ms": 0.26999925959993293,
+            "min_ms": 0.264847993850708,
+            "max_ms": 0.27666399876276654
+          },
+          "direct_over_repair_kv": 0.9011018448496435,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.8994643872904213,
+            0.901620300166008,
+            0.9029866847361331
+          ]
+        }
+      },
+      "ktv_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align1::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      },
+      "module_profiler": null
+    },
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 126,
+      "consumer_n": 15880,
+      "n_mod_8": 0,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.0720440000295639,
+              "mean_ms": 0.07223622211151653,
+              "min_ms": 0.07182133197784424,
+              "max_ms": 0.07298666735490163
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.07842533538738886,
+              "mean_ms": 0.07858800018827121,
+              "min_ms": 0.07804800073305766,
+              "max_ms": 0.07951200008392334
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.08737066388130188,
+              "mean_ms": 0.08786711096763611,
+              "min_ms": 0.08695733547210693,
+              "max_ms": 0.08996533354123433
+            },
+            "direct_over_repair_kv": 0.8245788326324253
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.244158665339152,
+              "mean_ms": 0.24539199968179068,
+              "min_ms": 0.2411173383394877,
+              "max_ms": 0.253223995367686
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.2607186635335287,
+              "mean_ms": 0.2608431080977122,
+              "min_ms": 0.2561519940694173,
+              "max_ms": 0.26573866605758667
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.2713346680005392,
+              "mean_ms": 0.2719266679551866,
+              "min_ms": 0.26874132951100665,
+              "max_ms": 0.27486934264500934
+            },
+            "direct_over_repair_kv": 0.8998432346974063
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.0719973345597585,
+              "mean_ms": 0.07220577821135521,
+              "min_ms": 0.07181333502133687,
+              "max_ms": 0.07311999797821045
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.07842666655778885,
+              "mean_ms": 0.0789182215101189,
+              "min_ms": 0.07811466852823894,
+              "max_ms": 0.0814879983663559
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.08733999729156494,
+              "mean_ms": 0.08744911104440689,
+              "min_ms": 0.08682933449745178,
+              "max_ms": 0.08828799923261006
+            },
+            "direct_over_repair_kv": 0.8243340599085616
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.24443999926249185,
+              "mean_ms": 0.24525177809927198,
+              "min_ms": 0.24095733960469565,
+              "max_ms": 0.251309335231781
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.2584920028845469,
+              "mean_ms": 0.2601477785242928,
+              "min_ms": 0.2563839952150981,
+              "max_ms": 0.2749626636505127
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.271097332239151,
+              "mean_ms": 0.2713904430468877,
+              "min_ms": 0.26792265971501666,
+              "max_ms": 0.27581334114074707
+            },
+            "direct_over_repair_kv": 0.9016687742498951
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.07205733160177866,
+              "mean_ms": 0.07223622169759539,
+              "min_ms": 0.07182666659355164,
+              "max_ms": 0.0729013333717982
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.07875466595093408,
+              "mean_ms": 0.07923755587802993,
+              "min_ms": 0.0784719983736674,
+              "max_ms": 0.08144266903400421
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.08734400073687236,
+              "mean_ms": 0.087377334634463,
+              "min_ms": 0.08681600292523702,
+              "max_ms": 0.08842399716377258
+            },
+            "direct_over_repair_kv": 0.824983181373321
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 0.24424133698145548,
+              "mean_ms": 0.24447599715656704,
+              "min_ms": 0.23863732814788818,
+              "max_ms": 0.251800000667572
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 0.25919066866238916,
+              "mean_ms": 0.27128933370113373,
+              "min_ms": 0.2559386690457662,
+              "max_ms": 0.39608800411224365
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 0.2689879933993021,
+              "mean_ms": 0.27007866899172467,
+              "min_ms": 0.26766933997472125,
+              "max_ms": 0.27589066823323566
+            },
+            "direct_over_repair_kv": 0.9080008884221415
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.07200133303801218,
+            "mean_ms": 0.07222607400682238,
+            "min_ms": 0.07181333502133687,
+            "max_ms": 0.07311999797821045
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.07858133316040039,
+            "mean_ms": 0.07891459252547335,
+            "min_ms": 0.07804800073305766,
+            "max_ms": 0.0814879983663559
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.08737066388130188,
+            "mean_ms": 0.08756451888216867,
+            "min_ms": 0.08681600292523702,
+            "max_ms": 0.08996533354123433
+          },
+          "direct_over_repair_kv": 0.8240904880364669,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.8245788326324253,
+            0.8243340599085616,
+            0.824983181373321
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 0.24439332882563272,
+            "mean_ms": 0.2450399249792099,
+            "min_ms": 0.23863732814788818,
+            "max_ms": 0.253223995367686
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 0.2592106660207113,
+            "mean_ms": 0.2640934067743796,
+            "min_ms": 0.2559386690457662,
+            "max_ms": 0.39608800411224365
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 0.2706706623236338,
+            "mean_ms": 0.2711319266645997,
+            "min_ms": 0.26766933997472125,
+            "max_ms": 0.27589066823323566
+          },
+          "direct_over_repair_kv": 0.9029176887054646,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.8998432346974063,
+            0.9016687742498951,
+            0.9080008884221415
+          ]
+        }
+      },
+      "ktv_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)"
+          ]
+        }
+      },
+      "module_profiler": null
+    }
+  ]
+}

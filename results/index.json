@@ -1,6 +1,76 @@
 {
   "bundles": [
     {
+      "category": "community",
+      "environment": {
+        "compute_capability": "8.7",
+        "cuda_build": "12.8",
+        "cudnn": 90800,
+        "device": "Orin",
+        "driver_record": "Orin (nvgpu), 540.5.0, 8.7, [N/A], [N/A]",
+        "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]",
+        "torch": "2.7.0"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "community/orin_torch2.7_cuda12.8_2026-08-31",
+      "identity_key": "94571c8225b857782817b0d05beda7c53ac1718119e3ff01f2566d2802bcafab",
+      "kernel_families": {
+        "direct": [
+          "align2",
+          "ldg8"
+        ],
+        "repair_kv": [
+          "ldg8"
+        ]
+      },
+      "manifest_sha256": "17c5cae9940ce8a084a4fac818c12895fc3311d1b0fe416dc64f8c9d824ade0c",
+      "protocol_fingerprint": "21add5e5555d744b8f7e827b71e1ae9f6e52a35ef4a9bd2dc5a41f40a1bee4a3",
+      "replicate_of": null,
+      "role": "community",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": false,
+            "direct_available": false,
+            "direct_ms": null,
+            "outcome": "unavailable",
+            "ratio": null,
+            "repair_available": false,
+            "repair_kv_ms": null
+          },
+          "compiled_oracle": "unavailable",
+          "consumer_n": 16388,
+          "direct_alignment_tokens": "align2+ldg8",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 1.0365893443425498,
+            "outcome": "direct_win",
+            "ratio": 0.745200902332515,
+            "repair_k_ms": 1.283793330192566,
+            "repair_kv_ms": 1.3910199801127117,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 2.4843986829121905,
+            "outcome": "direct_win",
+            "ratio": 0.8755610867241274,
+            "repair_k_ms": 2.731245358784993,
+            "repair_kv_ms": 2.837493260701497,
+            "repair_wins_all_seeds": false
+          },
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "legacy_full_module",
+          "repair_alignment_tokens": "ldg8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
+        }
+      ],
+      "source": "community"
+    },
+    {
       "category": "reference_l40s",
       "environment": {
         "compute_capability": "8.9",
@@ -17,10 +87,12 @@
       "kernel_families": {
         "direct": [
           "align2",
-          "align8"
+          "align8",
+          "ldg8"
         ],
         "repair_kv": [
-          "align8"
+          "align8",
+          "ldg8"
         ]
       },
       "manifest_sha256": "9a46936079c4432eaed6e5e4ef246d08ed402a23cc22f4533b5ff0198811ca3c",
@@ -39,7 +111,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.41900482177734377
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 65540,
+          "direct_alignment_tokens": "align2+align8+ldg8",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.37874001264572144,
@@ -57,7 +131,13 @@
             "repair_kv_ms": 0.6030733187993367,
             "repair_wins_all_seeds": true
           },
-          "resolution": 256
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 4,
+          "profiler_source": "legacy_full_module",
+          "repair_alignment_tokens": "align8+ldg8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 256,
+          "safety_policy_action": "repair_kv"
         },
         {
           "batch": 1,
@@ -70,7 +150,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.15660800337791442
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 16388,
+          "direct_alignment_tokens": "\u2014",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.0940626710653305,
@@ -88,7 +170,13 @@
             "repair_kv_ms": 0.2750999927520752,
             "repair_wins_all_seeds": false
           },
-          "resolution": 128
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "unavailable",
+          "repair_alignment_tokens": "\u2014",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
         }
       ],
       "source": "reference"
@@ -110,10 +198,12 @@
       "kernel_families": {
         "direct": [
           "align2",
-          "align8"
+          "align8",
+          "ldg8"
         ],
         "repair_kv": [
-          "align8"
+          "align8",
+          "ldg8"
         ]
       },
       "manifest_sha256": "f66a095a78a774c55b844a8347ae38bfad6052afd451361fd3865c3fa371446e",
@@ -132,7 +222,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.37204320430755616
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 65540,
+          "direct_alignment_tokens": "align2+align8+ldg8",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.37777066230773926,
@@ -150,7 +242,13 @@
             "repair_kv_ms": 0.6008173425992329,
             "repair_wins_all_seeds": true
           },
-          "resolution": 256
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 4,
+          "profiler_source": "legacy_full_module",
+          "repair_alignment_tokens": "align8+ldg8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 256,
+          "safety_policy_action": "repair_kv"
         },
         {
           "batch": 1,
@@ -163,7 +261,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.1264375984668732
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 16388,
+          "direct_alignment_tokens": "\u2014",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.09420667092005411,
@@ -181,7 +281,13 @@
             "repair_kv_ms": 0.27325200041135156,
             "repair_wins_all_seeds": false
           },
-          "resolution": 128
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "unavailable",
+          "repair_alignment_tokens": "\u2014",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
         }
       ],
       "source": "reference"
@@ -203,10 +309,12 @@
       "kernel_families": {
         "direct": [
           "align2",
-          "align8"
+          "align8",
+          "ldg8"
         ],
         "repair_kv": [
-          "align8"
+          "align8",
+          "ldg8"
         ]
       },
       "manifest_sha256": "44b7bd2f1d91c3192f39c9bea3a4fbdecb60272bcd1188c421063fb4aaf802ac",
@@ -225,7 +333,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.37358239889144895
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 65540,
+          "direct_alignment_tokens": "align2+align8+ldg8",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.3798333406448364,
@@ -243,7 +353,13 @@
             "repair_kv_ms": 0.6020226677258809,
             "repair_wins_all_seeds": true
           },
-          "resolution": 256
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 4,
+          "profiler_source": "legacy_full_module",
+          "repair_alignment_tokens": "align8+ldg8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 256,
+          "safety_policy_action": "repair_kv"
         },
         {
           "batch": 1,
@@ -256,7 +372,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.12637999653816223
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 16388,
+          "direct_alignment_tokens": "\u2014",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.09402933220068614,
@@ -274,7 +392,279 @@
             "repair_kv_ms": 0.2762853304545084,
             "repair_wins_all_seeds": false
           },
-          "resolution": 128
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "unavailable",
+          "repair_alignment_tokens": "\u2014",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
+        }
+      ],
+      "source": "reference"
+    },
+    {
+      "category": "reference_l40s",
+      "environment": {
+        "compute_capability": "8.9",
+        "cuda_build": "12.8",
+        "cudnn": 91900,
+        "device": "NVIDIA L40S",
+        "driver_record": "NVIDIA L40S, 575.57.08, 8.9, 46068, 350.00",
+        "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+        "torch": "2.11.0+cu128"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "reference_l40s/three_level_sweep/torch2.11_cuda12.8",
+      "identity_key": "3714bbf36531fb9ef8290aae76566fb2a655d4f04a2c110748ae41f95313e4cd",
+      "kernel_families": {
+        "direct": [
+          "align1",
+          "align2",
+          "align8"
+        ],
+        "repair_kv": [
+          "align8"
+        ]
+      },
+      "manifest_sha256": "1a68cb29a2940eef91bf9e8fbd1f4bd30a3f942bf0eb245ad6cd0dccfd2b545a",
+      "protocol_fingerprint": "49a01a3baccc71e4971ba19c32bcabeb2e69fc819c5edd328c0de08f61248f0a",
+      "replicate_of": null,
+      "role": "reference",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.43543438911437987,
+            "outcome": "repair_win",
+            "ratio": 1.17636387081914,
+            "repair_available": true,
+            "repair_kv_ms": 0.37015280723571775
+          },
+          "compiled_oracle": "repair_kv",
+          "consumer_n": 65540,
+          "direct_alignment_tokens": "align2",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.3799759944279989,
+            "outcome": "direct_win",
+            "ratio": 0.9610335261431998,
+            "repair_k_ms": 0.47198800245920813,
+            "repair_kv_ms": 0.39538266261418664,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.6636120080947876,
+            "outcome": "repair_win",
+            "ratio": 1.1069104758142543,
+            "repair_k_ms": 0.6905920108159382,
+            "repair_kv_ms": 0.5995173255602518,
+            "repair_wins_all_seeds": true
+          },
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 4,
+          "profiler_source": "isolated_ktv",
+          "repair_alignment_tokens": "align8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 256,
+          "safety_policy_action": "repair_kv"
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.3806439995765686,
+            "outcome": "direct_win",
+            "ratio": 0.9775583113311225,
+            "repair_available": true,
+            "repair_kv_ms": 0.3893823981285095
+          },
+          "compiled_oracle": "direct",
+          "consumer_n": 65029,
+          "direct_alignment_tokens": "align1",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.6099133292833965,
+            "outcome": "repair_win",
+            "ratio": 1.6757947921105503,
+            "repair_k_ms": 0.6935106515884399,
+            "repair_kv_ms": 0.36395466327667236,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.7494813203811646,
+            "outcome": "repair_win",
+            "ratio": 1.373619002861458,
+            "repair_k_ms": 0.8099120060602825,
+            "repair_kv_ms": 0.5456253290176392,
+            "repair_wins_all_seeds": true
+          },
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 5,
+          "profiler_source": "isolated_ktv",
+          "repair_alignment_tokens": "align8",
+          "residue_tier_prior": "slowest: align1",
+          "resolution": 255,
+          "safety_policy_action": "repair_kv"
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.36516720056533813,
+            "outcome": "direct_win",
+            "ratio": 0.9722733456397719,
+            "repair_available": true,
+            "repair_kv_ms": 0.3755807995796204
+          },
+          "compiled_oracle": "direct",
+          "consumer_n": 64520,
+          "direct_alignment_tokens": "align8",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.34301467736562097,
+            "outcome": "direct_win",
+            "ratio": 0.9734005500254875,
+            "repair_k_ms": 0.3408786654472351,
+            "repair_kv_ms": 0.3523880044619242,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.5642039974530537,
+            "outcome": "repair_win",
+            "ratio": 1.0537675191486533,
+            "repair_k_ms": 0.5723026593526205,
+            "repair_kv_ms": 0.5354160070419312,
+            "repair_wins_all_seeds": true
+          },
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 0,
+          "profiler_source": "isolated_ktv",
+          "repair_alignment_tokens": "align8",
+          "residue_tier_prior": "fastest: align8/ldg8",
+          "resolution": 254,
+          "safety_policy_action": "direct"
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.1410423994064331,
+            "outcome": "repair_win",
+            "ratio": 1.1118797953159028,
+            "repair_available": true,
+            "repair_kv_ms": 0.12685040235519407
+          },
+          "compiled_oracle": "repair_kv",
+          "consumer_n": 16388,
+          "direct_alignment_tokens": "align2",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.09416933357715607,
+            "outcome": "repair_win",
+            "ratio": 1.0454895828186432,
+            "repair_k_ms": 0.10447599987188974,
+            "repair_kv_ms": 0.09007199605305989,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.2421720027923584,
+            "outcome": "direct_win",
+            "ratio": 0.9002230410458819,
+            "repair_k_ms": 0.2581413288911184,
+            "repair_kv_ms": 0.26901333530743915,
+            "repair_wins_all_seeds": false
+          },
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "isolated_ktv",
+          "repair_alignment_tokens": "align8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.12171439528465272,
+            "outcome": "direct_win",
+            "ratio": 0.9851332361914918,
+            "repair_available": true,
+            "repair_kv_ms": 0.12355120182037353
+          },
+          "compiled_oracle": "direct",
+          "consumer_n": 16133,
+          "direct_alignment_tokens": "align1",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.1349480003118515,
+            "outcome": "repair_win",
+            "ratio": 1.4753144610202353,
+            "repair_k_ms": 0.15208266178766885,
+            "repair_kv_ms": 0.09147066871325174,
+            "repair_wins_all_seeds": true
+          },
+          "eager_module": {
+            "direct_ms": 0.2428373396396637,
+            "outcome": "direct_win",
+            "ratio": 0.9011018448496435,
+            "repair_k_ms": 0.2566053370634715,
+            "repair_kv_ms": 0.2694893380006154,
+            "repair_wins_all_seeds": false
+          },
+          "eager_oracle": "direct",
+          "n_mod_8": 5,
+          "profiler_source": "isolated_ktv",
+          "repair_alignment_tokens": "align8",
+          "residue_tier_prior": "slowest: align1",
+          "resolution": 127,
+          "safety_policy_action": "repair_kv"
+        },
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": true,
+            "direct_available": true,
+            "direct_ms": 0.11734560132026672,
+            "outcome": "direct_win",
+            "ratio": 0.9742557646638363,
+            "repair_available": true,
+            "repair_kv_ms": 0.12044640183448792
+          },
+          "compiled_oracle": "direct",
+          "consumer_n": 15880,
+          "direct_alignment_tokens": "align8",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 0.07200133303801218,
+            "outcome": "direct_win",
+            "ratio": 0.8240904880364669,
+            "repair_k_ms": 0.07858133316040039,
+            "repair_kv_ms": 0.08737066388130188,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 0.24439332882563272,
+            "outcome": "direct_win",
+            "ratio": 0.9029176887054646,
+            "repair_k_ms": 0.2592106660207113,
+            "repair_kv_ms": 0.2706706623236338,
+            "repair_wins_all_seeds": false
+          },
+          "eager_oracle": "direct",
+          "n_mod_8": 0,
+          "profiler_source": "isolated_ktv",
+          "repair_alignment_tokens": "align8",
+          "residue_tier_prior": "fastest: align8/ldg8",
+          "resolution": 126,
+          "safety_policy_action": "direct"
         }
       ],
       "source": "reference"
@@ -296,10 +686,12 @@
       "kernel_families": {
         "direct": [
           "align2",
-          "align8"
+          "align8",
+          "ldg8"
         ],
         "repair_kv": [
-          "align8"
+          "align8",
+          "ldg8"
         ]
       },
       "manifest_sha256": "ece4f09c2095050a06540b2c53a4d1cc2ce5d81ad8828008d4814f661a58b656",
@@ -318,7 +710,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.3683135986328125
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 65540,
+          "direct_alignment_tokens": "align2+align8+ldg8",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.38463999827702844,
@@ -336,7 +730,13 @@
             "repair_kv_ms": 0.6014720002810161,
             "repair_wins_all_seeds": true
           },
-          "resolution": 256
+          "eager_oracle": "repair_kv",
+          "n_mod_8": 4,
+          "profiler_source": "legacy_full_module",
+          "repair_alignment_tokens": "align8+ldg8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 256,
+          "safety_policy_action": "repair_kv"
         },
         {
           "batch": 1,
@@ -349,7 +749,9 @@
             "repair_available": true,
             "repair_kv_ms": 0.12370880246162415
           },
+          "compiled_oracle": "repair_kv",
           "consumer_n": 16388,
+          "direct_alignment_tokens": "\u2014",
           "dtype": "fp16",
           "eager_chain": {
             "direct_ms": 0.09417333205540976,
@@ -367,7 +769,13 @@
             "repair_kv_ms": 0.27587199211120605,
             "repair_wins_all_seeds": false
           },
-          "resolution": 128
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "unavailable",
+          "repair_alignment_tokens": "\u2014",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
         }
       ],
       "source": "reference"
@@ -375,14 +783,17 @@
   ],
   "filters": {
     "devices": [
-      "NVIDIA L40S"
+      "NVIDIA L40S",
+      "Orin"
     ],
     "dtypes": [
       "fp16"
     ],
     "outcomes": {
       "compiled_module": [
-        "repair_win"
+        "direct_win",
+        "repair_win",
+        "unavailable"
       ],
       "eager_module": [
         "direct_win",
@@ -390,10 +801,15 @@
       ]
     },
     "resolutions": [
+      126,
+      127,
       128,
+      254,
+      255,
       256
     ],
     "roles": [
+      "community",
       "reference",
       "replicate"
     ],
@@ -412,25 +828,30 @@
         "cuda_build": "12.8",
         "cudnn": 91900,
         "torch": "2.11.0+cu128"
+      },
+      {
+        "cuda_build": "12.8",
+        "cudnn": 90800,
+        "torch": "2.7.0"
       }
     ]
   },
   "schema": "layoutabi_results_index_v1",
   "schema_version": 1,
   "summary": {
-    "bundles": 4,
-    "community_bundles": 0,
-    "compiled_module_direct_wins": 0,
-    "compiled_module_repair_wins": 6,
-    "compiled_module_unavailable": 0,
-    "devices": 1,
-    "eager_module_direct_wins": 3,
-    "eager_module_repair_wins": 3,
+    "bundles": 6,
+    "community_bundles": 1,
+    "compiled_module_direct_wins": 4,
+    "compiled_module_repair_wins": 8,
+    "compiled_module_unavailable": 1,
+    "devices": 2,
+    "eager_module_direct_wins": 7,
+    "eager_module_repair_wins": 6,
     "eager_module_unavailable": 0,
-    "measurement_rows": 8,
-    "primary_measurement_rows": 6,
-    "reference_bundles": 3,
+    "measurement_rows": 15,
+    "primary_measurement_rows": 13,
+    "reference_bundles": 4,
     "replicate_bundles": 1,
-    "software_stacks": 3
+    "software_stacks": 4
   }
 }

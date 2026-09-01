@@ -1,94 +1,100 @@
 # Layout ABI Lab
 
-Layout ABI Lab is a reproducibility project for a counter-intuitive GPU performance
-effect: removing an intermediate tensor copy is not always faster.
-
-In the studied normalize/view-to-GEMM chains, two numerically equivalent layouts can
-select different opaque vendor GEMM kernel families. A deliberate materialization may
-therefore pay for itself by unlocking a faster downstream kernel:
+This project studies a hidden GPU contract:
 
 ```text
-producer output layout -> vendor kernel family -> discrete latency cliff
+producer output layout -> vendor GEMM kernel family -> discrete latency cliff
 ```
 
-Across three pinned NVIDIA L40S software stacks, explicitly repairing both K and V
-before compiling a public diffusion LinearAttention module reduced 256x256 steady-state
-module latency by **13.95% to 15.19% (1.162x to 1.179x)**. The kernel transition and
-eager graph boundary reproduced in every stack. This is a scoped result, not a claim
-that repair is universally profitable. See the
-[software-stack matrix](results/reference_l40s/SOFTWARE_STACK_MATRIX.md).
+Numerically equivalent layouts can select different opaque GEMM families. The
+independent variables include the environment (GPU, PyTorch/CUDA stack, dtype,
+eager vs compile), physical strides, reduction length, and operand-pointer
+alignment. **Linear Attention is a public real-world witness, not the limit of
+the theory.** Other graphs can be added; the current automatic optimizer only
+rewrites one frozen KTV pattern and otherwise no-ops.
 
-## Research question
+A conservative helper can then choose to keep the producer layout or to
+materialize it. Materialization is an experimental contrast and a possible
+fix, not the default answer.
 
-When should a compiler preserve a zero-copy producer layout, and when should it
-intentionally materialize that layout to improve a downstream vendor-library call?
+Version 0.9.1 is the current v1.0 release candidate and the L40S
+mechanism-complete checkpoint. Public evidence includes three L40S software
+stacks, a six-shape residue sweep, a compiled mechanism audit, a 100-cell
+two-operand pointer audit, and one Jetson Orin eager-128 boundary bundle where
+repair is slower. The matching Orin pointer grid remains a v1.0 gate. See the
+[result index](RESULTS_INDEX.md) and [v0.9.1 release notes](docs/RELEASE_0.9.1.md).
 
-The project is designed to collect positive and negative results across GPUs, PyTorch
-versions, CUDA software stacks, data types, shapes, and graph contexts.
+## What we need from the community
 
-## What is included
+The useful contribution is **measured evidence on machines and lengths we do
+not have**, including cases where repair loses or no kernel-family change
+appears.
 
-- A dependency-free reconstruction of an audited public diffusion LinearAttention
-  module, with source provenance pinned in the code.
-- Direct, repair-K, and repair-KV execution policies with identical numerical semantics.
-- Order-balanced, multi-seed eager measurements.
-- Isolated `torch.compile` measurements for direct and repair-KV policies.
-- CUDA kernel-name capture when `torch.profiler` supports it.
-- Machine-readable environment and result records.
-- A validator for community-submitted result bundles, with JSON Schema contracts and
-  forward schema migration.
-- A `prepare-submission` command that copies a local bundle, recomputes checksums, and
-  reports possible private metadata without uploading.
-- A stable `layoutabi.optimize()` API that captures a public FX graph, matches
-  the frozen LinearAttention KTV pattern, and conservatively chooses direct or repair.
-- A second independent public graph (Efficient Attention) and a public SDPA no-op
-  control, plus synthetic shape/batch/dtype boundary cells.
-- A compiled mechanism audit that records FX/export graphs, Inductor IR, and profiler
-  kernel names so compiled kernel-family claims are not inferred from timing.
-- A container matrix runner for testing multiple pinned software stacks.
+1. **Run the protocol on a GPU that is not already in the index**, or span all
+   three FP16 residue classes: divisible by 8, even non-multiple, and odd.
+2. **Keep isolated KTV profiler kernel names** in the bundle. The mechanism prior
+   is `align8/ldg8` → `align2` → `align1`; latency says whether repair paid off.
+3. **Score the binary safety planner with `layoutabi evaluate-planner`.** It
+   deliberately merges the intermediate and slowest tiers into repair.
+4. **Run `audit-pointer` on another GPU architecture.** This tests whether the
+   least-aligned tier among N and both GEMM operands transfers.
+5. **Report optimizer failures** (crash, wrong rewrite, unexpected no-op)
+   with the [RC issue template](https://github.com/KaiKai0714/layout-abi-lab/issues/new?template=rc_feedback.yml).
 
-The repository does **not** contain a general TorchInductor pass. The optimizer
-covers one frozen LinearAttention pattern. Version 0.4 adds a compiled mechanism
-audit so kernel-family claims come from graphs and profiler names, not from timing.
-See [Pattern contract](docs/PATTERN_CONTRACT.md),
-[Support matrix](docs/SUPPORTED.md),
-[Compiled audit](docs/COMPILE_AUDIT.md), and [Roadmap](docs/ROADMAP.md).
+The repository includes a dedicated paired L40S sweep for the alignment
+contrast: `containers/matrix_three_level_l40s.json`. It measures neighboring
+resolutions around both 128 and 256 without changing the frozen reference
+matrix; see [results/README.md](results/README.md) for the command.
 
-The generated [result index](RESULTS_INDEX.md) summarizes all checksum-validated
-reference and accepted community bundles. Its JSON counterpart is `results/index.json`.
+Do not send hand-edited JSON, only-favorable cells, or a new matcher pattern
+during this RC. Details: [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Requirements
+## What we already measured
 
-- Linux
-- Python 3.8 or newer
-- NVIDIA GPU
-- A CUDA-enabled PyTorch installation with `torch.compile` for compiled controls
-- Enough GPU memory for the selected resolution
+On three pinned L40S stacks, compiled repair-KV reduced 256×256 module latency
+by **13.95% to 15.19%**. Eager 128 on L40S and Orin is a **direct-win**: always-
+repair would be a false repair. The original 128/256 matrix contains the
+intermediate residue class; the newer 126–128 and 254–256 sweep covers all three
+classes and observes `align8`, `align2`, and `align1` in the isolated eager KTV
+consumer.
 
-Install PyTorch using the method appropriate for the target GPU first. This project
-does not declare PyTorch as a package dependency because an automatic `pip` choice can
-silently install an incompatible CUDA build. CPU result tools and
-`layoutabi supported` work without PyTorch.
+The controlled L40S pointer audit contains 100/100 valid cells. Its observed
+family always equals the least-aligned tier among N, the K pointer, and the V
+pointer. At aligned N, median `align2` and `align1` latency were respectively
+**1.23×** and **2.37×** the `align8` baseline. The compiled audit also shows that
+Inductor may materialize or rewrite a layout, so eager family rules cannot be
+copied blindly into compiled execution.
+
+Evidence: [software-stack matrix](results/reference_l40s/SOFTWARE_STACK_MATRIX.md),
+[three-level sweep](results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/SUMMARY.md),
+[pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md),
+and [compiled audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md).
 
 ## Quick start
+
+GPU reproduction is documented for Linux + NVIDIA. Install a CUDA-enabled
+PyTorch build that matches the GPU first. This package does **not** install
+PyTorch. CPU tools (`supported`, `validate`, `evaluate-planner`, `rc-status`)
+work without a GPU.
 
 ```bash
 git clone https://github.com/KaiKai0714/layout-abi-lab.git
 cd layout-abi-lab
-
-# Install a CUDA-enabled PyTorch build first, then install this project.
 python -m pip install -e .
 
 layoutabi check
-layoutabi reproduce --output results/local_my_gpu
-layoutabi validate results/local_my_gpu
+layoutabi reproduce --output results/local_rtx4090_torch2.11_cuda12.8_2026-08-30
+layoutabi validate results/local_rtx4090_torch2.11_cuda12.8_2026-08-30
+layoutabi evaluate-planner --results-root results
 ```
 
-For a shorter smoke test:
+Name local runs `<gpu>_torch<pytorch>_cuda<cuda>_<yyyy-mm-dd>` so a later
+submission can drop the `local_` prefix. See [results/README.md](results/README.md).
+Smoke tests can use `/tmp`; do not keep them under `results/`.
 
 ```bash
 layoutabi reproduce \
-  --output results/local_smoke \
+  --output /tmp/layoutabi_smoke \
   --resolutions 128 \
   --seeds 1701 \
   --cycles 2 \
@@ -96,72 +102,47 @@ layoutabi reproduce \
   --skip-compile
 ```
 
-The default protocol tests resolutions 256 and 128 with three seeds. It may take
-several minutes because compiled policies run in isolated processes and caches.
+The default protocol is resolutions 256 and 128 with three seeds. Compiled
+controls take several minutes (isolated processes and caches).
 
-## Interpreting the output
+`direct_ms / repair_ms > 1` means repair was faster at that scope. Always
+read kernel families, `N % 8`, the full-module row, and the software stack.
 
-Each run produces:
+### Controlled operand-pointer audit
 
-```text
-results/local_my_gpu/
-  environment.json
-  eager_results.json
-  compile_results.json
-  SUMMARY.md
-  manifest.json
-```
-
-A ratio `direct_ms / repair_ms > 1` means repair was faster. Always inspect the full
-module result, correctness gate, software stack, and per-seed consistency. An isolated
-GEMM or chain win must not be presented as an end-to-end model win.
-
-## Container software-stack matrix
-
-Edit [containers/matrix.json](containers/matrix.json) with image tags that are valid
-for the local NVIDIA driver, then run:
+The normal reproduction uses allocator-aligned tensors. To separate logical
+length alignment from base-pointer alignment, run the full K-pointer × V-pointer
+grid:
 
 ```bash
-python containers/run_matrix.py \
-  --matrix containers/matrix.json \
-  --gpu-device 0 \
-  --keep-going
+layoutabi audit-pointer \
+  --output results/local_pointer_audit \
+  --ns 65536,65538,65540,65543 \
+  --offsets 0,2,4,8,16 \
+  --cycles 12 \
+  --iterations 20
+layoutabi validate-pointer-audit results/local_pointer_audit
 ```
 
-This compares complete software stacks, not CUDA in isolation. A container image may
-change PyTorch, CUDA runtime, cuBLAS/cuBLASLt, Triton, and TorchInductor together.
-The matrix runner processes one image at a time. By default, a newly pulled image is
-removed immediately after its result bundle passes validation. Source files are mounted
-read-only, containers use `--rm`, and compilation caches disappear with the container.
-Images that existed before the run are never removed automatically.
+See [docs/POINTER_AUDIT.md](docs/POINTER_AUDIT.md) for controlled variables and
+the interpretation boundary.
 
-## Submit a result
-
-Both wins and losses are useful. Prepare a community bundle without uploading it:
+### Submit a bundle
 
 ```bash
 layoutabi prepare-submission \
-  results/local_my_gpu \
+  results/local_rtx4090_torch2.11_cuda12.8_2026-08-30 \
   --name rtx4090_torch2.11_cuda12.8_2026-08-30
 ```
 
-The command copies the bundle to `results/community/`, recomputes checksums, and prints
-possible hostname, username, private-path, and extra-metadata findings. Re-runs of the
-same graph, device, software stack, and protocol are kept as replicates, not as a new
-device. Bundles without compiled controls are accepted and indexed as compiled
-unavailable rather than as a loss. Then follow [CONTRIBUTING.md](CONTRIBUTING.md). Do
-not edit measured JSON values by hand.
+Then open a pull request with `results/community/<name>/`. The command
+recomputes checksums and prints possible hostname, username, and private-path
+findings. It does not upload.
 
-Maintainers regenerate the public index after accepting a bundle with:
+## Optimizer
 
-```bash
-layoutabi aggregate
-```
-
-Continuous integration runs `layoutabi aggregate --check` so stale or manually edited
-indexes cannot be merged.
-
-## Optimizer API
+The automatic rewrite currently matches one frozen KTV graph
+(`linear_attention_ktv_v1`). Unmatched graphs are left unchanged.
 
 ```python
 import torch
@@ -172,54 +153,51 @@ print(supported()["pattern_id"])
 
 model = PublicDiffusionLinearAttention().eval().half().cuda()
 x = torch.randn(1, 64, 128, 128, device="cuda", dtype=torch.float16)
-print(explain(inspect(model, (x,))))
 result = optimize(model, (x,), policy="autotune")
 print(explain(result))
 compiled = torch.compile(result.module)
 ```
 
-`policy` may be `off`, `direct`, `repair_k`, `repair_kv`, `autotune`, `n_mod_8`,
-or `cost_model`. Autotune measures full-module CUDA-event latency and caches the
-decision. If the graph is not supported, guards fail, or a candidate is incorrect,
-the original module is returned. Missing PyTorch raises `MissingPyTorchError`;
-bad public arguments raise `InvalidArgumentError`.
+Missing PyTorch raises `MissingPyTorchError`. See
+[docs/SUPPORTED.md](docs/SUPPORTED.md) and
+[docs/PATTERN_CONTRACT.md](docs/PATTERN_CONTRACT.md).
 
 ```bash
 layoutabi supported
-layoutabi rc-status --check
-layoutabi scan-release
 layoutabi inspect-model --resolution 128
-layoutabi inspect-model --workload efficient_attention --resolution 128
 layoutabi optimize-model --workload scaled_dot_product --resolution 16 --policy repair_kv
-layoutabi evaluate-planner
-layoutabi cache-info --cache-dir .cache/layoutabi
-layoutabi audit-compile --output results/local_compile_audit
+layoutabi audit-compile --output results/local_l40s_compile_audit_2026-08-31
 ```
 
-Scripts under `examples/` show the same CPU and CUDA paths.
+## What is in the repo
 
-## Scope and limitations
+- Public LinearAttention and Efficient Attention reconstructions, plus an SDPA
+  no-op control (witnesses and a negative graph, not the whole theory)
+- Direct / repair-K / repair-KV as a numerical contrast, plus eager and
+  isolated compiled protocol
+- Community result schema, checksums, and `prepare-submission`
+- Conservative `layoutabi.optimize()` for the currently matched KTV pattern
+- Compiled mechanism audit (graphs, Inductor IR, profiler names)
+- Three-level residue reporting plus scoring of the conservative binary planner
+- Controlled full-factorial K-pointer × V-pointer mechanism audit
 
-- The optimizer supports one frozen inference pattern, fixed shapes, and FP16.
-- Autotune requires CUDA. Unsupported graphs are a safe no-op, not a guaranteed speedup.
-- Current reference experiments focus on inference, fixed shapes, and FP16.
-- Profitability is device-, version-, dtype-, shape-, and graph-dependent.
-- `N % 8` is an observed FP16 feature in a bounded regime, not a universal law.
-- BF16, INT8, FP8, larger batches, and some devices provide important negative cases.
-- The public module is a source-equivalent audited reconstruction, not a vendored copy
-  of the complete upstream application.
-- A module-level speedup is not a full diffusion-model speedup.
+Longer notes: [architecture](docs/ARCHITECTURE.md),
+[claims](docs/CLAIMS_AND_LIMITATIONS.md),
+[roadmap](docs/ROADMAP.md).
 
-Version 0.9.0 is a release candidate: the public API and the single supported
-pattern are frozen. A second GPU architecture (including Orin) is not claimed.
-See [Release candidate](docs/RC.md) and
-[Scientific claims and boundaries](docs/CLAIMS_AND_LIMITATIONS.md) before citing
-the results.
+## Scope
+
+- Theory: producer layout vs vendor GEMM family, including feature-map length
+- Current automatic optimizer: one frozen inference KTV pattern, fixed shapes, FP16
+- L40S is mechanism-complete for v0.9.1; Orin currently provides an eager-128
+  boundary, with the full pointer grid reserved for v1.0
+- FP16 three-tier family names are backend observations; the binary safety policy is not an oracle
+- BF16, INT8, FP8, larger batches, and unmatched graphs are boundaries
+- A module-level result is not a full diffusion-model win
 
 ## License and citation
 
-The project is released under the Apache License 2.0. Upstream workload provenance and
-licenses remain separately documented. Citation metadata is available in
-[CITATION.cff](CITATION.cff).
+Apache License 2.0. Upstream workload licenses are in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Cite [CITATION.cff](CITATION.cff).
 
 Maintainer: Sheng-Kai Ku (`ethankai0714@gmail.com`).

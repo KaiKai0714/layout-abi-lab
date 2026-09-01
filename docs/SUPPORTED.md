@@ -33,6 +33,9 @@ Capture uses public `torch.fx.symbolic_trace` first, then `torch.export`.
 Framework-specific failures stay in `layoutabi/optimizer/adapters/` so they
 cannot break `import layoutabi`.
 
+The research question is producer layout versus vendor GEMM family. The table
+below is only what `optimize()` will rewrite today.
+
 ## Declared optimizer contract
 
 | Item | This release |
@@ -42,6 +45,7 @@ cannot break `import layoutabi`.
 | Shapes | Fixed example inputs; optional buckets 32…512 |
 | Mode | Inference only |
 | Policies | `off`, `direct`, `repair_k`, `repair_kv`, `autotune`, `n_mod_8`, `cost_model` |
+| Mechanism audits | Compiled graph; FP16 K-pointer × V-pointer alignment |
 | Unseen sizes | `direct`, `noop`, or `autotune` — never an unverified repair |
 
 BF16, INT8, FP8, dynamic shapes, and graphs that do not match the frozen pattern

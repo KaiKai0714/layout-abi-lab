@@ -16,6 +16,7 @@ COMPILE_SCHEMA = "layoutabi_compile_v1"
 MANIFEST_SCHEMA = "layoutabi_manifest_v1"
 INDEX_SCHEMA = "layoutabi_results_index_v1"
 AUDIT_SCHEMA = "layoutabi_compile_audit_v1"
+POINTER_AUDIT_SCHEMA = "layoutabi_pointer_audit_v1"
 DIAGNOSTICS_SCHEMA = "layoutabi_optimizer_diagnostics_v1"
 
 CURRENT_VERSIONS = {
@@ -25,6 +26,7 @@ CURRENT_VERSIONS = {
     MANIFEST_SCHEMA: 1,
     INDEX_SCHEMA: 1,
     AUDIT_SCHEMA: 1,
+    POINTER_AUDIT_SCHEMA: 1,
     DIAGNOSTICS_SCHEMA: 1,
 }
 
@@ -35,6 +37,7 @@ SCHEMA_FILES = {
     MANIFEST_SCHEMA: "manifest.schema.json",
     INDEX_SCHEMA: "index.schema.json",
     AUDIT_SCHEMA: "audit.schema.json",
+    POINTER_AUDIT_SCHEMA: "pointer_audit.schema.json",
     DIAGNOSTICS_SCHEMA: "diagnostics.schema.json",
 }
 
@@ -45,6 +48,7 @@ KIND_SCHEMAS = {
     "manifest": MANIFEST_SCHEMA,
     "index": INDEX_SCHEMA,
     "audit": AUDIT_SCHEMA,
+    "pointer_audit": POINTER_AUDIT_SCHEMA,
     "diagnostics": DIAGNOSTICS_SCHEMA,
 }
 

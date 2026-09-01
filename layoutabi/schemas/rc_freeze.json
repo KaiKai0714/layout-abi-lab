@@ -12,6 +12,7 @@
     "layoutabi_eager_v1": 1,
     "layoutabi_environment_v1": 1,
     "layoutabi_optimizer_diagnostics_v1": 1,
+    "layoutabi_pointer_audit_v1": 1,
     "layoutabi_manifest_v1": 1,
     "layoutabi_results_index_v1": 1
   },

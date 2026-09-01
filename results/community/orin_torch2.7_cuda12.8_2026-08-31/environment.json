@@ -1,0 +1,37 @@
+{
+  "schema": "layoutabi_environment_v1",
+  "schema_version": 1,
+  "created_utc": "2026-08-31T09:34:24.171171+00:00",
+  "layoutabi_version": "0.9.0",
+  "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]",
+  "platform": "Linux-5.15.199-tegra-aarch64-with-glibc2.39",
+  "machine": "aarch64",
+  "container": {
+    "likely_container": true,
+    "nvidia_visible_devices": "void",
+    "cuda_visible_devices": null
+  },
+  "nvidia_smi": {
+    "available": true,
+    "returncode": 0,
+    "stdout": "Orin (nvgpu), 540.5.0, 8.7, [N/A], [N/A]",
+    "stderr": ""
+  },
+  "torch": {
+    "version": "2.7.0",
+    "cuda_build": "12.8",
+    "git_version": "881d99495ddd1376b000f7c03b050c22646012cf",
+    "cudnn": 90800,
+    "cuda_available": true,
+    "compile_available": true,
+    "devices": [
+      {
+        "index": 0,
+        "name": "Orin",
+        "compute_capability": "8.7",
+        "sm_count": 8,
+        "total_memory_bytes": 16402780160
+      }
+    ]
+  }
+}

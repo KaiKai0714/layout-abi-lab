@@ -45,13 +45,28 @@ GATES = (
     },
     {
         "id": "orin",
-        "status": "open",
-        "detail": "No published Orin bundle. Not claimed supported; still a v1.0 gate.",
+        "status": "published",
+        "detail": "Eager 128 FP16 community bundle; compiled unavailable; 256 not measured.",
     },
     {
-        "id": "third_architecture",
+        "id": "second_architecture",
+        "status": "published",
+        "detail": "Orin is a second architecture: eager-128 direct-win, not an L40S speedup replica.",
+    },
+    {
+        "id": "three_level_residue_contrast",
+        "status": "published",
+        "detail": (
+            "L40S PyTorch 2.11/CUDA 12.8 bundle spans N%8==0, even non-multiple, "
+            "and odd with isolated KTV profiler names."
+        ),
+    },
+    {
+        "id": "operand_pointer_contrast",
         "status": "open",
-        "detail": "No second GPU architecture in the public index. Community held-out.",
+        "detail": (
+            "L40S 100-cell K-pointer by V-pointer grid is published; Orin remains open."
+        ),
     },
 )
 

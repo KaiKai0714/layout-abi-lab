@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Layout ABI operand pointer-alignment audit",
+  "type": "object",
+  "required": ["schema", "schema_version", "device", "software", "protocol", "points", "files"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "layoutabi_pointer_audit_v1" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "device": { "type": "object" },
+    "software": { "type": "object" },
+    "protocol": {
+      "type": "object",
+      "required": ["dtype", "ns", "offsets_mod64_bytes", "cycles", "iterations_per_measurement"],
+      "additionalProperties": true
+    },
+    "files": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "points": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["n", "n_mod_8", "n_class", "rows"],
+        "additionalProperties": true,
+        "properties": {
+          "n": { "type": "integer", "minimum": 1 },
+          "n_mod_8": { "type": "integer", "minimum": 0 },
+          "n_class": { "type": "string", "enum": ["fastest", "intermediate", "slowest"] },
+          "rows": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["k_offset_bytes", "v_offset_bytes", "k_pointer", "v_pointer", "correctness", "timing", "profiler"],
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

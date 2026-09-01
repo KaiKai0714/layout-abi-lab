@@ -9,6 +9,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -78,6 +79,11 @@ def main() -> int:
         help="Keep images pulled by this run instead of reclaiming their disk space",
     )
     parser.add_argument("--keep-going", action="store_true")
+    parser.add_argument(
+        "--gpu-tag",
+        required=True,
+        help="Short GPU token for output dirs, for example l40s or orin",
+    )
     args = parser.parse_args()
 
     matrix_path = args.matrix.resolve()
@@ -96,12 +102,19 @@ def main() -> int:
     for stack in enabled:
         name = safe_name(str(stack["name"]))
         image = str(stack["image"])
-        output = (args.output_root / f"local_matrix_{name}").resolve()
+        gpu_tag = safe_name(str(args.gpu_tag))
+        day = date.today().isoformat()
+        output = (args.output_root / f"local_{gpu_tag}_{name}_{day}").resolve()
         existed_before = image_exists(image, cwd=root)
         stop_after_failure = False
         try:
             if not existed_before:
                 run(["docker", "pull", image], cwd=root)
+            if output.exists() and any(output.iterdir()):
+                raise FileExistsError(
+                    f"Output already exists and is not empty: {output}. "
+                    "Use a different --output-root or move the previous run."
+                )
             output.mkdir(parents=True, exist_ok=True)
             run(
                 [

@@ -1,0 +1,9 @@
+{
+  "schema": "layoutabi_manifest_v1",
+  "schema_version": 1,
+  "files": {
+    "environment.json": "66272306844413ae63e3db3f3e8a76d4bb8ad169466bfd2b4eccfc7df6c19170",
+    "eager_results.json": "a624aef30de5e8ea10619c98a8aa7faab845f0074ccee047f93a9b5506079705",
+    "SUMMARY.md": "5328562f921caf22bf3b5153c32d94ec41e9dac246416ab6fecfd3ef700512bb"
+  }
+}

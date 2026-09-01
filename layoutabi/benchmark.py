@@ -96,7 +96,12 @@ def run_eager(
     prepare_runtime("layoutabi_eager")
     import torch
 
-    from .workload import PublicDiffusionLinearAttention, make_chain_inputs, public_chain
+    from .workload import (
+        PublicDiffusionLinearAttention,
+        context_from_kv,
+        make_chain_inputs,
+        public_chain,
+    )
 
     if not torch.cuda.is_available():
         raise RuntimeError("The eager reproduction requires a CUDA-enabled PyTorch build")
@@ -114,7 +119,8 @@ def run_eager(
             "module": {policy: [] for policy in POLICIES},
         }
         seed_records = []
-        profiler = None
+        module_profiler = None
+        ktv_profiler = None
         for seed_index, seed in enumerate(seeds):
             torch.manual_seed(seed + resolution)
             q, k, v = make_chain_inputs(resolution, batch=1, dtype=torch.float16)
@@ -128,6 +134,10 @@ def run_eager(
             chain_fns = {
                 policy: (lambda selected=policy: public_chain(q, k, v, selected))
                 for policy in POLICIES
+            }
+            ktv_fns = {
+                policy: (lambda selected=policy: context_from_kv(k, v, selected))
+                for policy in ("direct", "repair_kv")
             }
             module_fns = {
                 policy: (lambda selected=module: selected(x))
@@ -163,8 +173,16 @@ def run_eager(
                     for policy in module_order:
                         samples["module"][policy].append(_measure(module_fns[policy], iterations))
 
+                if seed_index == 0:
+                    # Profile the isolated first K^T V consumer at every length. Full-module
+                    # names contain unrelated GEMMs and cannot establish the three-level
+                    # align8/align2/align1 family ladder on their own.
+                    ktv_profiler = {
+                        policy: _profile_names(ktv_fns[policy])
+                        for policy in ("direct", "repair_kv")
+                    }
                 if resolution == max(resolutions) and seed_index == 0:
-                    profiler = {
+                    module_profiler = {
                         policy: _profile_names(module_fns[policy])
                         for policy in ("direct", "repair_kv")
                     }
@@ -210,7 +228,8 @@ def run_eager(
                 "n_mod_8": (resolution * resolution + 4) % 8,
                 "seeds": seed_records,
                 "aggregate": aggregate_summary,
-                "module_profiler": profiler,
+                "ktv_profiler": ktv_profiler,
+                "module_profiler": module_profiler,
             }
         )
 
@@ -368,14 +387,16 @@ def _write_summary(
         "",
         "## Order-balanced eager results",
         "",
-        "| Resolution | Scope | Direct ms | Repair-K ms | Repair-KV ms | Direct / Repair-KV | Repair wins every seed |",
-        "|---:|---|---:|---:|---:|---:|---|",
+        "| Resolution | N%8 | Scope | Direct ms | Repair-K ms | Repair-KV ms | Direct / Repair-KV | Repair wins every seed |",
+        "|---:|---:|---|---:|---:|---:|---:|---|",
     ]
     for point in eager["points"]:
+        n_mod = point.get("n_mod_8", "—")
         for scope in ("chain", "module"):
             result = point["aggregate"][scope]
             lines.append(
-                f"| {point['resolution']} | {scope} | {result['direct']['median_ms']:.6f} | "
+                f"| {point['resolution']} | {n_mod} | {scope} | "
+                f"{result['direct']['median_ms']:.6f} | "
                 f"{result['repair_k']['median_ms']:.6f} | "
                 f"{result['repair_kv']['median_ms']:.6f} | "
                 f"{result['direct_over_repair_kv']:.3f} | "
@@ -404,8 +425,10 @@ def _write_summary(
     lines.extend(
         [
             "",
-            "A ratio above 1 means repair-KV was faster. This result is scoped to the",
-            "recorded graph, device, shape, dtype, and software stack.",
+            "A ratio above 1 means repair-KV was faster at that scope. Kernel-family",
+            "names live in `eager_results.json` (`ktv_profiler`); they identify the",
+            "isolated consumer-GEMM mechanism. Ratio is whether materialization paid off.",
+            "This result is scoped to the recorded graph, device, shape, dtype, and stack.",
         ]
     )
     (output / "SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

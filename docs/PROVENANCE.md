@@ -49,6 +49,11 @@ this module. L40S remains the only complete public device reference (graph 1). O
 and other architectures are community/held-out slots, not implied by extra software
 stacks.
 
+The residue and pointer grids are ABI-causal synthetic controls. Their shapes are
+derived from the public witness, but intentional pointer offsets are not claimed to
+be semantic properties of an upstream model. They isolate mechanism; they are not
+additional real-world workloads.
+
 New optimizer graphs are registered under `layoutabi/workloads/cases/`. See that
 directory's README for the drop-in spec. Adding a case should not require editing
 the CLI.

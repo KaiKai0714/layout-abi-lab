@@ -19,7 +19,7 @@ body:
     id: stack
     attributes:
       label: Software stack
-      description: Include driver, PyTorch, CUDA build, and container image if used.
+      description: Include driver, PyTorch, CUDA build, and the bundle directory name (`<gpu>_torch<ver>_cuda<ver>_<yyyy-mm-dd>`).
     validations:
       required: true
   - type: checkboxes
@@ -27,7 +27,7 @@ body:
     attributes:
       label: Validation
       options:
-        - label: I ran `layoutabi validate <result-directory> --strict`.
+        - label: I ran the matching validator (`validate`, `validate-audit`, or `validate-pointer-audit`) and used `--strict` when ordinary compiled results were expected.
           required: true
         - label: I included all measured cells, including losses and unsupported cells.
           required: true
@@ -37,4 +37,3 @@ body:
     id: notes
     attributes:
       label: Benchmark conditions and notes
-

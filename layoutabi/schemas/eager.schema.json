@@ -25,6 +25,7 @@
           "batch": { "type": "integer" },
           "seeds": { "type": "array" },
           "aggregate": { "type": "object" },
+          "ktv_profiler": { "type": ["object", "null"] },
           "module_profiler": { "type": ["object", "null"] }
         }
       }

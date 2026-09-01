@@ -1,0 +1,18 @@
+{
+  "schema": "layoutabi_container_matrix_v1",
+  "gpu_device": "0",
+  "cleanup_new_images": true,
+  "stacks": [
+    {
+      "name": "torch2.11_cuda12.8",
+      "image": "pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime",
+      "enabled": true
+    }
+  ],
+  "benchmark": {
+    "resolutions": "256,255,254,128,127,126",
+    "seeds": "1701,1702,1703",
+    "cycles": 12,
+    "iterations": 12
+  }
+}

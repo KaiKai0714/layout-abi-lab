@@ -66,15 +66,18 @@ class PlannerPolicyTest(unittest.TestCase):
 
 
 class PlannerIndexTest(unittest.TestCase):
-    def test_reference_index_shows_n_mod_8_cannot_split_128_and_256(self) -> None:
+    def test_reference_index_shows_residue_does_not_determine_profitability(self) -> None:
         from layoutabi.aggregation import build_index
 
         repo = Path(__file__).resolve().parents[1]
         index = build_index(repo / "results")
         report = evaluate_index(index)
         diagnostic = report["n_mod_8_diagnostic"]
-        self.assertEqual(diagnostic["unique_n_mod_8"], [4])
+        self.assertEqual(diagnostic["unique_n_mod_8"], [0, 4, 5])
         self.assertFalse(diagnostic["separates_oracle"])
+        self.assertEqual(
+            set(diagnostic["oracle_conflicts_by_n_mod_8"]), {"0", "4", "5"}
+        )
         n_mod = report["all"]["policies"]["n_mod_8"]
         always_repair = report["all"]["policies"]["always_repair_kv"]
         cost = report["all"]["policies"]["cost_model"]

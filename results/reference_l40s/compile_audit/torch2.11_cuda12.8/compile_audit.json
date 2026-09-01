@@ -1,0 +1,1177 @@
+{
+  "schema": "layoutabi_compile_audit_v1",
+  "schema_version": 1,
+  "software": {
+    "torch": "2.11.0+cu128",
+    "cuda_build": "12.8"
+  },
+  "protocol": {
+    "policies": [
+      "direct",
+      "repair_kv"
+    ],
+    "resolutions": [
+      256,
+      255,
+      254,
+      128,
+      127,
+      126
+    ],
+    "compile_mode": "reduce-overhead",
+    "isolated_process_and_cache": true,
+    "nsight_required": false
+  },
+  "points": [
+    {
+      "resolution": 256,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5088.644099014346,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.4351744174957275,
+            "mean_ms": 0.4375796890258789,
+            "min_ms": 0.4349391937255859,
+            "max_ms": 0.4584959983825684
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001001001001001001,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_exp_expand_select_split_sub_unsqueeze_view_5",
+              "triton_poi_fused_cat_expand_select_split_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)",
+              "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)"
+            ],
+            "copy_in_fx": false,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align2",
+              "gemm",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align2",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4842.556613031775,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.3674623966217041,
+            "mean_ms": 0.36748800516128544,
+            "min_ms": 0.36720640659332277,
+            "max_ms": 0.3678208112716675
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001001001001001001,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6"
+            ],
+            "copy_in_fx": true,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "gemm",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resolution": 255,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5219.108647026587,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.38169360160827637,
+            "mean_ms": 0.38174144029617313,
+            "min_ms": 0.38128640651702883,
+            "max_ms": 0.38236160278320314
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011876484560570072,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_bmm_cat_exp_expand_select_split_sub_unsqueeze_view_5",
+              "triton_poi_fused_bmm_cat_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)"
+            ],
+            "copy_in_fx": false,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4835.134907974862,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.38916879892349243,
+            "mean_ms": 0.3892423987388611,
+            "min_ms": 0.38896639347076417,
+            "max_ms": 0.38983678817749023
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011876484560570072,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6"
+            ],
+            "copy_in_fx": true,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resolution": 254,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5664.839124015998,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.35934720039367674,
+            "mean_ms": 0.3593881583213806,
+            "min_ms": 0.3590656042098999,
+            "max_ms": 0.3596287965774536
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011441647597254005,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_exp_expand_select_split_sub_unsqueeze_view_5",
+              "triton_poi_fused_cat_expand_select_split_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)"
+            ],
+            "copy_in_fx": false,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 5364.338611019775,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.37475520372390747,
+            "mean_ms": 0.3746911978721619,
+            "min_ms": 0.3743743896484375,
+            "max_ms": 0.3749887943267822
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011441647597254005,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6"
+            ],
+            "copy_in_fx": true,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resolution": 128,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5092.175972007681,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.14082559943199158,
+            "mean_ms": 0.14085983991622925,
+            "min_ms": 0.14069759845733643,
+            "max_ms": 0.14105600118637085
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011402508551881414,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_exp_expand_select_split_sub_unsqueeze_view_5",
+              "triton_poi_fused_cat_expand_select_split_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "ampere_fp16_s16816gemm_fp16_256x128_ldg8_f2f_stages_32x3_nt",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)",
+              "ampere_fp16_s16816gemm_fp16_256x128_ldg8_f2f_stages_32x3_nt",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)"
+            ],
+            "copy_in_fx": false,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align2",
+              "gemm",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align2",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4768.07099301368,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.1234175980091095,
+            "mean_ms": 0.12348927855491638,
+            "min_ms": 0.12328959703445434,
+            "max_ms": 0.12380160093307495
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011402508551881414,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "ampere_fp16_s16816gemm_fp16_256x128_ldg8_f2f_stages_32x3_nt",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "ampere_fp16_s16816gemm_fp16_256x128_ldg8_f2f_stages_32x3_nt",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6"
+            ],
+            "copy_in_fx": true,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "gemm",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resolution": 127,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5304.120178043377,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12387840151786804,
+            "mean_ms": 0.12389888167381287,
+            "min_ms": 0.12380160093307495,
+            "max_ms": 0.12410880327224731
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001026167265264238,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_bmm_cat_exp_expand_select_split_sub_unsqueeze_view_5",
+              "triton_poi_fused_bmm_cat_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nn_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)"
+            ],
+            "copy_in_fx": false,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 5004.755887959618,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12525759935379027,
+            "mean_ms": 0.12533024072647095,
+            "min_ms": 0.1251296043395996,
+            "max_ms": 0.12595200538635254
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001026167265264238,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6"
+            ],
+            "copy_in_fx": true,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resolution": 126,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5604.864840046503,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.11931920051574707,
+            "mean_ms": 0.11929520130157471,
+            "min_ms": 0.11914240121841431,
+            "max_ms": 0.11939840316772461
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0010851871947911015,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_exp_expand_select_split_sub_unsqueeze_view_5",
+              "triton_poi_fused_cat_expand_select_split_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_tn_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)"
+            ],
+            "copy_in_fx": false,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 5400.999460020103,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12316159605979919,
+            "mean_ms": 0.12320751667022704,
+            "min_ms": 0.1230847954750061,
+            "max_ms": 0.12364799976348877
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0010851871947911015,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "artifacts": {
+            "fx_graph": "fx_graph.txt",
+            "export_graph": "export_graph.txt",
+            "pre_fusion": "ir_pre_fusion.txt",
+            "post_fusion": "ir_post_fusion.txt",
+            "output_code": "output_code.py",
+            "fx_transformed": "fx_graph_transformed.py",
+            "fx_runnable": "fx_graph_runnable.py"
+          },
+          "profiler": {
+            "available": true,
+            "ordered_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_per_fused_clamp_min_div_expand_linalg_vector_norm_mul_0",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_1",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_2",
+              "triton_red_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_3",
+              "triton_per_fused__softmax_cat_expand_prepare_softmax_online_select_split_unsqueeze_view_4",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "triton_per_fused__softmax_prepare_softmax_online_split_view_7",
+              "triton_poi_fused__softmax_exp_mul_split_sub_view_8",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "triton_poi_fused_convolution_view_9",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_per_fused_clamp_min_convolution_div_expand_linalg_vector_norm_mul_view_10"
+            ],
+            "selected_cuda_names": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "sm86_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6",
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_16x16_128x2_nt_align8::Params)",
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_32x1_nt_align1::Params)",
+              "sm80_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn"
+            ]
+          },
+          "evidence": {
+            "copy_in_profiler": true,
+            "copy_kernels": [
+              "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half> >(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<c10::Half, 2, 1, 1>, at::native::Copy<c10::Half, c10::Half>)",
+              "triton_poi_fused__softmax_cat_clone_exp_expand_select_split_sub_transpose_unsqueeze_view_5",
+              "triton_poi_fused_cat_clone_expand_select_split_transpose_unsqueeze_view_6"
+            ],
+            "copy_in_fx": true,
+            "copy_in_pre_fusion": false,
+            "copy_in_post_fusion": false,
+            "copy_fused_or_eliminated": false,
+            "materialization_retained_in_compiled": true,
+            "gemm_kernel_count": 4,
+            "gemm_families": [
+              "gemm",
+              "align8",
+              "align1",
+              "gemm"
+            ],
+            "first_gemm_family": "gemm",
+            "second_gemm_family": "align8",
+            "generated_strides": [
+              "stride=(1, 1)"
+            ],
+            "evidence_source": [
+              "profiler",
+              "fx_graph",
+              "pre_fusion",
+              "post_fusion",
+              "output_code"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "files": {
+    "SUMMARY.md": "02d9e02e14136c15d3e31c42c8edb803c7e70081bc004757e28872879d7b632e",
+    "environment.json": "3676a8c63e4292e07015435ffce633add01eff2f67c9aec1b0fc25153fe818d5",
+    "artifacts/r256_direct/fx_graph.txt": "685cdd80317cb7375b037715099463cb6e41d240a5bc99f04b83332610f17405",
+    "artifacts/r256_direct/export_graph.txt": "89f0a3d7aa6127145774789cb2993a6e9ee0479111620bc0cda764a814970f75",
+    "artifacts/r256_direct/ir_pre_fusion.txt": "ca466afe74941bc92a4b0fc7507c88958b77260b9b3e2ee92be852a8ce006efe",
+    "artifacts/r256_direct/ir_post_fusion.txt": "645afcb7157944e7025bb971683428c3e3b73223134d352eccd20dcbb201d656",
+    "artifacts/r256_direct/output_code.py": "f7c6b85d0cbff0ad8571a2e675561d06c33e87704c37d9166bf0902d5efeff48",
+    "artifacts/r256_direct/fx_graph_transformed.py": "86b51d4d599054c2e09a6c951b2d616fbca2518a18d527f8cd3fdb5e2745a83f",
+    "artifacts/r256_direct/fx_graph_runnable.py": "9b97271d188ca74e722c287403654d9d8918014251a6bba568d53fc4a0df9e24",
+    "artifacts/r256_repair_kv/fx_graph.txt": "1eb5930e33a0006fe56b746832a7526b333a6c4b73fc9fd41d54b1684e40fe5e",
+    "artifacts/r256_repair_kv/export_graph.txt": "f559418a985d85546575bad2da54a17a853c8bdd539ae1e2903e60633f31beb3",
+    "artifacts/r256_repair_kv/ir_pre_fusion.txt": "a85ae55e1203889b44e1d8d7ac6ae87d90e4af73db254dad2101401b24387dc4",
+    "artifacts/r256_repair_kv/ir_post_fusion.txt": "f94176b7781e4e7e3f4f8fc894046a0fb273946b8768ebd0a4bf360ca7da5549",
+    "artifacts/r256_repair_kv/output_code.py": "1e0c2f9ebb11398891cc0e56abc7f6463fc28d2c79b8e42dce3885bd6a135cea",
+    "artifacts/r256_repair_kv/fx_graph_transformed.py": "08ce7a9e4ceb4f446482bdece96da6b7dffedbc09ade0f60a38d02a1b7b86dff",
+    "artifacts/r256_repair_kv/fx_graph_runnable.py": "65bd5d9d00628a957aebb12fb79f20530e7d7ba820ad0f36def4e3345f02040a",
+    "artifacts/r255_direct/fx_graph.txt": "685cdd80317cb7375b037715099463cb6e41d240a5bc99f04b83332610f17405",
+    "artifacts/r255_direct/export_graph.txt": "ec8cd801dfc911aaff902c96db05f5dd589fb3549a94220231fafc6e57f11eaa",
+    "artifacts/r255_direct/ir_pre_fusion.txt": "cd41ad3d77f4e2622864b7bda245015f72d6de759c04d370ef926813487aecb4",
+    "artifacts/r255_direct/ir_post_fusion.txt": "3de4234155c314c06361a96d8a3b4312aac3dd733930d18fdefdcd1ad0f54d46",
+    "artifacts/r255_direct/output_code.py": "6b5acad334af54df8a4fc2ab5cde763ed45b4e19e230b4f4da827231b40eb2c6",
+    "artifacts/r255_direct/fx_graph_transformed.py": "0bbd26467741b9af0c08d76295b2b58ac7fd4f458ccc5e00c354356fc311a5cc",
+    "artifacts/r255_direct/fx_graph_runnable.py": "004cc5ca34aee2a3818f1830294d660fcd184fee744b093e2a381dc8e9b13563",
+    "artifacts/r255_repair_kv/fx_graph.txt": "1eb5930e33a0006fe56b746832a7526b333a6c4b73fc9fd41d54b1684e40fe5e",
+    "artifacts/r255_repair_kv/export_graph.txt": "7a0e72f9e1c246f2f3e688bd6396cbe4957f21ae9b57d8bbf338755bc91be2d8",
+    "artifacts/r255_repair_kv/ir_pre_fusion.txt": "aedc37f66e4814946e19b2bd6b78a75aa669ac14a83d0ae564d742d1ee03455f",
+    "artifacts/r255_repair_kv/ir_post_fusion.txt": "70a7119c2954c54fcfe2e4a4c88381bc46523f1cba35604569bfa3aba736d988",
+    "artifacts/r255_repair_kv/output_code.py": "afc7de335a42e0f3166442150fdbc454880599c1e2c57dfe025a97399d51dd1f",
+    "artifacts/r255_repair_kv/fx_graph_transformed.py": "8eab797debcb1be694c453cdc190fd8c9356c7c35b37154f03cbc7294a47146b",
+    "artifacts/r255_repair_kv/fx_graph_runnable.py": "248f4d29b0c9a4172b9f461473380450c87e99b909c17daf92f10f4d7e43f617",
+    "artifacts/r254_direct/fx_graph.txt": "685cdd80317cb7375b037715099463cb6e41d240a5bc99f04b83332610f17405",
+    "artifacts/r254_direct/export_graph.txt": "3d1f13f1151bc14d23a708e68f731c05e70ba10cd9863f2d20edd3a3f8d7b8c3",
+    "artifacts/r254_direct/ir_pre_fusion.txt": "500a8266b28a73504f2d6b2a0c9f3c3c7983b8a8c1bccda2154d6936a567f8a0",
+    "artifacts/r254_direct/ir_post_fusion.txt": "b53a7551f0eb3eaabfb4fa571d3df301d1733805dde0e878bc96d28ec2216412",
+    "artifacts/r254_direct/output_code.py": "6c8c06d47611f67b60a7e4ab673c4b1d3eb6ed67425f701dbe6659cd161f3785",
+    "artifacts/r254_direct/fx_graph_transformed.py": "6b720670f3c904b19f0e0da460067cec8a82236ac899e37fa942c8125ba7b057",
+    "artifacts/r254_direct/fx_graph_runnable.py": "7ea2bb3664b16cd6c9a024bec0fc99291e142c9626d1eb2498fdb6e09fe6f02a",
+    "artifacts/r254_repair_kv/fx_graph.txt": "1eb5930e33a0006fe56b746832a7526b333a6c4b73fc9fd41d54b1684e40fe5e",
+    "artifacts/r254_repair_kv/export_graph.txt": "d1deacdebc6964bd645803e4ddf3567724af174bcf93aeb36227d4cf4bbe609d",
+    "artifacts/r254_repair_kv/ir_pre_fusion.txt": "b9a8d0d48002adeb354c9006e0b10cc96db4b300b487624b70a4be1568fce204",
+    "artifacts/r254_repair_kv/ir_post_fusion.txt": "453c4d65c647fa57bae204e7062c4c2df18072dcf15c37282dcc7a52ed220f26",
+    "artifacts/r254_repair_kv/output_code.py": "e75486163b41079995ac4be325a57a401e11466c3b2297a11b3bb234371bf826",
+    "artifacts/r254_repair_kv/fx_graph_transformed.py": "c6f9ee9b3e15f144da81411fc5fee20e29d24e75c9f949931b03b0d95c6c046e",
+    "artifacts/r254_repair_kv/fx_graph_runnable.py": "388e83a1f52816e77cb2083a36a9e2550911c549189b70c6942304cd9c4dc4e0",
+    "artifacts/r128_direct/fx_graph.txt": "685cdd80317cb7375b037715099463cb6e41d240a5bc99f04b83332610f17405",
+    "artifacts/r128_direct/export_graph.txt": "bc087e537eb2ae60ef18ba14b987fc8b12dc79f714af29c1dd8ec29b054e32c5",
+    "artifacts/r128_direct/ir_pre_fusion.txt": "3867d3283865133662f82ace4c5b39454f0c7c115f3349c37faefcb97c59d4ec",
+    "artifacts/r128_direct/ir_post_fusion.txt": "286fa9446ea68e951fb4511a4b2f08c0e5ecaca6df99b9496a371d4e7b48e88f",
+    "artifacts/r128_direct/output_code.py": "a5528c385e9b4cbf03b0ce52031fab204002714621c69c8d8c308c0ea926bd6a",
+    "artifacts/r128_direct/fx_graph_transformed.py": "abd4b6b0b723f51e7229df8898d6fdbffb317230b3fbee5e505a0792c8c54323",
+    "artifacts/r128_direct/fx_graph_runnable.py": "bb58061844a3f6c4604dece60bd7e6c4f49ccaf70b4781e15dcf2fdba7e82594",
+    "artifacts/r128_repair_kv/fx_graph.txt": "1eb5930e33a0006fe56b746832a7526b333a6c4b73fc9fd41d54b1684e40fe5e",
+    "artifacts/r128_repair_kv/export_graph.txt": "728427afa4dd966694aba65181c735d855bd5c6f8abc3eaa47c54dcc2ab43539",
+    "artifacts/r128_repair_kv/ir_pre_fusion.txt": "69fd2648d414aa5ac4407e6c8b18c4133bb73d6908a7639f08b1ed245b0606b8",
+    "artifacts/r128_repair_kv/ir_post_fusion.txt": "819c9dc21c700faf3c9362f537a8d1bfc46bb4dbbfc43bbfcc528de4019cda56",
+    "artifacts/r128_repair_kv/output_code.py": "42bb4a1d13d2710db3e2d74615a21c809790ca3fa9231f4b09b798072d64047a",
+    "artifacts/r128_repair_kv/fx_graph_transformed.py": "4a5fd0e54cc618708507c2a481bf3634a12ccb204751f1fb97df1038c8c31fb4",
+    "artifacts/r128_repair_kv/fx_graph_runnable.py": "74cd68edde53947bd1ed7e62a540e34e4e32e51a49dbbdb308b8772b7b03ae98",
+    "artifacts/r127_direct/fx_graph.txt": "685cdd80317cb7375b037715099463cb6e41d240a5bc99f04b83332610f17405",
+    "artifacts/r127_direct/export_graph.txt": "ed134838d0f202a431179a0e46be378f3ef5b350cc248238cd489b5fc94bc01c",
+    "artifacts/r127_direct/ir_pre_fusion.txt": "dcdd98998227d482e1cb25e08640092f117a4ff03c2a457984faff69e98958eb",
+    "artifacts/r127_direct/ir_post_fusion.txt": "61597136b3de09e0888f0ff75528f629bf01aaf132ac3983ae51bce4694d9251",
+    "artifacts/r127_direct/output_code.py": "6b562f3e8832df410edab0a3e4ef128133b0e57c05f8044922edb932ad3eb32b",
+    "artifacts/r127_direct/fx_graph_transformed.py": "38c4c4df7be57e1a409d1c3b29dd665672231e1ac110b412f5d9b9951752ae9f",
+    "artifacts/r127_direct/fx_graph_runnable.py": "6f33bec094789d0dcd394060391a2cf8b1a1bd1d92fd9840f3f29475cf7623fb",
+    "artifacts/r127_repair_kv/fx_graph.txt": "1eb5930e33a0006fe56b746832a7526b333a6c4b73fc9fd41d54b1684e40fe5e",
+    "artifacts/r127_repair_kv/export_graph.txt": "a42146057929ed8e70814d4e55ace9fd9ca12cc2beae259cca2d09c2881e8765",
+    "artifacts/r127_repair_kv/ir_pre_fusion.txt": "8bca2b9775c443d70a5cab628e565d23aca1af57c8ee35f6a989d9de2ed1a1eb",
+    "artifacts/r127_repair_kv/ir_post_fusion.txt": "a35624aea745a68a7d8afb43ad800001fad4231622de4b044b9352292b9a36e1",
+    "artifacts/r127_repair_kv/output_code.py": "00250dbdab4aff245c58e0b1055e7cfa28a47ef0e1f225222de3d5980656f04a",
+    "artifacts/r127_repair_kv/fx_graph_transformed.py": "aa991ced42c0da62b15ac87d64a2dfbd225cf4349efe482070455f7f40ee1473",
+    "artifacts/r127_repair_kv/fx_graph_runnable.py": "ca68e645ef8ab7a6a43e495b0fbe8dda90035c0e761818d8b8b7cd53570d7084",
+    "artifacts/r126_direct/fx_graph.txt": "685cdd80317cb7375b037715099463cb6e41d240a5bc99f04b83332610f17405",
+    "artifacts/r126_direct/export_graph.txt": "9bcf987fe84125198ab712ecc007855c574a7ace7f33cf284f51053235a6a998",
+    "artifacts/r126_direct/ir_pre_fusion.txt": "9047a79a45fab585e054d8fc3efc4be42f76642313c9944466fbf8f8b0f96e02",
+    "artifacts/r126_direct/ir_post_fusion.txt": "44861511614a602a8d06c89c08b63a16dbb474996090f37c6f689788720ee45e",
+    "artifacts/r126_direct/output_code.py": "5fef7e3dd50e7b25473ddc3b6bc806fdc89a0a2f4b23bb99f6649cf7d415f694",
+    "artifacts/r126_direct/fx_graph_transformed.py": "55c958a95bb0d1685032e1c4c94c5260ee00ba91dbfb853eb126974c89254b89",
+    "artifacts/r126_direct/fx_graph_runnable.py": "5306d060c0c9d81ecb781f5574b7a4d01a265191272b216e4f6e76ad16bc477e",
+    "artifacts/r126_repair_kv/fx_graph.txt": "1eb5930e33a0006fe56b746832a7526b333a6c4b73fc9fd41d54b1684e40fe5e",
+    "artifacts/r126_repair_kv/export_graph.txt": "c8a30f12984a837ee205e75fc670dbc0451721c0fb4c193d98027b8fa0405bc0",
+    "artifacts/r126_repair_kv/ir_pre_fusion.txt": "df013bd4012baf142bc1fe434344723ee35c9ae177f7c7a78252e7ae3602497f",
+    "artifacts/r126_repair_kv/ir_post_fusion.txt": "b359f83918865a2b67912d4b66ff7af0f5c8928c0d258759c4be76188b116f5f",
+    "artifacts/r126_repair_kv/output_code.py": "51a2d359653152b41dd5467d30c6a4b4a0ae36e8d11f3675896ce6e9f04532a5",
+    "artifacts/r126_repair_kv/fx_graph_transformed.py": "0548f690a82f164a5c6cce767d36c22b5cc1047193a9aca3db4539a007a7490c",
+    "artifacts/r126_repair_kv/fx_graph_runnable.py": "4f0278e0fe089a46d1ddd08f86e58e871966c242c4c9d44b3d9172882c7025d7"
+  }
+}

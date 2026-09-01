@@ -11,14 +11,14 @@ _REASON_TEXT = {
     "autotune_failed": "Autotune ran but could not select a correct candidate; the original graph was kept.",
     "autotune_requires_cuda": "Autotune needs CUDA example inputs; the original graph was kept.",
     "n_mod_8!=0_predicted_unaligned_kernel": (
-        "The N-mod-8 hypothesis predicted an unaligned producer layout, so repair-KV was applied. "
+        "The conservative N-mod-8 safety policy grouped this intermediate/slow residue with repair, so repair-KV was applied. "
         "This is a testable heuristic, not a universal rule."
     ),
     "n_mod_8==0_predicted_aligned_kernel": (
-        "The N-mod-8 hypothesis predicted an already aligned layout, so the graph was left direct."
+        "The conservative N-mod-8 safety policy identified the fastest residue candidate, so the graph was left direct."
     ),
     "n_mod_8_requires_fp16_and_known_n": (
-        "N-mod-8 only applies to FP16 with a known reduction size; the graph was left direct."
+        "The N-mod-8 safety policy only applies to FP16 with a known reduction size; the graph was left direct."
     ),
     "cost_model_non_fp16_boundary": "The cost model treats non-FP16 as a direct/no-repair boundary.",
     "cost_model_batch_boundary": "The cost model treats batch != 1 as a direct/no-repair boundary.",

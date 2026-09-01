@@ -1,0 +1,399 @@
+{
+  "schema": "layoutabi_eager_v1",
+  "schema_version": 1,
+  "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+  "device": {
+    "name": "Orin",
+    "compute_capability": "8.7",
+    "sm_count": 8
+  },
+  "software": {
+    "torch": "2.7.0",
+    "cuda_build": "12.8"
+  },
+  "measurement": {
+    "seeds": [
+      1701,
+      1702,
+      1703
+    ],
+    "cycles": 12,
+    "iterations_per_measurement": 12,
+    "order": "rotating all six policy permutations with distinct chain/module rotations"
+  },
+  "points": [
+    {
+      "dtype": "fp16",
+      "batch": 1,
+      "resolution": 128,
+      "consumer_n": 16388,
+      "n_mod_8": 4,
+      "seeds": [
+        {
+          "seed": 1701,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 3.814697265625e-06,
+                "relative_inf": 0.0005321979776476849,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.001953125,
+                "relative_inf": 0.0010277492291880781,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 1.0387639999389648,
+              "mean_ms": 1.0407951143052843,
+              "min_ms": 1.0381200313568115,
+              "max_ms": 1.0616479714711506
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 1.283793330192566,
+              "mean_ms": 1.2849909000926547,
+              "min_ms": 1.2830026944478352,
+              "max_ms": 1.297322670618693
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 1.3910199801127117,
+              "mean_ms": 1.3949231041802301,
+              "min_ms": 1.3893787066141765,
+              "max_ms": 1.4355039596557617
+            },
+            "direct_over_repair_kv": 0.7467642555751038
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 2.4950760205586753,
+              "mean_ms": 2.5157613356908164,
+              "min_ms": 2.490765412648519,
+              "max_ms": 2.6276559829711914
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 2.731245358784993,
+              "mean_ms": 2.753793954849243,
+              "min_ms": 2.7297385533650718,
+              "max_ms": 2.8682772318522134
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 2.842206637064616,
+              "mean_ms": 2.8573191165924072,
+              "min_ms": 2.8397547403971353,
+              "max_ms": 2.939594586690267
+            },
+            "direct_over_repair_kv": 0.8778658061032284
+          }
+        },
+        {
+          "seed": 1702,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 3.814697265625e-06,
+                "relative_inf": 0.000550357732526142,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.001953125,
+                "relative_inf": 0.0011129660545353367,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 1.0365893443425498,
+              "mean_ms": 1.0366315576765273,
+              "min_ms": 1.0352319876352947,
+              "max_ms": 1.0384559631347656
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 1.2766133546829224,
+              "mean_ms": 1.2765235503514607,
+              "min_ms": 1.275386651357015,
+              "max_ms": 1.2779119809468586
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 1.3876853783925376,
+              "mean_ms": 1.3876953257454767,
+              "min_ms": 1.3863813082377117,
+              "max_ms": 1.3894426027933757
+            },
+            "direct_over_repair_kv": 0.7469916167476742
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 2.4843986829121905,
+              "mean_ms": 2.4851962195502386,
+              "min_ms": 2.480679988861084,
+              "max_ms": 2.496415932973226
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 2.733193238576253,
+              "mean_ms": 2.7368406189812555,
+              "min_ms": 2.7313998540242515,
+              "max_ms": 2.7576319376627603
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 2.837493260701497,
+              "mean_ms": 2.8377101951175265,
+              "min_ms": 2.834421475728353,
+              "max_ms": 2.8417412439982095
+            },
+            "direct_over_repair_kv": 0.8755610867241274
+          }
+        },
+        {
+          "seed": 1703,
+          "correctness": {
+            "chain": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 3.814697265625e-06,
+                "relative_inf": 0.000612369871402327,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            },
+            "module": {
+              "direct": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_k": {
+                "max_abs": 0.0,
+                "relative_inf": 0.0,
+                "tolerance": 0.08,
+                "pass": true
+              },
+              "repair_kv": {
+                "max_abs": 0.001953125,
+                "relative_inf": 0.001017293997965412,
+                "tolerance": 0.08,
+                "pass": true
+              }
+            }
+          },
+          "chain": {
+            "direct": {
+              "n": 12,
+              "median_ms": 1.0332853396733603,
+              "mean_ms": 1.0334406627549066,
+              "min_ms": 1.0327359835306804,
+              "max_ms": 1.0342666308085124
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 1.2905893325805664,
+              "mean_ms": 1.2903535564740498,
+              "min_ms": 1.2874586582183838,
+              "max_ms": 1.2928880055745442
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 1.3953893184661865,
+              "mean_ms": 1.3954728841781616,
+              "min_ms": 1.3938239415486653,
+              "max_ms": 1.3975307146708171
+            },
+            "direct_over_repair_kv": 0.7404996770429264
+          },
+          "module": {
+            "direct": {
+              "n": 12,
+              "median_ms": 2.4763786792755127,
+              "mean_ms": 2.4766891400019326,
+              "min_ms": 2.473288059234619,
+              "max_ms": 2.4806267420450845
+            },
+            "repair_k": {
+              "n": 12,
+              "median_ms": 2.7163453102111816,
+              "mean_ms": 2.7168884542253284,
+              "min_ms": 2.7125892639160156,
+              "max_ms": 2.7222827275594077
+            },
+            "repair_kv": {
+              "n": 12,
+              "median_ms": 2.81962792078654,
+              "mean_ms": 2.8197255664401584,
+              "min_ms": 2.816738764444987,
+              "max_ms": 2.8237921396891275
+            },
+            "direct_over_repair_kv": 0.878264348646655
+          }
+        }
+      ],
+      "aggregate": {
+        "chain": {
+          "direct": {
+            "n": 36,
+            "median_ms": 1.0365893443425498,
+            "mean_ms": 1.0369557782455727,
+            "min_ms": 1.0327359835306804,
+            "max_ms": 1.0616479714711506
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 1.283793330192566,
+            "mean_ms": 1.2839560023060552,
+            "min_ms": 1.275386651357015,
+            "max_ms": 1.297322670618693
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 1.3910199801127117,
+            "mean_ms": 1.3926971047012895,
+            "min_ms": 1.3863813082377117,
+            "max_ms": 1.4355039596557617
+          },
+          "direct_over_repair_kv": 0.745200902332515,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.7467642555751038,
+            0.7469916167476742,
+            0.7404996770429264
+          ]
+        },
+        "module": {
+          "direct": {
+            "n": 36,
+            "median_ms": 2.4843986829121905,
+            "mean_ms": 2.4925488984143294,
+            "min_ms": 2.473288059234619,
+            "max_ms": 2.6276559829711914
+          },
+          "repair_k": {
+            "n": 36,
+            "median_ms": 2.731245358784993,
+            "mean_ms": 2.735841009351942,
+            "min_ms": 2.7125892639160156,
+            "max_ms": 2.8682772318522134
+          },
+          "repair_kv": {
+            "n": 36,
+            "median_ms": 2.837493260701497,
+            "mean_ms": 2.8382516260500306,
+            "min_ms": 2.816738764444987,
+            "max_ms": 2.939594586690267
+          },
+          "direct_over_repair_kv": 0.8755610867241274,
+          "repair_kv_wins_all_seeds": false,
+          "seed_ratios": [
+            0.8778658061032284,
+            0.8755610867241274,
+            0.878264348646655
+          ]
+        }
+      },
+      "module_profiler": {
+        "direct": {
+          "available": true,
+          "selected_cuda_names": [
+            "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+            "ampere_fp16_s1688gemm_fp16_256x64_ldg8_f2f_nn",
+            "ampere_fp16_s1688gemm_fp16_256x64_ldg8_f2f_stages_32x1_nn",
+            "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 128, 1, 8>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+            "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align2::Params)"
+          ]
+        },
+        "repair_kv": {
+          "available": true,
+          "selected_cuda_names": [
+            "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_nt",
+            "ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f_stages_64x5_nt",
+            "ampere_fp16_s1688gemm_fp16_256x64_ldg8_f2f_nn",
+            "ampere_fp16_s1688gemm_fp16_256x64_ldg8_f2f_stages_32x1_nn",
+            "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 128, 1, 8>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+            "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})"
+          ]
+        }
+      }
+    }
+  ]
+}

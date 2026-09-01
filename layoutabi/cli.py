@@ -21,6 +21,16 @@ def _csv_ints(value: str) -> tuple[int, ...]:
     return parsed
 
 
+def _csv_nonnegative_ints(value: str) -> tuple[int, ...]:
+    try:
+        parsed = tuple(int(item.strip()) for item in value.split(",") if item.strip())
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
+    if not parsed or any(item < 0 for item in parsed):
+        raise argparse.ArgumentTypeError("Expected comma-separated non-negative integers")
+    return parsed
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="layoutabi",
@@ -174,6 +184,26 @@ def build_parser() -> argparse.ArgumentParser:
     )
     audit_validate.add_argument("directory", type=Path)
 
+    pointer_parser = subparsers.add_parser(
+        "audit-pointer",
+        help="Run a controlled FP16 K-pointer by V-pointer alignment grid",
+    )
+    pointer_parser.add_argument("--output", type=Path, required=True)
+    pointer_parser.add_argument(
+        "--ns", type=_csv_ints, default=(65536, 65538, 65540, 65543)
+    )
+    pointer_parser.add_argument(
+        "--offsets", type=_csv_nonnegative_ints, default=(0, 2, 4, 8, 16)
+    )
+    pointer_parser.add_argument("--cycles", type=int, default=12)
+    pointer_parser.add_argument("--iterations", type=int, default=20)
+
+    pointer_validate = subparsers.add_parser(
+        "validate-pointer-audit",
+        help="Validate a pointer-alignment audit directory",
+    )
+    pointer_validate.add_argument("directory", type=Path)
+
     subparsers.add_parser(
         "list-workloads",
         help="Print the public and synthetic workload catalog",
@@ -181,7 +211,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     planner_parser = subparsers.add_parser(
         "evaluate-planner",
-        help="Score N-mod-8 and other planner baselines against published result oracles",
+        help="Score the binary N-mod-8 safety action and other baselines against published oracles",
     )
     planner_parser.add_argument("--results-root", type=Path, default=Path("results"))
     planner_parser.add_argument(
@@ -469,6 +499,37 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"- {problem}", file=sys.stderr)
             return 1
         print(f"Valid compile audit: {args.directory.resolve()}")
+        return 0
+
+    if args.command == "audit-pointer":
+        from .pointer_audit import run_pointer_audit
+
+        try:
+            payload = run_pointer_audit(
+                output=args.output.resolve(),
+                ns=args.ns,
+                offsets=args.offsets,
+                cycles=args.cycles,
+                iterations=args.iterations,
+            )
+        except Exception as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        cells = sum(len(point.get("rows", [])) for point in payload.get("points", []))
+        print(f"Pointer audit: {args.output.resolve()}")
+        print(json.dumps({"device": payload.get("device"), "cells": cells}))
+        return 0
+
+    if args.command == "validate-pointer-audit":
+        from .pointer_audit import validate_pointer_audit
+
+        problems = validate_pointer_audit(args.directory.resolve())
+        if problems:
+            print("Pointer audit validation failed:", file=sys.stderr)
+            for problem in problems:
+                print(f"- {problem}", file=sys.stderr)
+            return 1
+        print(f"Valid pointer audit: {args.directory.resolve()}")
         return 0
 
     raise AssertionError(f"Unhandled command: {args.command}")

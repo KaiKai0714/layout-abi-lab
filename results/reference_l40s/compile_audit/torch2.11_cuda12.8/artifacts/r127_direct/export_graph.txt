@@ -1,0 +1,46 @@
+graph():
+    %p_mem_kv : [num_users=2] = placeholder[target=p_mem_kv]
+    %p_norm_g : [num_users=1] = placeholder[target=p_norm_g]
+    %p_to_qkv_weight : [num_users=1] = placeholder[target=p_to_qkv_weight]
+    %p_to_out_0_weight : [num_users=1] = placeholder[target=p_to_out_0_weight]
+    %p_to_out_0_bias : [num_users=1] = placeholder[target=p_to_out_0_bias]
+    %p_to_out_1_g : [num_users=1] = placeholder[target=p_to_out_1_g]
+    %x : [num_users=3] = placeholder[target=x]
+    %linalg_vector_norm : [num_users=1] = call_function[target=torch.ops.aten.linalg_vector_norm.default](args = (%x, 2.0, [1], True), kwargs = {})
+    %clamp_min : [num_users=1] = call_function[target=torch.ops.aten.clamp_min.default](args = (%linalg_vector_norm, 1e-12), kwargs = {})
+    %expand_as : [num_users=1] = call_function[target=torch.ops.aten.expand_as.default](args = (%clamp_min, %x), kwargs = {})
+    %div : [num_users=1] = call_function[target=torch.ops.aten.div.Tensor](args = (%x, %expand_as), kwargs = {})
+    %mul : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%div, %p_norm_g), kwargs = {})
+    %mul_1 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%mul, 8.0), kwargs = {})
+    %conv2d : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%mul_1, %p_to_qkv_weight), kwargs = {})
+    %chunk : [num_users=3] = call_function[target=torch.ops.aten.chunk.default](args = (%conv2d, 3, 1), kwargs = {})
+    %getitem : [num_users=1] = call_function[target=operator.getitem](args = (%chunk, 0), kwargs = {})
+    %getitem_1 : [num_users=1] = call_function[target=operator.getitem](args = (%chunk, 1), kwargs = {})
+    %getitem_2 : [num_users=1] = call_function[target=operator.getitem](args = (%chunk, 2), kwargs = {})
+    %reshape : [num_users=1] = call_function[target=torch.ops.aten.reshape.default](args = (%getitem, [1, 4, 32, 16129]), kwargs = {})
+    %reshape_1 : [num_users=1] = call_function[target=torch.ops.aten.reshape.default](args = (%getitem_1, [1, 4, 32, 16129]), kwargs = {})
+    %reshape_2 : [num_users=1] = call_function[target=torch.ops.aten.reshape.default](args = (%getitem_2, [1, 4, 32, 16129]), kwargs = {})
+    %select : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%p_mem_kv, 0, 0), kwargs = {})
+    %unsqueeze : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%select, 0), kwargs = {})
+    %expand : [num_users=1] = call_function[target=torch.ops.aten.expand.default](args = (%unsqueeze, [1, -1, -1, -1]), kwargs = {})
+    %select_1 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%p_mem_kv, 0, 1), kwargs = {})
+    %unsqueeze_1 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%select_1, 0), kwargs = {})
+    %expand_1 : [num_users=1] = call_function[target=torch.ops.aten.expand.default](args = (%unsqueeze_1, [1, -1, -1, -1]), kwargs = {})
+    %cat : [num_users=1] = call_function[target=torch.ops.aten.cat.default](args = ([%expand, %reshape_1], -1), kwargs = {})
+    %cat_1 : [num_users=1] = call_function[target=torch.ops.aten.cat.default](args = ([%expand_1, %reshape_2], -1), kwargs = {})
+    %softmax : [num_users=1] = call_function[target=torch.ops.aten.softmax.int](args = (%reshape, -2), kwargs = {})
+    %mul_2 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%softmax, 0.1767766952966369), kwargs = {})
+    %softmax_1 : [num_users=1] = call_function[target=torch.ops.aten.softmax.int](args = (%cat, -1), kwargs = {})
+    %transpose : [num_users=1] = call_function[target=torch.ops.aten.transpose.int](args = (%cat_1, -2, -1), kwargs = {})
+    %matmul : [num_users=1] = call_function[target=torch.ops.aten.matmul.default](args = (%softmax_1, %transpose), kwargs = {})
+    %transpose_1 : [num_users=1] = call_function[target=torch.ops.aten.transpose.int](args = (%matmul, -2, -1), kwargs = {})
+    %matmul_1 : [num_users=1] = call_function[target=torch.ops.aten.matmul.default](args = (%transpose_1, %mul_2), kwargs = {})
+    %reshape_3 : [num_users=1] = call_function[target=torch.ops.aten.reshape.default](args = (%matmul_1, [1, 128, 127, 127]), kwargs = {})
+    %conv2d_1 : [num_users=3] = call_function[target=torch.ops.aten.conv2d.default](args = (%reshape_3, %p_to_out_0_weight, %p_to_out_0_bias), kwargs = {})
+    %linalg_vector_norm_1 : [num_users=1] = call_function[target=torch.ops.aten.linalg_vector_norm.default](args = (%conv2d_1, 2.0, [1], True), kwargs = {})
+    %clamp_min_1 : [num_users=1] = call_function[target=torch.ops.aten.clamp_min.default](args = (%linalg_vector_norm_1, 1e-12), kwargs = {})
+    %expand_as_1 : [num_users=1] = call_function[target=torch.ops.aten.expand_as.default](args = (%clamp_min_1, %conv2d_1), kwargs = {})
+    %div_1 : [num_users=1] = call_function[target=torch.ops.aten.div.Tensor](args = (%conv2d_1, %expand_as_1), kwargs = {})
+    %mul_3 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%div_1, %p_to_out_1_g), kwargs = {})
+    %mul_4 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%mul_3, 8.0), kwargs = {})
+    return (mul_4,)

@@ -1,7 +1,9 @@
 # Pattern contract: `linear_attention_ktv_v1`
 
-This is the only graph pattern supported by the v0.3 optimizer. It is frozen for this
-release. New patterns require a new identifier and tests.
+This is the graph the current optimizer can rewrite. It is frozen for this
+release. The research object is still producer layout → vendor GEMM family;
+other public graphs can be added as witnesses. New automatic rewrites need a
+new pattern identifier and tests.
 
 ## Producer and consumers
 

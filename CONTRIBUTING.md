@@ -1,7 +1,9 @@
 # Contributing
 
-Contributions are welcome, especially reproducibility results from new GPUs and
-software stacks, negative cases, profiler traces, and compiler integration work.
+The highest-leverage help is **a full result bundle from a GPU that is not
+NVIDIA L40S**, including losses, plus RC reports of crashes or incorrect
+rewrites. Same-device re-runs are replicates. Do not add a new matcher pattern
+during the 0.9 RC. See the README section "What we need from the community".
 
 ## Submit benchmark results
 
@@ -12,9 +14,14 @@ software stacks, negative cases, profiler traces, and compiler integration work.
 
 Example:
 
+Name the local directory the same as the submission, with a `local_` prefix.
+See `results/README.md`.
+
 ```bash
+layoutabi reproduce --output results/local_rtx4090_torch2.11_cuda12.8_2026-08-30
+layoutabi validate results/local_rtx4090_torch2.11_cuda12.8_2026-08-30 --strict
 layoutabi prepare-submission \
-  results/local_my_gpu \
+  results/local_rtx4090_torch2.11_cuda12.8_2026-08-30 \
   --name rtx4090_torch2.11_cuda12.8_2026-08-30
 
 git add results/community/rtx4090_torch2.11_cuda12.8_2026-08-30
@@ -29,9 +36,14 @@ identifying fields before opening the pull request.
 Do not submit only favorable cells. Include every cell produced by the selected
 protocol, including unsupported, out-of-memory, and slower-repair outcomes.
 
+Pointer-audit submissions are separate from ordinary reproduction bundles. Run
+`layoutabi validate-pointer-audit <directory>` and include the full Cartesian
+grid; do not submit selected offsets. Device transfer results must use the same
+N values, pointer residues, cycles, and iterations as `docs/POINTER_AUDIT.md`.
+
 ## Release-candidate reports
 
-Version 0.9.0 is feature-frozen for v1.0. Use the RC issue template for crashes,
+Version 0.9.1 is feature-frozen for v1.0. Use the RC issue template for crashes,
 incorrect rewrites, regressions, and unexpected no-ops. Do not add a new matcher
 pattern in this window; that requires a later RC. Community result bundles on
 new devices are still wanted.

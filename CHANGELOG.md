@@ -2,6 +2,30 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.9.1
+
+- Added a controlled `audit-pointer` / `validate-pointer-audit` protocol covering
+  both GEMM operand pointers, all three N-residue tiers, exact pointer residues,
+  profiler kernel families, correctness, checksums, and a portable summary.
+- Published the L40S 100-cell pointer grid. The least-aligned tier among N, K
+  pointer, and V pointer predicts the profiler family in all measured cells.
+
+- Clarified the project object: producer layout → vendor GEMM family, with
+  feature-map / reduction length as a testable prior. Public LinearAttention
+  graphs are witnesses; the automatic optimizer still matches only the frozen
+  KTV pattern.
+- Result index rows now separate the three-level FP16 residue prior, isolated
+  KTV profiler tokens, the conservative binary safety action, and module oracle.
+- Published the Orin eager-128 community bundle (repair slower; compiled
+  unavailable), then closed the residue-mechanism gate with one L40S bundle
+  spanning all three FP16 classes.
+- Added a dedicated L40S boundary sweep covering fastest (`align8/ldg8`),
+  intermediate (`align2`), and slowest (`align1`) residue classes. New runs
+  profile the isolated KTV consumer at every resolution.
+- Published the six-shape L40S sweep: direct KTV selects `align8`, `align2`,
+  and `align1` exactly as the three-level prior predicts; repair-KV selects
+  `align8` in all six cells.
+
 ## 0.9.0
 
 - Release-candidate freeze for the v1.0 API, pattern, candidate implementation,
@@ -115,4 +139,3 @@ All notable changes to this project are documented in this file.
 - Added order-balanced eager and isolated `torch.compile` controls.
 - Added environment fingerprints, correctness gates, checksums, and strict validation.
 - Added the low-disk sequential container matrix runner.
-

@@ -1,17 +1,15 @@
 # Community results
 
-This directory contains complete result bundles contributed through pull requests.
-Positive, negative, unsupported, and slower-repair outcomes are all accepted when the
-protocol, correctness gates, environment record, and checksums are complete.
+Accepted community bundles live here. Positive, negative, unsupported, and
+slower-repair outcomes are all wanted. Orin eager 128 is a second architecture
+and a no-repair boundary; L40S re-runs are replicates.
 
-Use one directory per device and software stack:
+One bundle per GPU × software stack × day:
 
 ```text
-results/community/<gpu>_<pytorch>_<cuda>_<yyyy-mm-dd>/
+results/community/<gpu>_torch<pytorch>_cuda<cuda>_<yyyy-mm-dd>/
 ```
 
-Create that directory with `layoutabi prepare-submission` rather than copying by hand.
-Re-runs of an already indexed identity are retained as replicates. Do not hand-edit
-measured JSON values. See the repository-level `CONTRIBUTING.md` for the validation and
-pull-request workflow.
-
+Example: `orin_torch2.7_cuda12.6_2026-09-01`. Create it with
+`layoutabi prepare-submission` rather than copying by hand. Do not hand-edit
+measured JSON. See `results/README.md` and `CONTRIBUTING.md`.

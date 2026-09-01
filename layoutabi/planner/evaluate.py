@@ -102,11 +102,21 @@ def n_mod_8_separates_oracle(oracle_rows: list[dict[str, Any]]) -> dict[str, Any
     pairs = sorted({(row.get("n_mod_8"), row["oracle"]) for row in oracle_rows})
     mods = {row.get("n_mod_8") for row in oracle_rows}
     oracles = {row["oracle"] for row in oracle_rows}
+    oracles_by_mod = {
+        mod: sorted({row["oracle"] for row in oracle_rows if row.get("n_mod_8") == mod})
+        for mod in mods
+    }
+    conflicts = {
+        mod: values for mod, values in oracles_by_mod.items() if len(values) > 1
+    }
     return {
         "unique_n_mod_8": sorted(mods, key=lambda item: (item is None, item)),
         "unique_oracles": sorted(oracles),
         "pairs": [{"n_mod_8": a, "oracle": b} for a, b in pairs],
-        "separates_oracle": len(mods) > 1 and len(oracles) > 1,
+        "oracle_conflicts_by_n_mod_8": {
+            str(key): value for key, value in sorted(conflicts.items(), key=lambda item: str(item[0]))
+        },
+        "separates_oracle": len(mods) > 1 and len(oracles) > 1 and not conflicts,
     }
 
 
@@ -137,7 +147,8 @@ def evaluate_index(
             "policies": _metrics_only(evaluate_rows(held_out)),
         },
         "note": (
-            "N % 8 is scored as a community-testable hypothesis, not a shipping law. "
+            "The binary N-mod-8 safety action is scored separately from the three-level "
+            "FP16 family mechanism; neither is a universal shipping law. "
             "cost_model falls back to autotune when N % 8 != 0 so it does not bake "
             "false-repair into a static rule. Autotune is scored as matching the oracle."
         ),

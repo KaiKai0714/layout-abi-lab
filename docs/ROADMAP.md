@@ -74,14 +74,29 @@
 - FX/`torch.export` adapters isolated from package import.
 - Install without forcing a PyTorch wheel; documented support matrix.
 
+## 0.9.1: Framing and index
+
+- Theory vs witness: layout-to-GEMM ABI, not a LinearAttention-only product.
+- Index columns separating the three-level residue prior, isolated KTV tokens,
+  conservative safety action, and profitability.
+- Orin eager-128 community bundle plus an L40S sweep spanning fastest,
+  intermediate, and slowest residue classes.
+- L40S compiled mechanism audit and 100-cell two-operand pointer audit.
+- Release framing: L40S mechanism-complete; matching Orin pointer grid remains
+  a v1.0 transfer gate.
+
 ## 0.9.0: Release candidate
 
 - Feature, API, schema, candidate-implementation, and cache-protocol freeze.
 - CPU CI, published L40S bundles, public workloads, and a license/privacy scan.
-- Orin and a second GPU architecture remain open v1.0 gates, not claimed results.
+- At the v0.9.0 checkpoint, Orin and a second GPU architecture were still open
+  v1.0 gates; v0.9.1 later published the eager-128 Orin boundary.
 - RC period: bug fixes only; new patterns require a later RC.
 
 ## 1.0: Compiler-quality evaluation
+
+- [x] Publish the controlled K-pointer × V-pointer audit on L40S.
+- [ ] Publish the same controlled pointer audit on Orin.
 
 - Held-out shape and device evaluation against a two-action oracle.
 - False-repair, coverage, and regret metrics.

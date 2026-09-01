@@ -67,22 +67,87 @@ def _compiled_outcome(direct: dict[str, Any], repair: dict[str, Any], ratio: flo
     return _outcome(ratio)
 
 
+def _alignment_tokens(names: Any) -> list[str]:
+    if not isinstance(names, list):
+        return []
+    tokens: set[str] = set()
+    for name in names:
+        lowered = str(name).lower()
+        tokens.update(match.group(0) for match in re.finditer(r"align\d+", lowered))
+        if "ldg8" in lowered:
+            tokens.add("ldg8")
+    return sorted(tokens)
+
+
 def _kernel_families(profiler: Any) -> dict[str, list[str]]:
     result: dict[str, list[str]] = {}
     if not isinstance(profiler, dict):
         return result
     for policy, cell in profiler.items():
         names = cell.get("selected_cuda_names", []) if isinstance(cell, dict) else []
-        families = sorted(
-            {
-                match.group(0)
-                for name in names
-                for match in re.finditer(r"align\d+", str(name).lower())
-            }
-        )
+        families = _alignment_tokens(names)
         if families:
             result[str(policy)] = families
     return result
+
+
+def _alignment_label(profiler: Any, policy: str) -> str:
+    if not isinstance(profiler, dict):
+        return "—"
+    cell = profiler.get(policy)
+    if not isinstance(cell, dict):
+        return "—"
+    names = cell.get("selected_cuda_names")
+    tokens = _alignment_tokens(names)
+    if tokens:
+        return "+".join(tokens)
+    if isinstance(names, list) and names:
+        return "no-align-token"
+    return "—"
+
+
+def _n_mod_8(point: dict[str, Any]) -> int | None:
+    raw = point.get("n_mod_8")
+    if isinstance(raw, int) and not isinstance(raw, bool):
+        return raw
+    consumer = point.get("consumer_n")
+    if isinstance(consumer, int) and not isinstance(consumer, bool):
+        return int(consumer) % 8
+    return None
+
+
+def _safety_action(dtype: Any, n_mod_8: int | None) -> str:
+    if n_mod_8 is None:
+        return "—"
+    name = str(dtype or "").lower()
+    if name not in {"fp16", "float16", "torch.float16"}:
+        return "direct (non-fp16)"
+    return "direct" if n_mod_8 == 0 else "repair_kv"
+
+
+def _residue_tier(dtype: Any, consumer_n: Any) -> str:
+    if not isinstance(consumer_n, int) or isinstance(consumer_n, bool):
+        return "—"
+    name = str(dtype or "").lower()
+    if name not in {"fp16", "float16", "torch.float16"}:
+        return "unclassified"
+    if consumer_n % 8 == 0:
+        return "fastest: align8/ldg8"
+    if consumer_n % 2 == 0:
+        return "intermediate: align2"
+    return "slowest: align1"
+
+
+def _oracle_action(outcome: str | None) -> str:
+    if outcome == "repair_win":
+        return "repair_kv"
+    if outcome == "direct_win":
+        return "direct"
+    if outcome == "unavailable":
+        return "unavailable"
+    if outcome == "parity":
+        return "parity"
+    return "—"
 
 
 def _compiled_by_resolution(compiled: dict[str, Any] | None) -> dict[int, dict[str, Any]]:
@@ -126,10 +191,26 @@ def _bundle_record(bundle: Path, results_root: Path) -> dict[str, Any]:
         if not isinstance(repair_compiled, dict):
             repair_compiled = {}
         compiled_ratio = _ratio(compiled_point)
+        n_mod_8 = _n_mod_8(point)
+        isolated_profiler = point.get("ktv_profiler")
+        profiler = isolated_profiler if isinstance(isolated_profiler, dict) else point.get(
+            "module_profiler"
+        )
+        profiler_source = "isolated_ktv" if isinstance(isolated_profiler, dict) else (
+            "legacy_full_module" if isinstance(profiler, dict) else "unavailable"
+        )
         rows.append(
             {
                 "resolution": resolution,
                 "consumer_n": point.get("consumer_n"),
+                "n_mod_8": n_mod_8,
+                "residue_tier_prior": _residue_tier(
+                    point.get("dtype"), point.get("consumer_n")
+                ),
+                "safety_policy_action": _safety_action(point.get("dtype"), n_mod_8),
+                "profiler_source": profiler_source,
+                "direct_alignment_tokens": _alignment_label(profiler, "direct"),
+                "repair_alignment_tokens": _alignment_label(profiler, "repair_kv"),
                 "dtype": point.get("dtype"),
                 "batch": point.get("batch"),
                 "eager_chain": {
@@ -156,7 +237,9 @@ def _bundle_record(bundle: Path, results_root: Path) -> dict[str, Any]:
                     "ratio": compiled_ratio
                     if direct_compiled.get("available") and repair_compiled.get("available")
                     else None,
-                    "outcome": _compiled_outcome(direct_compiled, repair_compiled, compiled_ratio),
+                    "outcome": _compiled_outcome(
+                        direct_compiled, repair_compiled, compiled_ratio
+                    ),
                     "correct": bool(
                         direct_compiled.get("correctness", {}).get("pass", False)
                         and repair_compiled.get("correctness", {}).get("pass", False)
@@ -164,7 +247,11 @@ def _bundle_record(bundle: Path, results_root: Path) -> dict[str, Any]:
                 },
             }
         )
-        for policy, families in _kernel_families(point.get("module_profiler")).items():
+        rows[-1]["eager_oracle"] = _oracle_action(rows[-1]["eager_module"]["outcome"])
+        rows[-1]["compiled_oracle"] = _oracle_action(
+            rows[-1]["compiled_module"]["outcome"]
+        )
+        for policy, families in _kernel_families(profiler).items():
             kernel_families[policy] = sorted(set(kernel_families.get(policy, [])).union(families))
 
     relative = bundle.relative_to(results_root).as_posix()
@@ -320,15 +407,19 @@ def _measurement_row(
     label = record["id"].replace("reference_l40s/", "reference/")
     eager = row["eager_module"]
     compiled = row["compiled_module"]
-    suffix = extra
+    n_mod = row.get("n_mod_8")
+    n_mod_text = "—" if n_mod is None else str(n_mod)
     return (
-        f"| [{label}]({link}){suffix} | {environment['device']} | "
+        f"| [{label}]({link}){extra} | {environment['device']} | "
         f"{environment['torch']} / {environment['cuda_build']} | "
-        f"{row['resolution']} | {_format_ms(eager['direct_ms'])} | "
-        f"{_format_ms(eager['repair_kv_ms'])} | {_format_ratio(eager['ratio'])} | "
-        f"{_format_ms(compiled['direct_ms'])} | "
-        f"{_format_ms(compiled['repair_kv_ms'])} | "
-        f"{_format_ratio(compiled['ratio'])} |"
+        f"{row['resolution']} | {n_mod_text} | "
+        f"{row.get('residue_tier_prior') or '—'} | "
+        f"{row.get('profiler_source') or '—'} | "
+        f"{row.get('direct_alignment_tokens') or '—'} | "
+        f"{row.get('repair_alignment_tokens') or '—'} | "
+        f"{row.get('safety_policy_action') or '—'} | "
+        f"{row.get('eager_oracle') or '—'} | {_format_ratio(eager['ratio'])} | "
+        f"{row.get('compiled_oracle') or '—'} | {_format_ratio(compiled['ratio'])} |"
     )
 
 
@@ -340,10 +431,11 @@ def _section_rows(
     include_primary: bool = False,
 ) -> list[str]:
     header = (
-        "| Bundle | Device | PyTorch / CUDA | Resolution | Eager direct | Eager repair-KV | "
-        "Eager ratio | Compiled direct | Compiled repair-KV | Compiled ratio |"
+        "| Bundle | Device | PyTorch / CUDA | Res | N%8 | FP16 residue tier prior | Profiler | "
+        "Direct observed token(s) | Repair observed token(s) | Safety action | Eager oracle | "
+        "Eager ratio | Compiled oracle | Compiled ratio |"
     )
-    separator = "|---|---|---|---:|---:|---:|---:|---:|---:|---:|"
+    separator = "|---|---|---|---:|---:|---|---|---|---|---|---|---:|---|---:|"
     lines = [header, separator]
     for record in records:
         bundle_path = results_root / record["id"] / "SUMMARY.md"
@@ -371,8 +463,12 @@ def render_markdown(index: dict[str, Any], results_root: Path, output_path: Path
         "# Layout ABI result index",
         "",
         "This file is generated from checksum-validated reference and community bundles.",
-        "A ratio above 1 means repair-KV was faster than direct execution.",
-        "Replicates are listed separately and are not counted as additional devices.",
+        "The FP16 mechanism prior has three residue tiers: N divisible by 8 maps to",
+        "align8/ldg8, even non-multiples of 8 to align2, and odd N to align1.",
+        "Tokens are extracted from profiler names, not portable GEMM-family identifiers.",
+        "The safety action remains binary: direct for N%8==0, otherwise repair.",
+        "Oracle and ratio are whether materialization paid off at full-module scope;",
+        "a ratio above 1 means repair-KV was faster. Replicates are not extra devices.",
         "",
         "## Coverage",
         "",
@@ -422,12 +518,24 @@ def render_markdown(index: dict[str, Any], results_root: Path, output_path: Path
     lines.extend(
         [
             "",
+            "## Standalone mechanism audits",
+            "",
+            "These validator-backed artifacts are excluded from workload, device, and",
+            "profitability-row counts because they are factorial mechanism controls:",
+            "",
+            "- [L40S compiled six-shape audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md)",
+            "- [L40S 100-cell operand-pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md)",
+            "",
             "## Interpretation boundary",
             "",
-            "Rows are scoped to their recorded graph, device, shape, dtype, and software stack.",
-            "They are not end-to-end model results. Positive and negative outcomes are both",
-            "part of the public evidence. Same-device same-stack replicates are not extra",
-            "cross-device evidence.",
+            "The scientific object is producer layout → vendor GEMM family, not a single",
+            "named operator. Public LinearAttention graphs are witnesses. The dedicated",
+            "L40S sweep spans fastest/intermediate/slowest residue classes; older 128/256",
+            "rows are retained as legacy profitability evidence, not isolated KTV proof.",
+            "Positive and negative outcomes are both evidence. Replicates are not extra",
+            "devices. Compiled-unavailable is not a direct/repair loss. The pointer",
+            "least-aligned-tier rule is complete on L40S; matching Orin transfer remains",
+            "outside v0.9.1.",
         ]
     )
     return "\n".join(lines) + "\n"

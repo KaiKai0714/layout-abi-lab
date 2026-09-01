@@ -33,10 +33,11 @@ existing graph, device, software stack, and measurement protocol are indexed as
 replicates rather than as additional devices.
 
 Version 0.3 ships an external optimizer outside TorchInductor. It captures a public FX
-or `torch.export` graph, matches the frozen LinearAttention KTV pattern documented in
-`docs/PATTERN_CONTRACT.md`, generates direct and repaired candidates, runs a
-correctness canary, autotunes on full-module CUDA-event latency, caches the decision,
-and optionally compiles the selected graph. Unsupported graphs remain unchanged.
+or `torch.export` graph and matches one frozen KTV pattern documented in
+`docs/PATTERN_CONTRACT.md` (a LinearAttention witness, not the theory limit).
+It generates direct and repaired candidates, runs a correctness canary, autotunes
+on full-module CUDA-event latency, caches the decision, and optionally compiles
+the selected graph. Unsupported graphs remain unchanged.
 
 Version 0.4 adds a compiled mechanism audit outside the default reproduce bundle.
 `layoutabi audit-compile` records FX/export graphs, Inductor IR, and profiler kernel
@@ -64,8 +65,14 @@ so `torch.export` or FX failures cannot break `import layoutabi`. See
 `docs/SUPPORTED.md`. The package still does not depend on a PyTorch wheel.
 
 Version 0.9 is the release candidate: that surface, the pattern identifier, the
-candidate implementation hash, and the document schemas are frozen. Remaining
-v1.0 gates (a second GPU architecture, including Orin) are listed by
-`layoutabi rc-status` and in `docs/RC.md`. They are not filled in with
-unpublished measurements.
+candidate implementation hash, and the document schemas are frozen. Version
+0.9.1 restates the layout-to-GEMM object, publishes an Orin eager-128 community
+bundle, and shows kernel family / `N % 8` / oracle columns in the index.
+`layoutabi rc-status` records the three-level L40S sweep and Orin
+second-architecture boundary as published measurement gates.
 
+The pointer audit is a separate synthetic factorial mechanism test rather than
+another full-module result bundle. It controls both GEMM operand addresses
+independently while holding logical shape and stride fixed, and validates its own
+schema, checksums, correctness, profiler evidence, and grid completeness. See
+`docs/POINTER_AUDIT.md`.

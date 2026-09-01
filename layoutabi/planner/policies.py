@@ -6,8 +6,10 @@ from typing import Any
 
 from .features import DecisionFeatures
 
-# Hypothesis under community test: FP16 GEMM with N % 8 != 0 may pick a slower
-# unaligned kernel family (e.g. align2 vs align8). This is not a universal law.
+# Conservative E128-style safety rule. The FP16 mechanism prior has three tiers:
+# N%8==0 -> align8/ldg8, even non-multiples -> align2, odd -> align1. This binary
+# policy deliberately merges the intermediate and slowest tiers into "repair";
+# it is not a complete vendor-family predictor or a universal law.
 N_MOD_8_REPAIR = 0
 FP16_NAMES = {"fp16", "float16", "torch.float16"}
 

@@ -1,0 +1,256 @@
+{
+  "schema": "layoutabi_compile_v1",
+  "schema_version": 1,
+  "software": {
+    "torch": "2.11.0+cu128",
+    "cuda_build": "12.8"
+  },
+  "points": [
+    {
+      "resolution": 256,
+      "consumer_n": 65540,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5036.7494659731165,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.43543438911437987,
+            "mean_ms": 0.43543008327484134,
+            "min_ms": 0.4351200103759766,
+            "max_ms": 0.4359936237335205
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001001001001001001,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4750.7438699831255,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.37015280723571775,
+            "mean_ms": 0.3717531180381775,
+            "min_ms": 0.3698015928268433,
+            "max_ms": 0.3866879940032959
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001001001001001001,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 1.17636387081914
+    },
+    {
+      "resolution": 255,
+      "consumer_n": 65029,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5066.741968970746,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.3806439995765686,
+            "mean_ms": 0.380765438079834,
+            "min_ms": 0.38050079345703125,
+            "max_ms": 0.3811568021774292
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011876484560570072,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4809.242490038741,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.3893823981285095,
+            "mean_ms": 0.38942928075790406,
+            "min_ms": 0.3891680002212524,
+            "max_ms": 0.3897408008575439
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011876484560570072,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 0.9775583113311225
+    },
+    {
+      "resolution": 254,
+      "consumer_n": 64520,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5499.832895002328,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.36516720056533813,
+            "mean_ms": 0.36476304054260256,
+            "min_ms": 0.36343040466308596,
+            "max_ms": 0.36578080654144285
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011441647597254005,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 5256.015244987793,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.3755807995796204,
+            "mean_ms": 0.37558559894561766,
+            "min_ms": 0.374726390838623,
+            "max_ms": 0.3764240026473999
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011441647597254005,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 0.9722733456397719
+    },
+    {
+      "resolution": 128,
+      "consumer_n": 16388,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5045.939472969621,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.1410423994064331,
+            "mean_ms": 0.14106592059135437,
+            "min_ms": 0.1408959984779358,
+            "max_ms": 0.14131840467453002
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011402508551881414,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4812.974843021948,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12685040235519407,
+            "mean_ms": 0.12869791984558104,
+            "min_ms": 0.12668479681015016,
+            "max_ms": 0.14508639574050902
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0011402508551881414,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 1.1118797953159028
+    },
+    {
+      "resolution": 127,
+      "consumer_n": 16133,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5218.009900010657,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12171439528465272,
+            "mean_ms": 0.12173295855522157,
+            "min_ms": 0.12156319618225098,
+            "max_ms": 0.12207039594650268
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001026167265264238,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4939.401409006678,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12355120182037353,
+            "mean_ms": 0.12364943861961365,
+            "min_ms": 0.1234287977218628,
+            "max_ms": 0.12418400049209595
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.001026167265264238,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 0.9851332361914918
+    },
+    {
+      "resolution": 126,
+      "consumer_n": 15880,
+      "policies": {
+        "direct": {
+          "available": true,
+          "first_call_ms": 5405.896482989192,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.11734560132026672,
+            "mean_ms": 0.11754032015800477,
+            "min_ms": 0.117249596118927,
+            "max_ms": 0.11912480592727662
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0010851871947911015,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        },
+        "repair_kv": {
+          "available": true,
+          "first_call_ms": 4936.776401998941,
+          "steady_state": {
+            "n": 10,
+            "median_ms": 0.12044640183448792,
+            "mean_ms": 0.1291635203361511,
+            "min_ms": 0.12027519941329956,
+            "max_ms": 0.20735681056976318
+          },
+          "correctness": {
+            "max_abs": 0.001953125,
+            "relative_inf": 0.0010851871947911015,
+            "tolerance": 0.08,
+            "pass": true
+          }
+        }
+      },
+      "direct_over_repair_kv": 0.9742557646638363
+    }
+  ]
+}
