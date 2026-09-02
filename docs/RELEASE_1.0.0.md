@@ -14,6 +14,10 @@ cross-architecture operand-pointer measurement gate.
 - Matching 4 × 5 × 5 operand-pointer audits on L40S and Jetson Orin.
 - An Orin eager-128 no-repair boundary; compiled Orin remains unavailable.
 
+The pointer grids establish cross-architecture mechanism transfer only. Orin
+module-level profitability remains limited to the single eager-128 row, where
+direct wins; this release does not claim broad Orin repair profitability.
+
 The two pointer audits contain 200/200 correctness-passing cells and 200/200
 identified profiler families. On each tested device, the observed family tier
 equals the least-aligned tier among logical N, the K pointer, and the V pointer.
@@ -48,7 +52,7 @@ python -m compileall layoutabi containers
 layoutabi validate-pointer-audit \
   results/reference_l40s/pointer_alignment/torch2.11_cuda12.8
 layoutabi validate-pointer-audit \
-  results/community/orin_pointer_alignment/torch2.7_cuda12.8
+  results/reference_orin/pointer_alignment/torch2.7_cuda12.8
 layoutabi aggregate --check
 layoutabi rc-status --check
 layoutabi scan-release

@@ -27,11 +27,20 @@ def _load(path: Path) -> dict[str, Any]:
 
 
 def discover_publishable_bundles(results_root: Path) -> list[Path]:
-    """Return reference and accepted community bundles, excluding local measurements."""
+    """Return author-run reference and accepted community result bundles."""
 
     bundles: list[Path] = []
-    for section in ("reference_l40s", "community"):
-        root = results_root / section
+    sections = (
+        [
+            path
+            for path in results_root.iterdir()
+            if path.is_dir()
+            and (path.name.startswith("reference_") or path.name == "community")
+        ]
+        if results_root.is_dir()
+        else []
+    )
+    for root in sorted(sections):
         if root.is_dir():
             bundles.extend(discover_result_bundles(root))
     return sorted(set(bundles))
@@ -162,7 +171,7 @@ def _compiled_by_resolution(compiled: dict[str, Any] | None) -> dict[int, dict[s
 
 def _source_from_relative(relative: str) -> tuple[str, str]:
     section = relative.split("/", 1)[0]
-    source = "reference" if section == "reference_l40s" else "community"
+    source = "reference" if section.startswith("reference_") else "community"
     return section, source
 
 
@@ -404,7 +413,9 @@ def _measurement_row(
     extra: str = "",
 ) -> str:
     environment = record["environment"]
-    label = record["id"].replace("reference_l40s/", "reference/")
+    label = record["id"].replace("reference_l40s/", "reference/").replace(
+        "reference_orin/", "reference/orin/"
+    )
     eager = row["eager_module"]
     compiled = row["compiled_module"]
     n_mod = row.get("n_mod_8")
@@ -442,7 +453,9 @@ def _section_rows(
         link = Path(os.path.relpath(bundle_path, output_path.parent)).as_posix()
         extra = ""
         if include_primary and record.get("replicate_of"):
-            primary = record["replicate_of"].replace("reference_l40s/", "reference/")
+            primary = record["replicate_of"].replace(
+                "reference_l40s/", "reference/"
+            ).replace("reference_orin/", "reference/orin/")
             extra = f" (replicate of {primary})"
         for row in record["rows"]:
             lines.append(_measurement_row(record, row, link, extra))
@@ -463,9 +476,11 @@ def render_markdown(index: dict[str, Any], results_root: Path, output_path: Path
         "# Layout ABI result index",
         "",
         "This file is generated from checksum-validated reference and community bundles.",
-        "The FP16 mechanism prior has three residue tiers: N divisible by 8 maps to",
+        "The primary research object is layout ABI → vendor GEMM family. The FP16",
+        "mechanism prior has three residue tiers: N divisible by 8 maps to",
         "align8/ldg8, even non-multiples of 8 to align2, and odd N to align1.",
         "Tokens are extracted from profiler names, not portable GEMM-family identifiers.",
+        "The workload tables below are secondary intervention-cost measurements.",
         "The safety action remains binary: direct for N%8==0, otherwise repair.",
         "Oracle and ratio are whether materialization paid off at full-module scope;",
         "a ratio above 1 means repair-KV was faster. Replicates are not extra devices.",
@@ -525,7 +540,7 @@ def render_markdown(index: dict[str, Any], results_root: Path, output_path: Path
             "",
             "- [L40S compiled six-shape audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md)",
             "- [L40S 100-cell operand-pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md)",
-            "- [Orin 100-cell operand-pointer audit](results/community/orin_pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)",
+            "- [Orin 100-cell operand-pointer audit](results/reference_orin/pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)",
             "",
             "## Interpretation boundary",
             "",
@@ -536,7 +551,8 @@ def render_markdown(index: dict[str, Any], results_root: Path, output_path: Path
             "Positive and negative outcomes are both evidence. Replicates are not extra",
             "devices. Compiled-unavailable is not a direct/repair loss. Matching L40S",
             "and Orin pointer audits reproduce the bounded least-aligned-tier rule in",
-            "all 200 controlled cells.",
+            "all 200 controlled cells. This mechanism transfer is separate from repair",
+            "profitability: Orin has only one eager module row and no compiled result.",
         ]
     )
     return "\n".join(lines) + "\n"

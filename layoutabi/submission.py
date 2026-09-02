@@ -177,9 +177,13 @@ def _match_existing_bundle(
     hashes = measurement_file_hashes(manifest)
     replicate_of = None
     exact_of = None
-    for bundle in discover_result_bundles(results_root / "reference_l40s") + discover_result_bundles(
-        results_root / "community"
-    ):
+    reference_roots = sorted(
+        path for path in results_root.glob("reference_*") if path.is_dir()
+    )
+    published = discover_result_bundles(results_root / "community")
+    for root in reference_roots:
+        published.extend(discover_result_bundles(root))
+    for bundle in published:
         if bundle.resolve() == destination.resolve() or bundle.resolve() == source.resolve():
             continue
         try:

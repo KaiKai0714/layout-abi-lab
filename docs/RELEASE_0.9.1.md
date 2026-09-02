@@ -47,7 +47,7 @@ consumer GEMM. They are not universal constants.
 - `results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/`
 - `results/reference_l40s/compile_audit/torch2.11_cuda12.8/`
 - `results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/`
-- `results/community/orin_torch2.7_cuda12.8_2026-08-31/`
+- `results/reference_orin/orin_torch2.7_cuda12.8_2026-08-31/`
 
 ## Explicit boundary for this release
 
@@ -79,4 +79,3 @@ layoutabi aggregate --check
 layoutabi rc-status --check
 layoutabi scan-release
 ```
-

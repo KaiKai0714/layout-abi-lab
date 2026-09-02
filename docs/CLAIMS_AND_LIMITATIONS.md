@@ -23,6 +23,10 @@ The experiments support the following bounded observations:
    the least-aligned tier among N, the K pointer, and the V pointer in all 200
    measured cells.
 
+Observation 7 is a mechanism claim, not a repair-profitability claim. Orin has
+only one full-module eager row at resolution 128 (direct wins), no compiled row,
+and no additional module-resolution sweep.
+
 ## Reference L40S observation
 
 The order-balanced eager confirmation at FP16, batch 1, and 256x256 measured:
@@ -78,6 +82,8 @@ The current evidence does not support the following claims:
   universal across data types, operators, GPUs, offsets, or software stacks. Score
   the policy and inspect isolated KTV names; do not infer one from the other.
 - The reference result accelerates a complete diffusion pipeline.
+- The Orin pointer grid establishes that repair is profitable at module scope;
+  it controls family selection only.
 - The method improves model accuracy.
 - The project contains a general production-ready compiler pass, or that every
   GEMM producer is rewritten today. The automatic optimizer matches one frozen

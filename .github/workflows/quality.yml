@@ -37,8 +37,9 @@ jobs:
       - run: python containers/run_matrix.py --help
       - run: python -m unittest discover -s tests -v
       - run: layoutabi validate-tree results/reference_l40s --strict
+      - run: layoutabi validate-tree results/reference_orin
       - run: layoutabi validate-pointer-audit results/reference_l40s/pointer_alignment/torch2.11_cuda12.8
-      - run: layoutabi validate-pointer-audit results/community/orin_pointer_alignment/torch2.7_cuda12.8
+      - run: layoutabi validate-pointer-audit results/reference_orin/pointer_alignment/torch2.7_cuda12.8
       - run: layoutabi aggregate --check
 
   optimizer-cpu-checks:

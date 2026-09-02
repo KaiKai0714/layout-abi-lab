@@ -12,6 +12,11 @@ All notable changes to this project are documented in this file.
   embedded Kineto profiler collection state; process startup is not timed.
 - Closed all frozen v1 measurement gates without expanding the optimizer's
   single-pattern scope or its bounded FP16 claims.
+- Classified author-run Orin artifacts under `results/reference_orin/` and made
+  the mechanism/profitability evidence boundary explicit.
+- Reframed the README and package description around hidden GEMM dispatch
+  contracts; repair is documented as a causal intervention and secondary
+  cost-benefit experiment rather than the main contribution.
 
 ## 0.9.1
 
@@ -32,7 +37,7 @@ All notable changes to this project are documented in this file.
   KTV pattern.
 - Result index rows now separate the three-level FP16 residue prior, isolated
   KTV profiler tokens, the conservative binary safety action, and module oracle.
-- Published the Orin eager-128 community bundle (repair slower; compiled
+- Published the Orin eager-128 author-run bundle (repair slower; compiled
   unavailable), then closed the residue-mechanism gate with one L40S bundle
   spanning all three FP16 classes.
 - Added a dedicated L40S boundary sweep covering fastest (`align8/ldg8`),

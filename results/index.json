@@ -1,76 +1,6 @@
 {
   "bundles": [
     {
-      "category": "community",
-      "environment": {
-        "compute_capability": "8.7",
-        "cuda_build": "12.8",
-        "cudnn": 90800,
-        "device": "Orin",
-        "driver_record": "Orin (nvgpu), 540.5.0, 8.7, [N/A], [N/A]",
-        "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]",
-        "torch": "2.7.0"
-      },
-      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
-      "id": "community/orin_torch2.7_cuda12.8_2026-08-31",
-      "identity_key": "94571c8225b857782817b0d05beda7c53ac1718119e3ff01f2566d2802bcafab",
-      "kernel_families": {
-        "direct": [
-          "align2",
-          "ldg8"
-        ],
-        "repair_kv": [
-          "ldg8"
-        ]
-      },
-      "manifest_sha256": "17c5cae9940ce8a084a4fac818c12895fc3311d1b0fe416dc64f8c9d824ade0c",
-      "protocol_fingerprint": "21add5e5555d744b8f7e827b71e1ae9f6e52a35ef4a9bd2dc5a41f40a1bee4a3",
-      "replicate_of": null,
-      "role": "community",
-      "rows": [
-        {
-          "batch": 1,
-          "compiled_module": {
-            "correct": false,
-            "direct_available": false,
-            "direct_ms": null,
-            "outcome": "unavailable",
-            "ratio": null,
-            "repair_available": false,
-            "repair_kv_ms": null
-          },
-          "compiled_oracle": "unavailable",
-          "consumer_n": 16388,
-          "direct_alignment_tokens": "align2+ldg8",
-          "dtype": "fp16",
-          "eager_chain": {
-            "direct_ms": 1.0365893443425498,
-            "outcome": "direct_win",
-            "ratio": 0.745200902332515,
-            "repair_k_ms": 1.283793330192566,
-            "repair_kv_ms": 1.3910199801127117,
-            "repair_wins_all_seeds": false
-          },
-          "eager_module": {
-            "direct_ms": 2.4843986829121905,
-            "outcome": "direct_win",
-            "ratio": 0.8755610867241274,
-            "repair_k_ms": 2.731245358784993,
-            "repair_kv_ms": 2.837493260701497,
-            "repair_wins_all_seeds": false
-          },
-          "eager_oracle": "direct",
-          "n_mod_8": 4,
-          "profiler_source": "legacy_full_module",
-          "repair_alignment_tokens": "ldg8",
-          "residue_tier_prior": "intermediate: align2",
-          "resolution": 128,
-          "safety_policy_action": "repair_kv"
-        }
-      ],
-      "source": "community"
-    },
-    {
       "category": "reference_l40s",
       "environment": {
         "compute_capability": "8.9",
@@ -779,6 +709,76 @@
         }
       ],
       "source": "reference"
+    },
+    {
+      "category": "reference_orin",
+      "environment": {
+        "compute_capability": "8.7",
+        "cuda_build": "12.8",
+        "cudnn": 90800,
+        "device": "Orin",
+        "driver_record": "Orin (nvgpu), 540.5.0, 8.7, [N/A], [N/A]",
+        "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]",
+        "torch": "2.7.0"
+      },
+      "graph_fingerprint": "public_diffusion_linear_attention:lucidrains/denoising-diffusion-pytorch@faed4db28e724735323fa91c70aa9b28a6e1cbac",
+      "id": "reference_orin/orin_torch2.7_cuda12.8_2026-08-31",
+      "identity_key": "94571c8225b857782817b0d05beda7c53ac1718119e3ff01f2566d2802bcafab",
+      "kernel_families": {
+        "direct": [
+          "align2",
+          "ldg8"
+        ],
+        "repair_kv": [
+          "ldg8"
+        ]
+      },
+      "manifest_sha256": "17c5cae9940ce8a084a4fac818c12895fc3311d1b0fe416dc64f8c9d824ade0c",
+      "protocol_fingerprint": "21add5e5555d744b8f7e827b71e1ae9f6e52a35ef4a9bd2dc5a41f40a1bee4a3",
+      "replicate_of": null,
+      "role": "reference",
+      "rows": [
+        {
+          "batch": 1,
+          "compiled_module": {
+            "correct": false,
+            "direct_available": false,
+            "direct_ms": null,
+            "outcome": "unavailable",
+            "ratio": null,
+            "repair_available": false,
+            "repair_kv_ms": null
+          },
+          "compiled_oracle": "unavailable",
+          "consumer_n": 16388,
+          "direct_alignment_tokens": "align2+ldg8",
+          "dtype": "fp16",
+          "eager_chain": {
+            "direct_ms": 1.0365893443425498,
+            "outcome": "direct_win",
+            "ratio": 0.745200902332515,
+            "repair_k_ms": 1.283793330192566,
+            "repair_kv_ms": 1.3910199801127117,
+            "repair_wins_all_seeds": false
+          },
+          "eager_module": {
+            "direct_ms": 2.4843986829121905,
+            "outcome": "direct_win",
+            "ratio": 0.8755610867241274,
+            "repair_k_ms": 2.731245358784993,
+            "repair_kv_ms": 2.837493260701497,
+            "repair_wins_all_seeds": false
+          },
+          "eager_oracle": "direct",
+          "n_mod_8": 4,
+          "profiler_source": "legacy_full_module",
+          "repair_alignment_tokens": "ldg8",
+          "residue_tier_prior": "intermediate: align2",
+          "resolution": 128,
+          "safety_policy_action": "repair_kv"
+        }
+      ],
+      "source": "reference"
     }
   ],
   "filters": {
@@ -809,7 +809,6 @@
       256
     ],
     "roles": [
-      "community",
       "reference",
       "replicate"
     ],
@@ -840,7 +839,7 @@
   "schema_version": 1,
   "summary": {
     "bundles": 6,
-    "community_bundles": 1,
+    "community_bundles": 0,
     "compiled_module_direct_wins": 4,
     "compiled_module_repair_wins": 8,
     "compiled_module_unavailable": 1,
@@ -850,7 +849,7 @@
     "eager_module_unavailable": 0,
     "measurement_rows": 15,
     "primary_measurement_rows": 13,
-    "reference_bundles": 4,
+    "reference_bundles": 5,
     "replicate_bundles": 1,
     "software_stacks": 4
   }

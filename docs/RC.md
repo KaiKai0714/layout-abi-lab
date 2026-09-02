@@ -8,6 +8,10 @@ The research object is producer layout → vendor GEMM family. Linear Attention
 is a public witness. The automatic optimizer still rewrites only
 `linear_attention_ktv_v1`.
 
+Repair is a controlled layout intervention used to expose the dispatch
+mechanism. Its profitability is secondary and is reported separately at module
+scope; this release does not present repair as a universal optimization.
+
 ```bash
 layoutabi rc-status --check
 layoutabi scan-release
@@ -47,9 +51,10 @@ No known silent incorrect rewrite exists on supported cells. Continue reporting
 crashes, incorrect rewrites, regressions, and unexpected no-ops with the issue
 template.
 
-Orin eager 128 is in `results/community/`. Repair is slower there; compiled
-cells are unavailable. That is a second architecture and a no-repair boundary,
-not an L40S speedup replica.
+The author-run Orin eager 128 result is in `results/reference_orin/`. Repair is
+slower there; compiled cells and other module resolutions are unavailable. It
+is a second-architecture no-repair boundary, not broad Orin profitability
+coverage and not an L40S speedup replica.
 
 The community path is: reproduce the three residue tiers on another device,
 submit the full bundle, score the binary safety planner with

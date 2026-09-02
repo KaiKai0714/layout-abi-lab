@@ -1,21 +1,27 @@
 # Layout ABI Lab
 
-This project studies a hidden GPU contract:
+Layout ABI Lab is a reproducible mechanism study of hidden dispatch contracts
+between tensor-producing operators and downstream vendor GEMM libraries:
 
 ```text
 producer output layout -> vendor GEMM kernel family -> discrete latency cliff
 ```
 
-Numerically equivalent layouts can select different opaque GEMM families. The
-independent variables include the environment (GPU, PyTorch/CUDA stack, dtype,
-eager vs compile), physical strides, reduction length, and operand-pointer
-alignment. **Linear Attention is a public real-world witness, not the limit of
-the theory.** Other graphs can be added; the current automatic optimizer only
-rewrites one frozen KTV pattern and otherwise no-ops.
+Numerically equivalent inputs to the same mathematical GEMM can select different
+opaque kernel families and exhibit discrete latency cliffs without changing
+nominal FLOPs. The primary question is **why the vendor dispatch changes**, not
+whether one layout repair is always faster.
 
-A conservative helper can then choose to keep the producer layout or to
-materialize it. Materialization is an experimental contrast and a possible
-fix, not the default answer.
+The controlled variables include logical reduction length, physical strides,
+both operand addresses, dtype, GPU/software stack, and eager versus compiled
+execution. **Linear Attention is a public witness of this regime, not the limit
+of the theory.**
+
+Layout materialization (`repair-K` or `repair-KV`) is used as a controlled
+intervention: it preserves tensor values while changing the physical ABI seen
+by the consumer GEMM. This helps test whether the family transition is causal.
+Its copy cost may win or lose at module scope, so repair profitability is a
+secondary measurement rather than the project's central claim.
 
 Version 1.0.0 freezes the first public API, matcher, and measurement contract.
 Public evidence includes three L40S software stacks, a six-shape residue sweep,
@@ -24,21 +30,35 @@ L40S and Jetson Orin, and an Orin eager-128 boundary where repair is slower.
 See the [result index](RESULTS_INDEX.md) and
 [v1.0.0 release notes](docs/RELEASE_1.0.0.md).
 
+## Research questions
+
+1. Which observable tensor properties cause a vendor GEMM family transition?
+2. Can logical length and both operand pointers explain the observed family tier?
+3. Which parts of that mechanism transfer across GPU architectures and stacks?
+4. How does compiler lowering preserve, eliminate, or replace the eager layout ABI?
+5. When used as a probe, does explicit materialization cost less than the family
+   transition saves at full-module scope?
+
+The first four questions define the mechanism study. The fifth is a secondary
+cost-benefit experiment and must not be generalized from a kernel-only result.
+
 ## What we need from the community
 
-The useful contribution is **measured evidence on machines and lengths we do
-not have**, including cases where repair loses or no kernel-family change
-appears.
+The useful contribution is **profiler-backed mechanism evidence on machines,
+stacks, dtypes, and lengths we do not have**, including counterexamples where
+the family ladder changes or disappears.
 
 1. **Run the protocol on a GPU that is not already in the index**, or span all
    three FP16 residue classes: divisible by 8, even non-multiple, and odd.
-2. **Keep isolated KTV profiler kernel names** in the bundle. The mechanism prior
-   is `align8/ldg8` → `align2` → `align1`; latency says whether repair paid off.
-3. **Score the binary safety planner with `layoutabi evaluate-planner`.** It
-   deliberately merges the intermediate and slowest tiers into repair.
-4. **Run `audit-pointer` on another GPU architecture.** This tests whether the
+2. **Keep isolated consumer-GEMM profiler names.** Family identity must come
+   from profiler evidence, never latency inference.
+3. **Run `audit-pointer` on another GPU architecture.** This tests whether the
    least-aligned tier among N and both GEMM operands transfers.
-5. **Report optimizer failures** (crash, wrong rewrite, unexpected no-op)
+4. **Report counterexamples**, including different family tokens, no transition,
+   or a transition that does not produce the expected latency ordering.
+5. **Optionally run module-level repair controls.** These measure whether the
+   intervention cost pays off; they are not required to validate the mechanism.
+6. **Report optimizer failures** (crash, wrong rewrite, unexpected no-op)
    with the [RC issue template](https://github.com/KaiKai0714/layout-abi-lab/issues/new?template=rc_feedback.yml).
 
 The repository includes a dedicated paired L40S sweep for the alignment
@@ -46,17 +66,15 @@ contrast: `containers/matrix_three_level_l40s.json`. It measures neighboring
 resolutions around both 128 and 256 without changing the frozen reference
 matrix; see [results/README.md](results/README.md) for the command.
 
-Do not send hand-edited JSON, only-favorable cells, or a new matcher pattern
-during this RC. Details: [CONTRIBUTING.md](CONTRIBUTING.md).
+Do not send hand-edited JSON or only favorable cells. Details:
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## What we already measured
 
-On three pinned L40S stacks, compiled repair-KV reduced 256×256 module latency
-by **13.95% to 15.19%**. Eager 128 on L40S and Orin is a **direct-win**: always-
-repair would be a false repair. The original 128/256 matrix contains the
-intermediate residue class; the newer 126–128 and 254–256 sweep covers all three
-classes and observes `align8`, `align2`, and `align1` in the isolated eager KTV
-consumer.
+### Primary mechanism evidence
+
+The 126–128 and 254–256 L40S sweep covers all three FP16 length classes and
+observes `align8`, `align2`, and `align1` in the isolated eager consumer GEMM.
 
 The controlled pointer audits contain 100/100 valid cells on each device. On
 both L40S and Orin, the observed family always equals the least-aligned tier
@@ -69,8 +87,22 @@ cannot be copied blindly into compiled execution.
 Evidence: [software-stack matrix](results/reference_l40s/SOFTWARE_STACK_MATRIX.md),
 [three-level sweep](results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/SUMMARY.md),
 [L40S pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md),
-[Orin pointer audit](results/community/orin_pointer_alignment/torch2.7_cuda12.8/SUMMARY.md),
+[Orin pointer audit](results/reference_orin/pointer_alignment/torch2.7_cuda12.8/SUMMARY.md),
 and [compiled audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md).
+
+These results answer two different questions. The matching pointer grids verify
+the **mechanism** on two architectures. They do not show that paying for a
+layout repair is profitable at module scope. Orin profitability evidence is
+currently limited to one eager 128-resolution row, where direct execution wins;
+compiled Orin and additional module shapes were not measured.
+
+### Secondary repair intervention
+
+On three pinned L40S stacks, compiled repair-KV reduced 256×256 module latency
+by **13.95% to 15.19%**. In contrast, eager 128 on both L40S and Orin prefers
+direct execution. These positive and negative cases demonstrate why a family
+transition and repair profitability are separate questions. They do not define
+the primary contribution and do not imply that repair should be applied broadly.
 
 ## Quick start
 
@@ -85,6 +117,15 @@ cd layout-abi-lab
 python -m pip install -e .
 
 layoutabi check
+layoutabi audit-pointer --output results/local_pointer_audit
+layoutabi validate-pointer-audit results/local_pointer_audit
+```
+
+The pointer audit is the primary controlled mechanism experiment. The following
+full-module protocol is a secondary test of whether the repair intervention pays
+for its own materialization cost:
+
+```bash
 layoutabi reproduce --output results/local_rtx4090_torch2.11_cuda12.8_2026-08-30
 layoutabi validate results/local_rtx4090_torch2.11_cuda12.8_2026-08-30
 layoutabi evaluate-planner --results-root results
@@ -141,10 +182,13 @@ Then open a pull request with `results/community/<name>/`. The command
 recomputes checksums and prints possible hostname, username, and private-path
 findings. It does not upload.
 
-## Optimizer
+## Experimental repair probe and optimizer
 
-The automatic rewrite currently matches one frozen KTV graph
-(`linear_attention_ktv_v1`). Unmatched graphs are left unchanged.
+The repository includes a conservative implementation of the repair
+intervention so its module-level cost can be reproduced. The automatic rewrite
+currently matches one frozen KTV graph (`linear_attention_ktv_v1`); unmatched
+graphs are left unchanged. It is an experimental companion to the mechanism
+study, not a claim of a general optimizing compiler.
 
 ```python
 import torch

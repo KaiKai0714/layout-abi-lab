@@ -14,7 +14,6 @@ Example: `orin_torch2.7_cuda12.6_2026-09-01`. Create it with
 `layoutabi prepare-submission` rather than copying by hand. Do not hand-edit
 measured JSON. See `results/README.md` and `CONTRIBUTING.md`.
 
-Standalone factorial audits may use a descriptive subtree instead of the
-ordinary bundle naming scheme. The published Orin pointer control is under
-`orin_pointer_alignment/torch2.7_cuda12.8/`; it is validated with
-`layoutabi validate-pointer-audit` and excluded from workload-row counts.
+Author-run evidence belongs under a device-specific `results/reference_*`
+tree, not here. Standalone factorial community audits may use a descriptive
+subtree and must use their dedicated validator.

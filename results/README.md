@@ -1,10 +1,12 @@
 # Results
 
-Three kinds of directory. Only the first two are committed.
+Published author references and accepted community results are committed; local
+runs are not.
 
 | Location | What it is | Git |
 |---|---|---|
-| `reference_l40s/` | Frozen L40S evidence that the public claims cite | tracked |
+| `reference_l40s/` | Author-run L40S evidence cited by public claims | tracked |
+| `reference_orin/` | Author-run Orin evidence, with its narrower coverage stated | tracked |
 | `community/` | Accepted third-party bundles (wins and losses) | tracked |
 | `local_<name>/` | Raw output of a run on your machine | gitignored |
 
@@ -54,10 +56,10 @@ layoutabi prepare-submission \
   token because the whole tree is L40S-only.
 - `reference_l40s/v0_1_bundle/`: same GPU and stack as
   `software_stack_matrix/torch2.11_cuda12.8`; indexed as a replicate.
-- `community/orin_torch2.7_cuda12.8_2026-08-31/`: eager FP16 evidence from a
-  second GPU architecture. Repair is slower at resolution 128 and compiled
-  results are unavailable.
-- `community/orin_pointer_alignment/torch2.7_cuda12.8/`: the matching Orin
+- `reference_orin/orin_torch2.7_cuda12.8_2026-08-31/`: author-run eager FP16
+  evidence from a second GPU architecture. Repair is slower at resolution 128;
+  compiled results and other module resolutions are unavailable.
+- `reference_orin/pointer_alignment/torch2.7_cuda12.8/`: the matching Orin
   100-cell pointer audit. It is a standalone mechanism control, not an indexed
   full-workload bundle.
 
@@ -113,7 +115,7 @@ The published L40S audit is in
 `reference_l40s/pointer_alignment/torch2.11_cuda12.8/`. It contains a complete
 K-pointer × V-pointer grid and is not counted as another workload or device.
 The matching Orin audit is in
-`community/orin_pointer_alignment/torch2.7_cuda12.8/`; both pass the dedicated
+`reference_orin/pointer_alignment/torch2.7_cuda12.8/`; both pass the dedicated
 validator and preserve all 100 cells.
 
 The matching six-shape compiled mechanism evidence is in

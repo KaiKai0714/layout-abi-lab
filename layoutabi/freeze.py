@@ -47,7 +47,10 @@ GATES = (
     {
         "id": "orin",
         "status": "published",
-        "detail": "Eager 128 FP16 community bundle; compiled unavailable; 256 not measured.",
+        "detail": (
+            "Author-run eager 128 FP16 reference: direct wins; compiled unavailable; "
+            "other module resolutions not measured."
+        ),
     },
     {
         "id": "second_architecture",

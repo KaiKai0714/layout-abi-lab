@@ -45,9 +45,10 @@ keeps the per-head softmax-K, `K @ V^T`, and `context^T @ Q` equations and expre
 them as a batched rank-4 tensor so the bounded matcher can see the GEMM.
 
 v0.5 ships the graph and matcher coverage. It does not claim a measured speedup on
-this module. L40S remains the only complete public device reference (graph 1). Orin
-and other architectures are community/held-out slots, not implied by extra software
-stacks.
+this module. L40S remains the only device with broad module-level coverage for graph
+1. The author-run Orin reference contains one eager module boundary and a separate
+mechanism audit; other architectures remain community/held-out slots. Extra software
+stacks do not imply extra devices.
 
 The residue and pointer grids are ABI-causal synthetic controls. Their shapes are
 derived from the public witness, but intentional pointer offsets are not claimed to

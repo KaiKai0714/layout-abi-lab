@@ -118,8 +118,8 @@ class AggregationTest(unittest.TestCase):
             by_id["reference_l40s/v0_1_bundle"]["replicate_of"],
             "reference_l40s/software_stack_matrix/torch2.11_cuda12.8",
         )
-        self.assertEqual(index["summary"]["reference_bundles"], 4)
-        self.assertEqual(index["summary"]["community_bundles"], 1)
+        self.assertEqual(index["summary"]["reference_bundles"], 5)
+        self.assertEqual(index["summary"]["community_bundles"], 0)
         self.assertEqual(index["summary"]["replicate_bundles"], 1)
         self.assertEqual(index["summary"]["devices"], 2)
         self.assertEqual(index["summary"]["software_stacks"], 4)
@@ -128,11 +128,11 @@ class AggregationTest(unittest.TestCase):
         self.assertEqual(index["summary"]["compiled_module_unavailable"], 1)
         self.assertIn("reference", index["filters"]["roles"])
         self.assertIn("replicate", index["filters"]["roles"])
-        self.assertIn("community", index["filters"]["roles"])
+        self.assertNotIn("community", index["filters"]["roles"])
         self.assertIn("fp16", index["filters"]["dtypes"])
         self.assertEqual(index["filters"]["resolutions"], [126, 127, 128, 254, 255, 256])
-        orin = by_id["community/orin_torch2.7_cuda12.8_2026-08-31"]
-        self.assertEqual(orin["role"], "community")
+        orin = by_id["reference_orin/orin_torch2.7_cuda12.8_2026-08-31"]
+        self.assertEqual(orin["role"], "reference")
         self.assertEqual(orin["rows"][0]["n_mod_8"], 4)
         self.assertEqual(orin["rows"][0]["eager_oracle"], "direct")
         self.assertEqual(orin["rows"][0]["compiled_oracle"], "unavailable")

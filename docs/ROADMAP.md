@@ -79,7 +79,7 @@
 - Theory vs witness: layout-to-GEMM ABI, not a LinearAttention-only product.
 - Index columns separating the three-level residue prior, isolated KTV tokens,
   conservative safety action, and profitability.
-- Orin eager-128 community bundle plus an L40S sweep spanning fastest,
+- Orin eager-128 author-run reference plus an L40S sweep spanning fastest,
   intermediate, and slowest residue classes.
 - L40S compiled mechanism audit and 100-cell two-operand pointer audit.
 - Release framing: L40S mechanism-complete; matching Orin pointer grid remains

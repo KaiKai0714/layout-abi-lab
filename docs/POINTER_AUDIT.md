@@ -60,4 +60,4 @@ setup/process startup remains outside the timed CUDA-event region.
 Published matching audits:
 
 - [L40S, PyTorch 2.11/CUDA 12.8](../results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md)
-- [Jetson Orin, PyTorch 2.7/CUDA 12.8](../results/community/orin_pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)
+- [Jetson Orin, PyTorch 2.7/CUDA 12.8](../results/reference_orin/pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)

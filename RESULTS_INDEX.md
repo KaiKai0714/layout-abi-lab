@@ -1,9 +1,11 @@
 # Layout ABI result index
 
 This file is generated from checksum-validated reference and community bundles.
-The FP16 mechanism prior has three residue tiers: N divisible by 8 maps to
+The primary research object is layout ABI → vendor GEMM family. The FP16
+mechanism prior has three residue tiers: N divisible by 8 maps to
 align8/ldg8, even non-multiples of 8 to align2, and odd N to align1.
 Tokens are extracted from profiler names, not portable GEMM-family identifiers.
+The workload tables below are secondary intervention-cost measurements.
 The safety action remains binary: direct for N%8==0, otherwise repair.
 Oracle and ratio are whether materialization paid off at full-module scope;
 a ratio above 1 means repair-KV was faster. Replicates are not extra devices.
@@ -12,7 +14,7 @@ a ratio above 1 means repair-KV was faster. Replicates are not extra devices.
 
 | Bundles | Reference | Community | Replicates | Devices | Software stacks | Primary rows | All rows |
 |---:|---:|---:|---:|---:|---:|---:|---:|
-| 6 | 4 | 1 | 1 | 2 | 4 | 13 | 15 |
+| 6 | 5 | 0 | 1 | 2 | 4 | 13 | 15 |
 
 ## Outcomes
 
@@ -27,7 +29,7 @@ Outcome counts use primary bundles only.
 
 | Dimension | Values |
 |---|---|
-| Role | community, reference, replicate |
+| Role | reference, replicate |
 | Device | NVIDIA L40S, Orin |
 | Dtype | fp16 |
 | Stack | 2.10.0+cu128 / 12.8, 2.11.0+cu126 / 12.6, 2.11.0+cu128 / 12.8, 2.7.0 / 12.8 |
@@ -51,12 +53,11 @@ Outcome counts use primary bundles only.
 | [reference/three_level_sweep/torch2.11_cuda12.8](results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/SUMMARY.md) | NVIDIA L40S | 2.11.0+cu128 / 12.8 | 128 | 4 | intermediate: align2 | isolated_ktv | align2 | align8 | repair_kv | direct | 0.900x | repair_kv | 1.112x |
 | [reference/three_level_sweep/torch2.11_cuda12.8](results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/SUMMARY.md) | NVIDIA L40S | 2.11.0+cu128 / 12.8 | 127 | 5 | slowest: align1 | isolated_ktv | align1 | align8 | repair_kv | direct | 0.901x | direct | 0.985x |
 | [reference/three_level_sweep/torch2.11_cuda12.8](results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/SUMMARY.md) | NVIDIA L40S | 2.11.0+cu128 / 12.8 | 126 | 0 | fastest: align8/ldg8 | isolated_ktv | align8 | align8 | direct | direct | 0.903x | direct | 0.974x |
+| [reference/orin/orin_torch2.7_cuda12.8_2026-08-31](results/reference_orin/orin_torch2.7_cuda12.8_2026-08-31/SUMMARY.md) | Orin | 2.7.0 / 12.8 | 128 | 4 | intermediate: align2 | legacy_full_module | align2+ldg8 | ldg8 | repair_kv | direct | 0.876x | unavailable | — |
 
 ## Community measurements
 
-| Bundle | Device | PyTorch / CUDA | Res | N%8 | FP16 residue tier prior | Profiler | Direct observed token(s) | Repair observed token(s) | Safety action | Eager oracle | Eager ratio | Compiled oracle | Compiled ratio |
-|---|---|---|---:|---:|---|---|---|---|---|---|---:|---|---:|
-| [community/orin_torch2.7_cuda12.8_2026-08-31](results/community/orin_torch2.7_cuda12.8_2026-08-31/SUMMARY.md) | Orin | 2.7.0 / 12.8 | 128 | 4 | intermediate: align2 | legacy_full_module | align2+ldg8 | ldg8 | repair_kv | direct | 0.876x | unavailable | — |
+None.
 
 ## Replicate measurements
 
@@ -72,7 +73,7 @@ profitability-row counts because they are factorial mechanism controls:
 
 - [L40S compiled six-shape audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md)
 - [L40S 100-cell operand-pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md)
-- [Orin 100-cell operand-pointer audit](results/community/orin_pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)
+- [Orin 100-cell operand-pointer audit](results/reference_orin/pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)
 
 ## Interpretation boundary
 
@@ -83,4 +84,5 @@ rows are retained as legacy profitability evidence, not isolated KTV proof.
 Positive and negative outcomes are both evidence. Replicates are not extra
 devices. Compiled-unavailable is not a direct/repair loss. Matching L40S
 and Orin pointer audits reproduce the bounded least-aligned-tier rule in
-all 200 controlled cells.
+all 200 controlled cells. This mechanism transfer is separate from repair
+profitability: Orin has only one eager module row and no compiled result.

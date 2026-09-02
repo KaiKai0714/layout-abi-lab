@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this artifact, cite the repository and the exact release used."
-title: "Layout ABI Lab: Reproducible Cross-Operator Layout Profitability Experiments"
+title: "Layout ABI Lab: A Reproducible Study of Hidden Tensor-to-GEMM Dispatch Contracts"
 type: software
 authors:
   - given-names: "Sheng-Kai"
@@ -12,5 +12,7 @@ license: Apache-2.0
 repository-code: "https://github.com/KaiKai0714/layout-abi-lab"
 url: "https://github.com/KaiKai0714/layout-abi-lab"
 abstract: >-
-  A reproducibility artifact for studying hidden performance contracts between tensor
-  producer layouts and downstream GPU vendor GEMM kernel selection.
+  A reproducibility artifact for characterizing how logical length, physical layout,
+  and operand-pointer alignment affect downstream GPU vendor GEMM kernel selection.
+  Explicit layout repair is used as a causal intervention and secondary cost-benefit
+  experiment rather than assumed to be universally profitable.

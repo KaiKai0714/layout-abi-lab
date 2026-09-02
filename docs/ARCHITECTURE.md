@@ -66,8 +66,8 @@ so `torch.export` or FX failures cannot break `import layoutabi`. See
 
 Version 0.9 is the release candidate: that surface, the pattern identifier, the
 candidate implementation hash, and the document schemas are frozen. Version
-0.9.1 restates the layout-to-GEMM object, publishes an Orin eager-128 community
-bundle, and shows kernel family / `N % 8` / oracle columns in the index.
+0.9.1 restates the layout-to-GEMM object, publishes an Orin eager-128 author-run
+reference, and shows kernel family / `N % 8` / oracle columns in the index.
 `layoutabi rc-status` records the three-level L40S sweep and Orin
 second-architecture boundary as published measurement gates.
 
@@ -81,3 +81,7 @@ another full-module result bundle. It controls both GEMM operand addresses
 independently while holding logical shape and stride fixed, and validates its own
 schema, checksums, correctness, profiler evidence, and grid completeness. See
 `docs/POINTER_AUDIT.md`.
+
+The two-device pointer result is mechanism evidence, not two-device module
+profitability coverage. Orin contributes one eager module boundary only; the
+matching pointer grid answers the narrower family-selection question.

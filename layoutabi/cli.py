@@ -34,7 +34,7 @@ def _csv_nonnegative_ints(value: str) -> tuple[int, ...]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="layoutabi",
-        description="Reproduce and validate cross-operator layout profitability experiments.",
+        description="Characterize and validate hidden tensor-to-GEMM dispatch contracts.",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     subparsers = parser.add_subparsers(dest="command", required=True)
