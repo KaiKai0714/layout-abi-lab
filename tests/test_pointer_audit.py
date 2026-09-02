@@ -8,7 +8,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from layoutabi.pointer_audit import pointer_family, validate_pointer_audit
+from layoutabi.pointer_audit import (
+    _event_kernel_names,
+    pointer_family,
+    validate_pointer_audit,
+)
 from layoutabi.schema import ENVIRONMENT_SCHEMA, POINTER_AUDIT_SCHEMA
 
 
@@ -19,6 +23,18 @@ class PointerAuditTest(unittest.TestCase):
         self.assertEqual(pointer_family(["cutlass_kernel_align8"]), "align8")
         self.assertEqual(pointer_family(["cutlass_kernel_align16"]), "align16")
         self.assertEqual(pointer_family(["ampere_fp16_s16816gemm_ldg8"]), "ldg8")
+
+    def test_marker_tree_collects_nested_kernel_names(self) -> None:
+        class Kernel:
+            name = "cutlass_kernel_align2"
+
+        class Event:
+            def __init__(self, kernels=(), children=()) -> None:
+                self.kernels = kernels
+                self.cpu_children = children
+
+        marker = Event(children=[Event(kernels=[Kernel()])])
+        self.assertEqual(_event_kernel_names(marker), ["cutlass_kernel_align2"])
 
     def test_validator_requires_full_grid_and_detects_tamper(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

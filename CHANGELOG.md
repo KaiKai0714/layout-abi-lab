@@ -2,7 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 1.0.0
+
+- Published the matching Jetson Orin 100-cell K-pointer × V-pointer audit.
+  Correctness and profiler family identification pass in all cells.
+- Reproduced the least-aligned N/K/V family-tier rule in 200/200 controlled
+  cells across L40S and Orin, while preserving device-specific latency ratios.
+- Isolated each requested N in a fresh subprocess to avoid exhaustion of
+  embedded Kineto profiler collection state; process startup is not timed.
+- Closed all frozen v1 measurement gates without expanding the optimizer's
+  single-pattern scope or its bounded FP16 claims.
+
 ## 0.9.1
+
+- Fixed pointer-audit portability on embedded PyTorch: profiler collection now
+  uses one marker-tagged session per N instead of 100 consecutive sessions, and
+  correctness accepts the recorded absolute-or-relative tolerance rather than
+  requiring both scale-dependent metrics simultaneously.
 
 - Added a controlled `audit-pointer` / `validate-pointer-audit` protocol covering
   both GEMM operand pointers, all three N-residue tiers, exact pointer residues,

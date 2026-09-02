@@ -57,6 +57,9 @@ layoutabi prepare-submission \
 - `community/orin_torch2.7_cuda12.8_2026-08-31/`: eager FP16 evidence from a
   second GPU architecture. Repair is slower at resolution 128 and compiled
   results are unavailable.
+- `community/orin_pointer_alignment/torch2.7_cuda12.8/`: the matching Orin
+  100-cell pointer audit. It is a standalone mechanism control, not an indexed
+  full-workload bundle.
 
 The `reference_l40s/three_level_sweep/torch2.11_cuda12.8/` bundle closes the
 three-level FP16 mechanism gate. It spans `N%8==0`, even non-multiples, and odd
@@ -109,6 +112,9 @@ layoutabi validate-pointer-audit results/local_l40s_pointer_audit_2026-09-01
 The published L40S audit is in
 `reference_l40s/pointer_alignment/torch2.11_cuda12.8/`. It contains a complete
 K-pointer × V-pointer grid and is not counted as another workload or device.
+The matching Orin audit is in
+`community/orin_pointer_alignment/torch2.7_cuda12.8/`; both pass the dedicated
+validator and preserve all 100 cells.
 
 The matching six-shape compiled mechanism evidence is in
 `reference_l40s/compile_audit/torch2.11_cuda12.8/`. Compiled audits use

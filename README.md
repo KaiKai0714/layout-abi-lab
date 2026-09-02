@@ -17,12 +17,12 @@ A conservative helper can then choose to keep the producer layout or to
 materialize it. Materialization is an experimental contrast and a possible
 fix, not the default answer.
 
-Version 0.9.1 is the current v1.0 release candidate and the L40S
-mechanism-complete checkpoint. Public evidence includes three L40S software
-stacks, a six-shape residue sweep, a compiled mechanism audit, a 100-cell
-two-operand pointer audit, and one Jetson Orin eager-128 boundary bundle where
-repair is slower. The matching Orin pointer grid remains a v1.0 gate. See the
-[result index](RESULTS_INDEX.md) and [v0.9.1 release notes](docs/RELEASE_0.9.1.md).
+Version 1.0.0 freezes the first public API, matcher, and measurement contract.
+Public evidence includes three L40S software stacks, a six-shape residue sweep,
+a compiled mechanism audit, matching 100-cell two-operand pointer audits on
+L40S and Jetson Orin, and an Orin eager-128 boundary where repair is slower.
+See the [result index](RESULTS_INDEX.md) and
+[v1.0.0 release notes](docs/RELEASE_1.0.0.md).
 
 ## What we need from the community
 
@@ -58,16 +58,18 @@ intermediate residue class; the newer 126–128 and 254–256 sweep covers all t
 classes and observes `align8`, `align2`, and `align1` in the isolated eager KTV
 consumer.
 
-The controlled L40S pointer audit contains 100/100 valid cells. Its observed
-family always equals the least-aligned tier among N, the K pointer, and the V
-pointer. At aligned N, median `align2` and `align1` latency were respectively
-**1.23×** and **2.37×** the `align8` baseline. The compiled audit also shows that
-Inductor may materialize or rewrite a layout, so eager family rules cannot be
-copied blindly into compiled execution.
+The controlled pointer audits contain 100/100 valid cells on each device. On
+both L40S and Orin, the observed family always equals the least-aligned tier
+among N, the K pointer, and the V pointer. At aligned N, L40S median `align2`
+and `align1` latency were **1.23×** and **2.37×** its `align8` baseline; Orin
+measured **1.83×** and **4.10×** relative to `ldg8`. The compiled audit also
+shows that Inductor may materialize or rewrite a layout, so eager family rules
+cannot be copied blindly into compiled execution.
 
 Evidence: [software-stack matrix](results/reference_l40s/SOFTWARE_STACK_MATRIX.md),
 [three-level sweep](results/reference_l40s/three_level_sweep/torch2.11_cuda12.8/SUMMARY.md),
-[pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md),
+[L40S pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md),
+[Orin pointer audit](results/community/orin_pointer_alignment/torch2.7_cuda12.8/SUMMARY.md),
 and [compiled audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md).
 
 ## Quick start
@@ -189,8 +191,8 @@ Longer notes: [architecture](docs/ARCHITECTURE.md),
 
 - Theory: producer layout vs vendor GEMM family, including feature-map length
 - Current automatic optimizer: one frozen inference KTV pattern, fixed shapes, FP16
-- L40S is mechanism-complete for v0.9.1; Orin currently provides an eager-128
-  boundary, with the full pointer grid reserved for v1.0
+- Matching L40S and Orin pointer grids complete the bounded cross-architecture
+  FP16 mechanism test; Orin also provides an eager-128 no-repair boundary
 - FP16 three-tier family names are backend observations; the binary safety policy is not an oracle
 - BF16, INT8, FP8, larger batches, and unmatched graphs are boundaries
 - A module-level result is not a full diffusion-model win

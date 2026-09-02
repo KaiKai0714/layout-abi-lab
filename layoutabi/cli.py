@@ -239,7 +239,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     rc_parser = subparsers.add_parser(
         "rc-status",
-        help="Print the release-candidate freeze and remaining v1.0 gates",
+        help="Print the frozen release surface and measurement-gate status",
     )
     rc_parser.add_argument(
         "--check",

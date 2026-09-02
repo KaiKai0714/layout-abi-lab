@@ -6,8 +6,8 @@ authors:
   - given-names: "Sheng-Kai"
     family-names: "Ku"
     email: "ethankai0714@gmail.com"
-version: 0.9.1
-date-released: 2026-09-01
+version: 1.0.0
+date-released: 2026-09-02
 license: Apache-2.0
 repository-code: "https://github.com/KaiKai0714/layout-abi-lab"
 url: "https://github.com/KaiKai0714/layout-abi-lab"

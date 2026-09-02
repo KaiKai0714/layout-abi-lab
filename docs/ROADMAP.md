@@ -96,7 +96,7 @@
 ## 1.0: Compiler-quality evaluation
 
 - [x] Publish the controlled K-pointer × V-pointer audit on L40S.
-- [ ] Publish the same controlled pointer audit on Orin.
+- [x] Publish the same controlled pointer audit on Orin.
 
 - Held-out shape and device evaluation against a two-action oracle.
 - False-repair, coverage, and regret metrics.

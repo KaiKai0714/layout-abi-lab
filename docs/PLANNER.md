@@ -26,8 +26,8 @@ The shipping static planner does **not** consume internal K/V pointer addresses.
 Its decision features are N, dtype, batch, shape context, and device. Runtime
 cache identity records external example-input pointer classes, but those are not
 equivalent to K/V addresses after producer or compiler lowering. The pointer
-audit is mechanism evidence for a future runtime guard/compiler integration, not
-a silent change to the frozen v0.9.1 policy.
+audits are cross-architecture mechanism evidence for a future runtime
+guard/compiler integration, not a silent change to the frozen v1.0 policy.
 
 ## Baselines
 

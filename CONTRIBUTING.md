@@ -41,12 +41,12 @@ Pointer-audit submissions are separate from ordinary reproduction bundles. Run
 grid; do not submit selected offsets. Device transfer results must use the same
 N values, pointer residues, cycles, and iterations as `docs/POINTER_AUDIT.md`.
 
-## Release-candidate reports
+## Release reports
 
-Version 0.9.1 is feature-frozen for v1.0. Use the RC issue template for crashes,
-incorrect rewrites, regressions, and unexpected no-ops. Do not add a new matcher
-pattern in this window; that requires a later RC. Community result bundles on
-new devices are still wanted.
+Version 1.0.0 freezes the public API and current matcher. Use the issue template
+for crashes, incorrect rewrites, regressions, and unexpected no-ops. New matcher
+patterns require a later minor release. Community result bundles on new devices
+are still wanted.
 
 ## Code contributions
 

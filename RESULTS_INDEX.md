@@ -72,6 +72,7 @@ profitability-row counts because they are factorial mechanism controls:
 
 - [L40S compiled six-shape audit](results/reference_l40s/compile_audit/torch2.11_cuda12.8/SUMMARY.md)
 - [L40S 100-cell operand-pointer audit](results/reference_l40s/pointer_alignment/torch2.11_cuda12.8/SUMMARY.md)
+- [Orin 100-cell operand-pointer audit](results/community/orin_pointer_alignment/torch2.7_cuda12.8/SUMMARY.md)
 
 ## Interpretation boundary
 
@@ -80,6 +81,6 @@ named operator. Public LinearAttention graphs are witnesses. The dedicated
 L40S sweep spans fastest/intermediate/slowest residue classes; older 128/256
 rows are retained as legacy profitability evidence, not isolated KTV proof.
 Positive and negative outcomes are both evidence. Replicates are not extra
-devices. Compiled-unavailable is not a direct/repair loss. The pointer
-least-aligned-tier rule is complete on L40S; matching Orin transfer remains
-outside v0.9.1.
+devices. Compiled-unavailable is not a direct/repair loss. Matching L40S
+and Orin pointer audits reproduce the bounded least-aligned-tier rule in
+all 200 controlled cells.

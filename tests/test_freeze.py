@@ -36,17 +36,18 @@ class FreezeTest(unittest.TestCase):
         self.assertIn('call_method("contiguous"', text)
         self.assertEqual(CANDIDATE_IMPL_HASH, "bhnd_transpose_contiguous_transpose_v1")
 
-    def test_rc_status_reports_published_three_level_contrast(self) -> None:
+    def test_release_status_reports_all_v1_gates_published(self) -> None:
         payload = rc_status()
-        self.assertEqual(payload["release_status"], "candidate")
+        self.assertEqual(payload["release_status"], "released")
         self.assertTrue(payload["freeze_ok"])
         self.assertNotIn("three_level_residue_contrast", payload["v1_open_gates"])
         self.assertNotIn("orin", payload["v1_open_gates"])
         gates = {gate["id"]: gate for gate in payload["gates"]}
         self.assertEqual(gates["second_architecture"]["status"], "published")
         self.assertEqual(gates["three_level_residue_contrast"]["status"], "published")
-        self.assertEqual(gates["operand_pointer_contrast"]["status"], "open")
-        self.assertIn("operand_pointer_contrast", payload["v1_open_gates"])
+        self.assertEqual(gates["operand_pointer_contrast"]["status"], "published")
+        self.assertNotIn("operand_pointer_contrast", payload["v1_open_gates"])
+        self.assertEqual(payload["v1_open_gates"], [])
         self.assertNotIn("third_architecture", gates)
 
     def test_scan_release_is_clean(self) -> None:

@@ -71,6 +71,11 @@ bundle, and shows kernel family / `N % 8` / oracle columns in the index.
 `layoutabi rc-status` records the three-level L40S sweep and Orin
 second-architecture boundary as published measurement gates.
 
+Version 1.0.0 retains that frozen optimizer surface and publishes matching
+100-cell operand-pointer audits on L40S and Orin. Multiple requested N values
+run in isolated subprocesses so embedded Kineto state cannot contaminate later
+profiler collections; process startup is outside CUDA-event timing.
+
 The pointer audit is a separate synthetic factorial mechanism test rather than
 another full-module result bundle. It controls both GEMM operand addresses
 independently while holding logical shape and stride fixed, and validates its own

@@ -64,7 +64,7 @@ def supported(
         "optimizer_requires_pytorch": list(OPTIMIZER_APIS),
         "cuda_autotune": True,
         "dtype_requested_supported": dtype_ok,
-        "release_status": "candidate",
+        "release_status": "released",
         "feature_freeze": True,
         "allow_new_patterns": False,
     }

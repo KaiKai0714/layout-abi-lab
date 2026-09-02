@@ -19,8 +19,9 @@ The experiments support the following bounded observations:
    the current L40S reference software stack.
 6. The L40S mechanism and win/loss boundary reproduce across PyTorch 2.10/2.11 and
    CUDA 12.6/12.8 builds in the tested container matrix.
-7. In the L40S 100-cell FP16 audit, the selected family tier equals the least-aligned
-   tier among N, the K pointer, and the V pointer in every measured cell.
+7. In matching L40S and Orin 100-cell FP16 audits, the selected family tier equals
+   the least-aligned tier among N, the K pointer, and the V pointer in all 200
+   measured cells.
 
 ## Reference L40S observation
 
@@ -56,6 +57,12 @@ This rule identified `align8`, `align2`, or `align1` in 100/100 cells. At
 N=65536, median isolated latency was 0.148685 ms (`align8`), 0.183219 ms
 (`align2`), and 0.352358 ms (`align1`). The rule predicts the discrete family,
 not exact latency: K-side and V-side misalignment still differed within `align1`.
+
+On Orin, the same least-aligned-tier rule identified `ldg8`, `align2`, or
+`align1` in 100/100 cells. At N=65536, median isolated latency was 0.350530 ms
+(`ldg8`), 0.641746 ms (`align2`), and 1.436043 ms (`align1`). This transfers
+the bounded family-selection mechanism across two architectures; it does not
+make the exact latency ratios or byte quantum universal.
 
 The six-shape compiled audit is deliberately separate. Inductor-generated copies
 and layout rewrites caused several compiled direct cells to use `align8` even when

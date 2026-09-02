@@ -1,0 +1,5573 @@
+{
+  "schema": "layoutabi_pointer_audit_v1",
+  "schema_version": 1,
+  "device": {
+    "name": "Orin",
+    "compute_capability": "8.7",
+    "sm_count": 8
+  },
+  "software": {
+    "torch": "2.7.0",
+    "cuda_build": "12.8"
+  },
+  "protocol": {
+    "dtype": "fp16",
+    "batch": 1,
+    "heads": 4,
+    "head_dim": 8,
+    "ns": [
+      65536,
+      65538,
+      65540,
+      65543
+    ],
+    "offsets_mod64_bytes": [
+      0,
+      2,
+      4,
+      8,
+      16
+    ],
+    "operand_grid": "full Cartesian product of K and V pointer residues",
+    "cycles": 12,
+    "iterations_per_measurement": 20,
+    "order": "rotating and alternating-direction offset-pair order",
+    "setup_copy_measured": false,
+    "correctness_gate": "max_abs <= tolerance OR relative_inf <= tolerance",
+    "profiler_collection": "one subprocess and one Kineto session per N"
+  },
+  "points": [
+    {
+      "n": 65536,
+      "n_mod_8": 0,
+      "n_class": "fastest",
+      "rows": [
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.3500911951065063,
+            "mean_ms": 0.3498951991399129,
+            "min_ms": 0.3466207981109619,
+            "max_ms": 0.3506688117980957
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f_stages_64x5_nn"
+            ],
+            "family": "ldg8",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4424320220947267,
+            "mean_ms": 1.442786407470703,
+            "min_ms": 1.441988754272461,
+            "max_ms": 1.4445216178894043
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6399351835250855,
+            "mean_ms": 0.6400142629941304,
+            "min_ms": 0.6394239902496338,
+            "max_ms": 0.641542387008667
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6400311946868897,
+            "mean_ms": 0.6399810671806335,
+            "min_ms": 0.6391839981079102,
+            "max_ms": 0.6409440040588379
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.3506351947784424,
+            "mean_ms": 0.35088026722272236,
+            "min_ms": 0.35022079944610596,
+            "max_ms": 0.35186400413513186
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f_stages_64x5_nn"
+            ],
+            "family": "ldg8",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1183760166168213,
+            "mean_ms": 1.1187793413798015,
+            "min_ms": 1.118017578125,
+            "max_ms": 1.121548843383789
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.430408000946045,
+            "mean_ms": 1.431294004122416,
+            "min_ms": 1.4297568321228027,
+            "max_ms": 1.4388319969177246
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4586440086364747,
+            "mean_ms": 1.4594562768936157,
+            "min_ms": 1.4569775581359863,
+            "max_ms": 1.4657119750976562
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4527071952819823,
+            "mean_ms": 1.4529414733250936,
+            "min_ms": 1.4503328323364257,
+            "max_ms": 1.4587648391723633
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1190824031829834,
+            "mean_ms": 1.1647915919621785,
+            "min_ms": 1.1178735733032226,
+            "max_ms": 1.667051124572754
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6518264055252074,
+            "mean_ms": 0.6527257363001505,
+            "min_ms": 0.6499919891357422,
+            "max_ms": 0.6586559772491455
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4436936378479004,
+            "mean_ms": 1.4446118672688801,
+            "min_ms": 1.441584014892578,
+            "max_ms": 1.45173921585083
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6413856029510498,
+            "mean_ms": 0.6422322710355123,
+            "min_ms": 0.6393008232116699,
+            "max_ms": 0.6475632190704346
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6500967979431151,
+            "mean_ms": 0.6501353303591411,
+            "min_ms": 0.6492159843444825,
+            "max_ms": 0.6521359920501709
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6500816106796264,
+            "mean_ms": 0.6502490719159444,
+            "min_ms": 0.6493040084838867,
+            "max_ms": 0.6514319896697998
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6493007898330688,
+            "mean_ms": 0.6494442661603291,
+            "min_ms": 0.6485888004302979,
+            "max_ms": 0.6510032176971435
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4343128204345703,
+            "mean_ms": 1.4343736012776693,
+            "min_ms": 1.4329936027526855,
+            "max_ms": 1.4361632347106934
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6332064151763916,
+            "mean_ms": 0.6335386673609416,
+            "min_ms": 0.6327648162841797,
+            "max_ms": 0.6348447799682617
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6421064138412476,
+            "mean_ms": 0.6422302722930908,
+            "min_ms": 0.6414048194885253,
+            "max_ms": 0.6435088157653809
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6484375953674316,
+            "mean_ms": 0.6483572045962016,
+            "min_ms": 0.6474336147308349,
+            "max_ms": 0.6487088203430176
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.3520480036735535,
+            "mean_ms": 0.3519845366477966,
+            "min_ms": 0.3511312007904053,
+            "max_ms": 0.3530224084854126
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f_stages_64x5_nn"
+            ],
+            "family": "ldg8",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4360432147979738,
+            "mean_ms": 1.4364002704620362,
+            "min_ms": 1.4356016159057616,
+            "max_ms": 1.438041591644287
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6364320039749145,
+            "mean_ms": 0.6365362723668416,
+            "min_ms": 0.6358384132385254,
+            "max_ms": 0.6370816230773926
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.25,
+            "relative_inf": 0.00033829499323410016,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6368288040161133,
+            "mean_ms": 0.6368131995201111,
+            "min_ms": 0.6364223957061768,
+            "max_ms": 0.6371759891510009
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097152,
+            524288,
+            65536,
+            1
+          ],
+          "v_stride": [
+            2097152,
+            524288,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.35042399168014526,
+            "mean_ms": 0.3503773291905721,
+            "min_ms": 0.349785590171814,
+            "max_ms": 0.35072479248046873
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f_stages_64x5_nn"
+            ],
+            "family": "ldg8",
+            "collection": "single_session_launch_order"
+          }
+        }
+      ]
+    },
+    {
+      "n": 65538,
+      "n_mod_8": 2,
+      "n_class": "intermediate",
+      "rows": [
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6486752033233643,
+            "mean_ms": 0.6485798676808675,
+            "min_ms": 0.6451087951660156,
+            "max_ms": 0.649883222579956
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4352776050567626,
+            "mean_ms": 1.435296400388082,
+            "min_ms": 1.4345647811889648,
+            "max_ms": 1.4360143661499023
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6529071807861329,
+            "mean_ms": 0.6528565287590027,
+            "min_ms": 0.6520431995391845,
+            "max_ms": 0.6536608219146729
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.652405595779419,
+            "mean_ms": 0.6522878686587016,
+            "min_ms": 0.6514448165893555,
+            "max_ms": 0.6528751850128174
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6509376049041748,
+            "mean_ms": 0.6509857336680094,
+            "min_ms": 0.6501488208770752,
+            "max_ms": 0.6521296024322509
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.126636028289795,
+            "mean_ms": 1.1266074736913045,
+            "min_ms": 1.1255104064941406,
+            "max_ms": 1.1281855583190918
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4352832317352293,
+            "mean_ms": 1.4356088002522787,
+            "min_ms": 1.4349663734436036,
+            "max_ms": 1.4376432418823242
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4451399803161622,
+            "mean_ms": 1.4452459812164307,
+            "min_ms": 1.4439968109130858,
+            "max_ms": 1.4468223571777343
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4374736309051515,
+            "mean_ms": 1.4377568165461223,
+            "min_ms": 1.4367520332336425,
+            "max_ms": 1.4393232345581055
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1276488304138184,
+            "mean_ms": 1.1277756134668986,
+            "min_ms": 1.1267264366149903,
+            "max_ms": 1.1305248260498046
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6505032062530518,
+            "mean_ms": 0.6506986657778422,
+            "min_ms": 0.6501664161682129,
+            "max_ms": 0.6522463798522949
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4346232414245605,
+            "mean_ms": 1.4347209215164185,
+            "min_ms": 1.4341103553771972,
+            "max_ms": 1.4355695724487305
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6489943981170654,
+            "mean_ms": 0.6490526636441549,
+            "min_ms": 0.6486032009124756,
+            "max_ms": 0.6499311923980713
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6479615926742553,
+            "mean_ms": 0.6481154680252075,
+            "min_ms": 0.6477136135101318,
+            "max_ms": 0.6495408058166504
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6550679922103881,
+            "mean_ms": 0.6551578680674235,
+            "min_ms": 0.6546592235565185,
+            "max_ms": 0.6558400154113769
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6506711959838867,
+            "mean_ms": 0.6508042653401693,
+            "min_ms": 0.6504479885101319,
+            "max_ms": 0.651638412475586
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4403496265411377,
+            "mean_ms": 1.4405922730763754,
+            "min_ms": 1.439848041534424,
+            "max_ms": 1.441804790496826
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6518127918243408,
+            "mean_ms": 0.651912264029185,
+            "min_ms": 0.6511007785797119,
+            "max_ms": 0.6528128147125244
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6520312070846557,
+            "mean_ms": 0.6520909309387207,
+            "min_ms": 0.6513519763946534,
+            "max_ms": 0.6542272090911865
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6527920007705688,
+            "mean_ms": 0.6529269297917684,
+            "min_ms": 0.65240478515625,
+            "max_ms": 0.6542431831359863
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6532320022583008,
+            "mean_ms": 0.6532702724138896,
+            "min_ms": 0.6527632236480713,
+            "max_ms": 0.6537807941436767
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4345032215118407,
+            "mean_ms": 1.4345636049906412,
+            "min_ms": 1.4340703964233399,
+            "max_ms": 1.4354191780090333
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6554136037826538,
+            "mean_ms": 0.6553973356882731,
+            "min_ms": 0.6547599792480469,
+            "max_ms": 0.656324815750122
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.650871992111206,
+            "mean_ms": 0.65093119541804,
+            "min_ms": 0.6505280017852784,
+            "max_ms": 0.6515632152557373
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097216,
+            524304,
+            65538,
+            1
+          ],
+          "v_stride": [
+            2097216,
+            524304,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6523031949996948,
+            "mean_ms": 0.6525173346201578,
+            "min_ms": 0.6519248008728027,
+            "max_ms": 0.6536479949951172
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        }
+      ]
+    },
+    {
+      "n": 65540,
+      "n_mod_8": 4,
+      "n_class": "intermediate",
+      "rows": [
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6485383987426758,
+            "mean_ms": 0.6485117316246033,
+            "min_ms": 0.6479536056518554,
+            "max_ms": 0.6489535808563233
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4390984058380127,
+            "mean_ms": 1.439107060432434,
+            "min_ms": 1.4386639595031738,
+            "max_ms": 1.4396400451660156
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.64514639377594,
+            "mean_ms": 0.6454033335049947,
+            "min_ms": 0.6445824146270752,
+            "max_ms": 0.6476240158081055
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6478159904479981,
+            "mean_ms": 0.6477845311164856,
+            "min_ms": 0.6473216056823731,
+            "max_ms": 0.6481503963470459
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6518896102905274,
+            "mean_ms": 0.6519489407539367,
+            "min_ms": 0.6514688014984131,
+            "max_ms": 0.6525568008422852
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1254112243652343,
+            "mean_ms": 1.125543737411499,
+            "min_ms": 1.1246479988098144,
+            "max_ms": 1.1268112182617187
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4470200061798095,
+            "mean_ms": 1.4471721410751344,
+            "min_ms": 1.446134376525879,
+            "max_ms": 1.4492624282836915
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4480663776397704,
+            "mean_ms": 1.4480854590733847,
+            "min_ms": 1.4475215911865233,
+            "max_ms": 1.448521614074707
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4457752227783205,
+            "mean_ms": 1.4457817395528156,
+            "min_ms": 1.4451295852661132,
+            "max_ms": 1.446777629852295
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1294296264648436,
+            "mean_ms": 1.129573074976603,
+            "min_ms": 1.1287967681884765,
+            "max_ms": 1.1309264183044434
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6460752010345459,
+            "mean_ms": 0.6459955970446268,
+            "min_ms": 0.6453567981719971,
+            "max_ms": 0.6464767932891846
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4445871829986574,
+            "mean_ms": 1.4446285247802735,
+            "min_ms": 1.4440383911132812,
+            "max_ms": 1.4452863693237306
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6482127904891968,
+            "mean_ms": 0.6482821305592855,
+            "min_ms": 0.647489595413208,
+            "max_ms": 0.6489232063293457
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6493063926696778,
+            "mean_ms": 0.6494218707084656,
+            "min_ms": 0.6488175868988038,
+            "max_ms": 0.6500048160552978
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6487191915512085,
+            "mean_ms": 0.6487497329711914,
+            "min_ms": 0.6483632087707519,
+            "max_ms": 0.6493711948394776
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6478816032409669,
+            "mean_ms": 0.6481759945551554,
+            "min_ms": 0.6475215911865234,
+            "max_ms": 0.6498127937316894
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.4373184204101563,
+            "mean_ms": 1.437276260058085,
+            "min_ms": 1.4366255760192872,
+            "max_ms": 1.4386207580566406
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6487960100173951,
+            "mean_ms": 0.6487534721692403,
+            "min_ms": 0.6482272148132324,
+            "max_ms": 0.6492608070373536
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6562319993972778,
+            "mean_ms": 0.6562485297520956,
+            "min_ms": 0.6558656215667724,
+            "max_ms": 0.6566959857940674
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6472000122070313,
+            "mean_ms": 0.6472640037536621,
+            "min_ms": 0.6468704223632813,
+            "max_ms": 0.6479023933410645
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6495455980300904,
+            "mean_ms": 0.6494920055071512,
+            "min_ms": 0.6487343788146973,
+            "max_ms": 0.6499008178710938
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.449333620071411,
+            "mean_ms": 1.4494428078333537,
+            "min_ms": 1.4488927841186523,
+            "max_ms": 1.450211238861084
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6447407960891725,
+            "mean_ms": 0.6447215994199117,
+            "min_ms": 0.6439472198486328,
+            "max_ms": 0.6453343868255615
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6471735954284668,
+            "mean_ms": 0.6471445322036743,
+            "min_ms": 0.6467040061950684,
+            "max_ms": 0.6476208209991455
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097280,
+            524320,
+            65540,
+            1
+          ],
+          "v_stride": [
+            2097280,
+            524320,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 0.6474823951721191,
+            "mean_ms": 0.6475209395090739,
+            "min_ms": 0.6470272064208984,
+            "max_ms": 0.6485343933105469
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2>(cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align2::Params)"
+            ],
+            "family": "align2",
+            "collection": "single_session_launch_order"
+          }
+        }
+      ]
+    },
+    {
+      "n": 65543,
+      "n_mod_8": 7,
+      "n_class": "slowest",
+      "rows": [
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1317408084869385,
+            "mean_ms": 1.1421279986699422,
+            "min_ms": 1.1313983917236328,
+            "max_ms": 1.2353952407836915
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2012216091156005,
+            "mean_ms": 1.2012502749760945,
+            "min_ms": 1.200870418548584,
+            "max_ms": 1.2018095970153808
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2050015926361084,
+            "mean_ms": 1.205167865753174,
+            "min_ms": 1.2045663833618163,
+            "max_ms": 1.2068495750427246
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1996376037597656,
+            "mean_ms": 1.1998613278071086,
+            "min_ms": 1.1990464210510254,
+            "max_ms": 1.201692771911621
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 0,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1256103992462159,
+            "mean_ms": 1.125661063194275,
+            "min_ms": 1.1250032424926757,
+            "max_ms": 1.1262975692749024
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1288615703582763,
+            "mean_ms": 1.128891611099243,
+            "min_ms": 1.12815523147583,
+            "max_ms": 1.1294575691223145
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.205023193359375,
+            "mean_ms": 1.2051637252171834,
+            "min_ms": 1.2046192169189454,
+            "max_ms": 1.2062671661376954
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2157983779907227,
+            "mean_ms": 1.2158041318257649,
+            "min_ms": 1.2149871826171874,
+            "max_ms": 1.216494369506836
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.203877592086792,
+            "mean_ms": 1.203931466738383,
+            "min_ms": 1.2034111976623536,
+            "max_ms": 1.2045136451721192
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 2,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1328288078308106,
+            "mean_ms": 1.1328686714172362,
+            "min_ms": 1.132361602783203,
+            "max_ms": 1.1337663650512695
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1338440418243407,
+            "mean_ms": 1.1338782787322998,
+            "min_ms": 1.1332703590393067,
+            "max_ms": 1.1345104217529296
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1971543788909913,
+            "mean_ms": 1.1972855885823568,
+            "min_ms": 1.1968815803527832,
+            "max_ms": 1.1977807998657226
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1970128059387206,
+            "mean_ms": 1.1970437288284301,
+            "min_ms": 1.196555233001709,
+            "max_ms": 1.1976495742797852
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1943471908569336,
+            "mean_ms": 1.1943156083424886,
+            "min_ms": 1.1936832427978517,
+            "max_ms": 1.1950639724731444
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 4,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1271247863769531,
+            "mean_ms": 1.1271103938420615,
+            "min_ms": 1.1264752388000487,
+            "max_ms": 1.127507209777832
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1268919944763183,
+            "mean_ms": 1.1271454731623332,
+            "min_ms": 1.1264431953430176,
+            "max_ms": 1.1295760154724122
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2024352073669433,
+            "mean_ms": 1.202567466100057,
+            "min_ms": 1.2020511627197266,
+            "max_ms": 1.2033151626586913
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2010823726654052,
+            "mean_ms": 1.201412804921468,
+            "min_ms": 1.2004048347473144,
+            "max_ms": 1.2060992240905761
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2031136035919188,
+            "mean_ms": 1.2035056034723917,
+            "min_ms": 1.202337646484375,
+            "max_ms": 1.2083439826965332
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 8,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1300071716308593,
+            "mean_ms": 1.1306203842163085,
+            "min_ms": 1.1292719841003418,
+            "max_ms": 1.135854434967041
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 0,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 0,
+            "actual_mod64": 0,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 0
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1363512039184571,
+            "mean_ms": 1.137492799758911,
+            "min_ms": 1.135531234741211,
+            "max_ms": 1.1486703872680664
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 2,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 2,
+            "actual_mod64": 2,
+            "actual_mod16": 2,
+            "actual_mod8": 2,
+            "actual_mod4": 2,
+            "base_mod64": 0,
+            "storage_offset_elements": 1
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1991159915924072,
+            "mean_ms": 1.2004229307174683,
+            "min_ms": 1.1985983848571777,
+            "max_ms": 1.2126383781433105
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 4,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 4,
+            "actual_mod64": 4,
+            "actual_mod16": 4,
+            "actual_mod8": 4,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 2
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2019888401031493,
+            "mean_ms": 1.202592674891154,
+            "min_ms": 1.2013232231140136,
+            "max_ms": 1.2100784301757812
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 8,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 8,
+            "actual_mod64": 8,
+            "actual_mod16": 8,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 4
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.2001064300537108,
+            "mean_ms": 1.200484283765157,
+            "min_ms": 1.1996368408203124,
+            "max_ms": 1.203657627105713
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        },
+        {
+          "k_offset_bytes": 16,
+          "v_offset_bytes": 16,
+          "k_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "v_pointer": {
+            "requested_mod64": 16,
+            "actual_mod64": 16,
+            "actual_mod16": 0,
+            "actual_mod8": 0,
+            "actual_mod4": 0,
+            "base_mod64": 0,
+            "storage_offset_elements": 8
+          },
+          "k_stride": [
+            2097376,
+            524344,
+            65543,
+            1
+          ],
+          "v_stride": [
+            2097376,
+            524344,
+            8,
+            1
+          ],
+          "correctness": {
+            "max_abs": 0.0,
+            "relative_inf": 0.0,
+            "tolerance": 0.08,
+            "pass": true
+          },
+          "timing": {
+            "n": 12,
+            "median_ms": 1.1284887790679932,
+            "mean_ms": 1.133225440979004,
+            "min_ms": 1.128055953979492,
+            "max_ms": 1.1842543601989746
+          },
+          "profiler": {
+            "available": true,
+            "selected_cuda_names": [
+              "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1>(cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_nn_align1::Params)"
+            ],
+            "family": "align1",
+            "collection": "single_session_launch_order"
+          }
+        }
+      ]
+    }
+  ],
+  "files": {
+    "environment.json": "f5c7a78945c60dca0503f5684e4a06c66888ca31a7bf13baade1ac6f78d6aa10",
+    "SUMMARY.md": "f61006adaf26e88d2ad6e2f39c6670e781be8a134e8c22a909457185e34e1013"
+  }
+}

@@ -26,7 +26,7 @@ except ImportError:
 
 class PublicApiImportTest(unittest.TestCase):
     def test_version_and_exports(self) -> None:
-        self.assertTrue(layoutabi.__version__.startswith("0.9."))
+        self.assertTrue(layoutabi.__version__.startswith("1.0."))
         for name in (
             "optimize",
             "inspect",

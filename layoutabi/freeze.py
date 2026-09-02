@@ -11,7 +11,8 @@ from .schema import CURRENT_VERSIONS
 FREEZE_SCHEMA = "layoutabi_rc_freeze_v1"
 FREEZE_PATH = Path(__file__).resolve().parent / "schemas" / "rc_freeze.json"
 
-# Honest v1.0 gates. Open items are not claimed complete.
+# Frozen v1.0 release gates. Future evidence may extend the matrix without
+# changing the bounded claims of this release.
 GATES = (
     {
         "id": "cpu_ci",
@@ -63,9 +64,10 @@ GATES = (
     },
     {
         "id": "operand_pointer_contrast",
-        "status": "open",
+        "status": "published",
         "detail": (
-            "L40S 100-cell K-pointer by V-pointer grid is published; Orin remains open."
+            "Matching 100-cell K-pointer by V-pointer grids are published for L40S "
+            "and Orin; the least-aligned-tier rule holds in both."
         ),
     },
 )
@@ -146,11 +148,11 @@ def rc_status() -> dict[str, Any]:
     problems = freeze_problems()
     open_gates = [item for item in GATES if item["status"] == "open"]
     return {
-        "release_status": "candidate",
+        "release_status": "released",
         "version": __version__,
         "freeze_ok": not problems,
         "freeze_problems": problems,
         "gates": [dict(item) for item in GATES],
         "v1_open_gates": [item["id"] for item in open_gates],
-        "policy": "Bug fixes only. New matcher patterns require a new RC.",
+        "policy": "v1 API and matcher are frozen; new matcher patterns require a new minor release.",
     }

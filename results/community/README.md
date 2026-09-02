@@ -13,3 +13,8 @@ results/community/<gpu>_torch<pytorch>_cuda<cuda>_<yyyy-mm-dd>/
 Example: `orin_torch2.7_cuda12.6_2026-09-01`. Create it with
 `layoutabi prepare-submission` rather than copying by hand. Do not hand-edit
 measured JSON. See `results/README.md` and `CONTRIBUTING.md`.
+
+Standalone factorial audits may use a descriptive subtree instead of the
+ordinary bundle naming scheme. The published Orin pointer control is under
+`orin_pointer_alignment/torch2.7_cuda12.8/`; it is validated with
+`layoutabi validate-pointer-audit` and excluded from workload-row counts.
